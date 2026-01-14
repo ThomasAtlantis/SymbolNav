@@ -1,0 +1,2590 @@
+Created by PLY version 3.11 (http://www.dabeaz.com/ply)
+
+Grammar
+
+Rule 0     S' -> math
+Rule 1     math -> content
+Rule 2     content -> relation
+Rule 3     relation -> relation EQUAL relation
+Rule 4     relation -> relation LT relation
+Rule 5     relation -> relation LTE relation
+Rule 6     relation -> relation GT relation
+Rule 7     relation -> relation GTE relation
+Rule 8     relation -> relation CMD_IN relation
+Rule 9     relation -> expr
+Rule 10    expr -> additive
+Rule 11    additive -> additive ADD additive
+Rule 12    additive -> additive SUB additive
+Rule 13    additive -> mp
+Rule 14    mp -> mp MUL mp
+Rule 15    mp -> mp CMD_TIMES mp
+Rule 16    mp -> mp DIV mp
+Rule 17    mp -> mp CMD_DIV mp
+Rule 18    mp -> mp CMD_CDOT mp
+Rule 19    mp -> mp COLON mp
+Rule 20    mp -> unary
+Rule 21    unary -> ADD unary
+Rule 22    unary -> SUB unary
+Rule 23    unary -> symbol_postfix
+Rule 24    symbol_postfix -> format postfix
+Rule 25    symbol_postfix -> SYMBOL postfix
+Rule 26    postfix -> postfix_op
+Rule 27    postfix -> empty
+Rule 28    postfix_op -> supscript
+Rule 29    postfix_op -> subscript
+Rule 30    postfix_op -> supscript subscript
+Rule 31    postfix_op -> subscript supscript
+Rule 32    supscript -> CARET L_BRACE content R_BRACE
+Rule 33    supscript -> CARET format
+Rule 34    supscript -> CARET SYMBOL
+Rule 35    subscript -> UNDERSCORE L_BRACE content R_BRACE
+Rule 36    subscript -> UNDERSCORE format
+Rule 37    subscript -> UNDERSCORE SYMBOL
+Rule 38    format -> CMD_MATHBF L_BRACE content R_BRACE
+Rule 39    format -> CMD_MATHBF SYMBOL
+Rule 40    format -> CMD_TEXT L_BRACE text R_BRACE
+Rule 41    format -> CMD_TEXT SYMBOL
+Rule 42    format -> CMD_MATHBB L_BRACE content R_BRACE
+Rule 43    format -> CMD_MATHBB SYMBOL
+Rule 44    format -> CMD_MATHIT L_BRACE content R_BRACE
+Rule 45    format -> CMD_MATHIT SYMBOL
+Rule 46    text -> SYMBOL
+Rule 47    text -> TEXT
+Rule 48    empty -> <empty>
+
+Terminals, with rules where they appear
+
+ADD                  : 11 21
+CARET                : 32 33 34
+CMD_CDOT             : 18
+CMD_DIV              : 17
+CMD_IN               : 8
+CMD_MATHBB           : 42 43
+CMD_MATHBF           : 38 39
+CMD_MATHIT           : 44 45
+CMD_TEXT             : 40 41
+CMD_TIMES            : 15
+COLON                : 19
+DIV                  : 16
+EQUAL                : 3
+GT                   : 6
+GTE                  : 7
+LT                   : 4
+LTE                  : 5
+L_BRACE              : 32 35 38 40 42 44
+MUL                  : 14
+R_BRACE              : 32 35 38 40 42 44
+SUB                  : 12 22
+SYMBOL               : 25 34 37 39 41 43 45 46
+TEXT                 : 47
+UNDERSCORE           : 35 36 37
+error                : 
+
+Nonterminals, with rules where they appear
+
+additive             : 10 11 11 12 12
+content              : 1 32 35 38 42 44
+empty                : 27
+expr                 : 9
+format               : 24 33 36
+math                 : 0
+mp                   : 13 14 14 15 15 16 16 17 17 18 18 19 19
+postfix              : 24 25
+postfix_op           : 26
+relation             : 2 3 3 4 4 5 5 6 6 7 7 8 8
+subscript            : 29 30 31
+supscript            : 28 30 31
+symbol_postfix       : 23
+text                 : 40
+unary                : 20 21 22
+
+Parsing method: LALR
+
+state 0
+
+    (0) S' -> . math
+    (1) math -> . content
+    (2) content -> . relation
+    (3) relation -> . relation EQUAL relation
+    (4) relation -> . relation LT relation
+    (5) relation -> . relation LTE relation
+    (6) relation -> . relation GT relation
+    (7) relation -> . relation GTE relation
+    (8) relation -> . relation CMD_IN relation
+    (9) relation -> . expr
+    (10) expr -> . additive
+    (11) additive -> . additive ADD additive
+    (12) additive -> . additive SUB additive
+    (13) additive -> . mp
+    (14) mp -> . mp MUL mp
+    (15) mp -> . mp CMD_TIMES mp
+    (16) mp -> . mp DIV mp
+    (17) mp -> . mp CMD_DIV mp
+    (18) mp -> . mp CMD_CDOT mp
+    (19) mp -> . mp COLON mp
+    (20) mp -> . unary
+    (21) unary -> . ADD unary
+    (22) unary -> . SUB unary
+    (23) unary -> . symbol_postfix
+    (24) symbol_postfix -> . format postfix
+    (25) symbol_postfix -> . SYMBOL postfix
+    (38) format -> . CMD_MATHBF L_BRACE content R_BRACE
+    (39) format -> . CMD_MATHBF SYMBOL
+    (40) format -> . CMD_TEXT L_BRACE text R_BRACE
+    (41) format -> . CMD_TEXT SYMBOL
+    (42) format -> . CMD_MATHBB L_BRACE content R_BRACE
+    (43) format -> . CMD_MATHBB SYMBOL
+    (44) format -> . CMD_MATHIT L_BRACE content R_BRACE
+    (45) format -> . CMD_MATHIT SYMBOL
+
+    ADD             shift and go to state 6
+    SUB             shift and go to state 7
+    SYMBOL          shift and go to state 12
+    CMD_MATHBF      shift and go to state 13
+    CMD_TEXT        shift and go to state 14
+    CMD_MATHBB      shift and go to state 15
+    CMD_MATHIT      shift and go to state 16
+
+    math                           shift and go to state 1
+    content                        shift and go to state 2
+    relation                       shift and go to state 3
+    expr                           shift and go to state 4
+    additive                       shift and go to state 5
+    mp                             shift and go to state 8
+    unary                          shift and go to state 9
+    symbol_postfix                 shift and go to state 10
+    format                         shift and go to state 11
+
+state 1
+
+    (0) S' -> math .
+
+
+
+state 2
+
+    (1) math -> content .
+
+    $end            reduce using rule 1 (math -> content .)
+
+
+state 3
+
+    (2) content -> relation .
+    (3) relation -> relation . EQUAL relation
+    (4) relation -> relation . LT relation
+    (5) relation -> relation . LTE relation
+    (6) relation -> relation . GT relation
+    (7) relation -> relation . GTE relation
+    (8) relation -> relation . CMD_IN relation
+
+    $end            reduce using rule 2 (content -> relation .)
+    R_BRACE         reduce using rule 2 (content -> relation .)
+    EQUAL           shift and go to state 17
+    LT              shift and go to state 18
+    LTE             shift and go to state 19
+    GT              shift and go to state 20
+    GTE             shift and go to state 21
+    CMD_IN          shift and go to state 22
+
+
+state 4
+
+    (9) relation -> expr .
+
+    EQUAL           reduce using rule 9 (relation -> expr .)
+    LT              reduce using rule 9 (relation -> expr .)
+    LTE             reduce using rule 9 (relation -> expr .)
+    GT              reduce using rule 9 (relation -> expr .)
+    GTE             reduce using rule 9 (relation -> expr .)
+    CMD_IN          reduce using rule 9 (relation -> expr .)
+    $end            reduce using rule 9 (relation -> expr .)
+    R_BRACE         reduce using rule 9 (relation -> expr .)
+
+
+state 5
+
+    (10) expr -> additive .
+    (11) additive -> additive . ADD additive
+    (12) additive -> additive . SUB additive
+
+    EQUAL           reduce using rule 10 (expr -> additive .)
+    LT              reduce using rule 10 (expr -> additive .)
+    LTE             reduce using rule 10 (expr -> additive .)
+    GT              reduce using rule 10 (expr -> additive .)
+    GTE             reduce using rule 10 (expr -> additive .)
+    CMD_IN          reduce using rule 10 (expr -> additive .)
+    $end            reduce using rule 10 (expr -> additive .)
+    R_BRACE         reduce using rule 10 (expr -> additive .)
+    ADD             shift and go to state 23
+    SUB             shift and go to state 24
+
+
+state 6
+
+    (21) unary -> ADD . unary
+    (21) unary -> . ADD unary
+    (22) unary -> . SUB unary
+    (23) unary -> . symbol_postfix
+    (24) symbol_postfix -> . format postfix
+    (25) symbol_postfix -> . SYMBOL postfix
+    (38) format -> . CMD_MATHBF L_BRACE content R_BRACE
+    (39) format -> . CMD_MATHBF SYMBOL
+    (40) format -> . CMD_TEXT L_BRACE text R_BRACE
+    (41) format -> . CMD_TEXT SYMBOL
+    (42) format -> . CMD_MATHBB L_BRACE content R_BRACE
+    (43) format -> . CMD_MATHBB SYMBOL
+    (44) format -> . CMD_MATHIT L_BRACE content R_BRACE
+    (45) format -> . CMD_MATHIT SYMBOL
+
+    ADD             shift and go to state 6
+    SUB             shift and go to state 7
+    SYMBOL          shift and go to state 12
+    CMD_MATHBF      shift and go to state 13
+    CMD_TEXT        shift and go to state 14
+    CMD_MATHBB      shift and go to state 15
+    CMD_MATHIT      shift and go to state 16
+
+    unary                          shift and go to state 25
+    symbol_postfix                 shift and go to state 10
+    format                         shift and go to state 11
+
+state 7
+
+    (22) unary -> SUB . unary
+    (21) unary -> . ADD unary
+    (22) unary -> . SUB unary
+    (23) unary -> . symbol_postfix
+    (24) symbol_postfix -> . format postfix
+    (25) symbol_postfix -> . SYMBOL postfix
+    (38) format -> . CMD_MATHBF L_BRACE content R_BRACE
+    (39) format -> . CMD_MATHBF SYMBOL
+    (40) format -> . CMD_TEXT L_BRACE text R_BRACE
+    (41) format -> . CMD_TEXT SYMBOL
+    (42) format -> . CMD_MATHBB L_BRACE content R_BRACE
+    (43) format -> . CMD_MATHBB SYMBOL
+    (44) format -> . CMD_MATHIT L_BRACE content R_BRACE
+    (45) format -> . CMD_MATHIT SYMBOL
+
+    ADD             shift and go to state 6
+    SUB             shift and go to state 7
+    SYMBOL          shift and go to state 12
+    CMD_MATHBF      shift and go to state 13
+    CMD_TEXT        shift and go to state 14
+    CMD_MATHBB      shift and go to state 15
+    CMD_MATHIT      shift and go to state 16
+
+    unary                          shift and go to state 26
+    symbol_postfix                 shift and go to state 10
+    format                         shift and go to state 11
+
+state 8
+
+    (13) additive -> mp .
+    (14) mp -> mp . MUL mp
+    (15) mp -> mp . CMD_TIMES mp
+    (16) mp -> mp . DIV mp
+    (17) mp -> mp . CMD_DIV mp
+    (18) mp -> mp . CMD_CDOT mp
+    (19) mp -> mp . COLON mp
+
+    ADD             reduce using rule 13 (additive -> mp .)
+    SUB             reduce using rule 13 (additive -> mp .)
+    EQUAL           reduce using rule 13 (additive -> mp .)
+    LT              reduce using rule 13 (additive -> mp .)
+    LTE             reduce using rule 13 (additive -> mp .)
+    GT              reduce using rule 13 (additive -> mp .)
+    GTE             reduce using rule 13 (additive -> mp .)
+    CMD_IN          reduce using rule 13 (additive -> mp .)
+    $end            reduce using rule 13 (additive -> mp .)
+    R_BRACE         reduce using rule 13 (additive -> mp .)
+    MUL             shift and go to state 27
+    CMD_TIMES       shift and go to state 28
+    DIV             shift and go to state 29
+    CMD_DIV         shift and go to state 30
+    CMD_CDOT        shift and go to state 31
+    COLON           shift and go to state 32
+
+
+state 9
+
+    (20) mp -> unary .
+
+    MUL             reduce using rule 20 (mp -> unary .)
+    CMD_TIMES       reduce using rule 20 (mp -> unary .)
+    DIV             reduce using rule 20 (mp -> unary .)
+    CMD_DIV         reduce using rule 20 (mp -> unary .)
+    CMD_CDOT        reduce using rule 20 (mp -> unary .)
+    COLON           reduce using rule 20 (mp -> unary .)
+    ADD             reduce using rule 20 (mp -> unary .)
+    SUB             reduce using rule 20 (mp -> unary .)
+    EQUAL           reduce using rule 20 (mp -> unary .)
+    LT              reduce using rule 20 (mp -> unary .)
+    LTE             reduce using rule 20 (mp -> unary .)
+    GT              reduce using rule 20 (mp -> unary .)
+    GTE             reduce using rule 20 (mp -> unary .)
+    CMD_IN          reduce using rule 20 (mp -> unary .)
+    $end            reduce using rule 20 (mp -> unary .)
+    R_BRACE         reduce using rule 20 (mp -> unary .)
+
+
+state 10
+
+    (23) unary -> symbol_postfix .
+
+    MUL             reduce using rule 23 (unary -> symbol_postfix .)
+    CMD_TIMES       reduce using rule 23 (unary -> symbol_postfix .)
+    DIV             reduce using rule 23 (unary -> symbol_postfix .)
+    CMD_DIV         reduce using rule 23 (unary -> symbol_postfix .)
+    CMD_CDOT        reduce using rule 23 (unary -> symbol_postfix .)
+    COLON           reduce using rule 23 (unary -> symbol_postfix .)
+    ADD             reduce using rule 23 (unary -> symbol_postfix .)
+    SUB             reduce using rule 23 (unary -> symbol_postfix .)
+    EQUAL           reduce using rule 23 (unary -> symbol_postfix .)
+    LT              reduce using rule 23 (unary -> symbol_postfix .)
+    LTE             reduce using rule 23 (unary -> symbol_postfix .)
+    GT              reduce using rule 23 (unary -> symbol_postfix .)
+    GTE             reduce using rule 23 (unary -> symbol_postfix .)
+    CMD_IN          reduce using rule 23 (unary -> symbol_postfix .)
+    $end            reduce using rule 23 (unary -> symbol_postfix .)
+    R_BRACE         reduce using rule 23 (unary -> symbol_postfix .)
+
+
+state 11
+
+    (24) symbol_postfix -> format . postfix
+    (26) postfix -> . postfix_op
+    (27) postfix -> . empty
+    (28) postfix_op -> . supscript
+    (29) postfix_op -> . subscript
+    (30) postfix_op -> . supscript subscript
+    (31) postfix_op -> . subscript supscript
+    (48) empty -> .
+    (32) supscript -> . CARET L_BRACE content R_BRACE
+    (33) supscript -> . CARET format
+    (34) supscript -> . CARET SYMBOL
+    (35) subscript -> . UNDERSCORE L_BRACE content R_BRACE
+    (36) subscript -> . UNDERSCORE format
+    (37) subscript -> . UNDERSCORE SYMBOL
+
+    MUL             reduce using rule 48 (empty -> .)
+    CMD_TIMES       reduce using rule 48 (empty -> .)
+    DIV             reduce using rule 48 (empty -> .)
+    CMD_DIV         reduce using rule 48 (empty -> .)
+    CMD_CDOT        reduce using rule 48 (empty -> .)
+    COLON           reduce using rule 48 (empty -> .)
+    ADD             reduce using rule 48 (empty -> .)
+    SUB             reduce using rule 48 (empty -> .)
+    EQUAL           reduce using rule 48 (empty -> .)
+    LT              reduce using rule 48 (empty -> .)
+    LTE             reduce using rule 48 (empty -> .)
+    GT              reduce using rule 48 (empty -> .)
+    GTE             reduce using rule 48 (empty -> .)
+    CMD_IN          reduce using rule 48 (empty -> .)
+    $end            reduce using rule 48 (empty -> .)
+    R_BRACE         reduce using rule 48 (empty -> .)
+    CARET           shift and go to state 38
+    UNDERSCORE      shift and go to state 39
+
+    postfix                        shift and go to state 33
+    postfix_op                     shift and go to state 34
+    empty                          shift and go to state 35
+    supscript                      shift and go to state 36
+    subscript                      shift and go to state 37
+
+state 12
+
+    (25) symbol_postfix -> SYMBOL . postfix
+    (26) postfix -> . postfix_op
+    (27) postfix -> . empty
+    (28) postfix_op -> . supscript
+    (29) postfix_op -> . subscript
+    (30) postfix_op -> . supscript subscript
+    (31) postfix_op -> . subscript supscript
+    (48) empty -> .
+    (32) supscript -> . CARET L_BRACE content R_BRACE
+    (33) supscript -> . CARET format
+    (34) supscript -> . CARET SYMBOL
+    (35) subscript -> . UNDERSCORE L_BRACE content R_BRACE
+    (36) subscript -> . UNDERSCORE format
+    (37) subscript -> . UNDERSCORE SYMBOL
+
+    MUL             reduce using rule 48 (empty -> .)
+    CMD_TIMES       reduce using rule 48 (empty -> .)
+    DIV             reduce using rule 48 (empty -> .)
+    CMD_DIV         reduce using rule 48 (empty -> .)
+    CMD_CDOT        reduce using rule 48 (empty -> .)
+    COLON           reduce using rule 48 (empty -> .)
+    ADD             reduce using rule 48 (empty -> .)
+    SUB             reduce using rule 48 (empty -> .)
+    EQUAL           reduce using rule 48 (empty -> .)
+    LT              reduce using rule 48 (empty -> .)
+    LTE             reduce using rule 48 (empty -> .)
+    GT              reduce using rule 48 (empty -> .)
+    GTE             reduce using rule 48 (empty -> .)
+    CMD_IN          reduce using rule 48 (empty -> .)
+    $end            reduce using rule 48 (empty -> .)
+    R_BRACE         reduce using rule 48 (empty -> .)
+    CARET           shift and go to state 38
+    UNDERSCORE      shift and go to state 39
+
+    postfix                        shift and go to state 40
+    postfix_op                     shift and go to state 34
+    empty                          shift and go to state 35
+    supscript                      shift and go to state 36
+    subscript                      shift and go to state 37
+
+state 13
+
+    (38) format -> CMD_MATHBF . L_BRACE content R_BRACE
+    (39) format -> CMD_MATHBF . SYMBOL
+
+    L_BRACE         shift and go to state 41
+    SYMBOL          shift and go to state 42
+
+
+state 14
+
+    (40) format -> CMD_TEXT . L_BRACE text R_BRACE
+    (41) format -> CMD_TEXT . SYMBOL
+
+    L_BRACE         shift and go to state 43
+    SYMBOL          shift and go to state 44
+
+
+state 15
+
+    (42) format -> CMD_MATHBB . L_BRACE content R_BRACE
+    (43) format -> CMD_MATHBB . SYMBOL
+
+    L_BRACE         shift and go to state 45
+    SYMBOL          shift and go to state 46
+
+
+state 16
+
+    (44) format -> CMD_MATHIT . L_BRACE content R_BRACE
+    (45) format -> CMD_MATHIT . SYMBOL
+
+    L_BRACE         shift and go to state 47
+    SYMBOL          shift and go to state 48
+
+
+state 17
+
+    (3) relation -> relation EQUAL . relation
+    (3) relation -> . relation EQUAL relation
+    (4) relation -> . relation LT relation
+    (5) relation -> . relation LTE relation
+    (6) relation -> . relation GT relation
+    (7) relation -> . relation GTE relation
+    (8) relation -> . relation CMD_IN relation
+    (9) relation -> . expr
+    (10) expr -> . additive
+    (11) additive -> . additive ADD additive
+    (12) additive -> . additive SUB additive
+    (13) additive -> . mp
+    (14) mp -> . mp MUL mp
+    (15) mp -> . mp CMD_TIMES mp
+    (16) mp -> . mp DIV mp
+    (17) mp -> . mp CMD_DIV mp
+    (18) mp -> . mp CMD_CDOT mp
+    (19) mp -> . mp COLON mp
+    (20) mp -> . unary
+    (21) unary -> . ADD unary
+    (22) unary -> . SUB unary
+    (23) unary -> . symbol_postfix
+    (24) symbol_postfix -> . format postfix
+    (25) symbol_postfix -> . SYMBOL postfix
+    (38) format -> . CMD_MATHBF L_BRACE content R_BRACE
+    (39) format -> . CMD_MATHBF SYMBOL
+    (40) format -> . CMD_TEXT L_BRACE text R_BRACE
+    (41) format -> . CMD_TEXT SYMBOL
+    (42) format -> . CMD_MATHBB L_BRACE content R_BRACE
+    (43) format -> . CMD_MATHBB SYMBOL
+    (44) format -> . CMD_MATHIT L_BRACE content R_BRACE
+    (45) format -> . CMD_MATHIT SYMBOL
+
+    ADD             shift and go to state 6
+    SUB             shift and go to state 7
+    SYMBOL          shift and go to state 12
+    CMD_MATHBF      shift and go to state 13
+    CMD_TEXT        shift and go to state 14
+    CMD_MATHBB      shift and go to state 15
+    CMD_MATHIT      shift and go to state 16
+
+    relation                       shift and go to state 49
+    expr                           shift and go to state 4
+    additive                       shift and go to state 5
+    mp                             shift and go to state 8
+    unary                          shift and go to state 9
+    symbol_postfix                 shift and go to state 10
+    format                         shift and go to state 11
+
+state 18
+
+    (4) relation -> relation LT . relation
+    (3) relation -> . relation EQUAL relation
+    (4) relation -> . relation LT relation
+    (5) relation -> . relation LTE relation
+    (6) relation -> . relation GT relation
+    (7) relation -> . relation GTE relation
+    (8) relation -> . relation CMD_IN relation
+    (9) relation -> . expr
+    (10) expr -> . additive
+    (11) additive -> . additive ADD additive
+    (12) additive -> . additive SUB additive
+    (13) additive -> . mp
+    (14) mp -> . mp MUL mp
+    (15) mp -> . mp CMD_TIMES mp
+    (16) mp -> . mp DIV mp
+    (17) mp -> . mp CMD_DIV mp
+    (18) mp -> . mp CMD_CDOT mp
+    (19) mp -> . mp COLON mp
+    (20) mp -> . unary
+    (21) unary -> . ADD unary
+    (22) unary -> . SUB unary
+    (23) unary -> . symbol_postfix
+    (24) symbol_postfix -> . format postfix
+    (25) symbol_postfix -> . SYMBOL postfix
+    (38) format -> . CMD_MATHBF L_BRACE content R_BRACE
+    (39) format -> . CMD_MATHBF SYMBOL
+    (40) format -> . CMD_TEXT L_BRACE text R_BRACE
+    (41) format -> . CMD_TEXT SYMBOL
+    (42) format -> . CMD_MATHBB L_BRACE content R_BRACE
+    (43) format -> . CMD_MATHBB SYMBOL
+    (44) format -> . CMD_MATHIT L_BRACE content R_BRACE
+    (45) format -> . CMD_MATHIT SYMBOL
+
+    ADD             shift and go to state 6
+    SUB             shift and go to state 7
+    SYMBOL          shift and go to state 12
+    CMD_MATHBF      shift and go to state 13
+    CMD_TEXT        shift and go to state 14
+    CMD_MATHBB      shift and go to state 15
+    CMD_MATHIT      shift and go to state 16
+
+    relation                       shift and go to state 50
+    expr                           shift and go to state 4
+    additive                       shift and go to state 5
+    mp                             shift and go to state 8
+    unary                          shift and go to state 9
+    symbol_postfix                 shift and go to state 10
+    format                         shift and go to state 11
+
+state 19
+
+    (5) relation -> relation LTE . relation
+    (3) relation -> . relation EQUAL relation
+    (4) relation -> . relation LT relation
+    (5) relation -> . relation LTE relation
+    (6) relation -> . relation GT relation
+    (7) relation -> . relation GTE relation
+    (8) relation -> . relation CMD_IN relation
+    (9) relation -> . expr
+    (10) expr -> . additive
+    (11) additive -> . additive ADD additive
+    (12) additive -> . additive SUB additive
+    (13) additive -> . mp
+    (14) mp -> . mp MUL mp
+    (15) mp -> . mp CMD_TIMES mp
+    (16) mp -> . mp DIV mp
+    (17) mp -> . mp CMD_DIV mp
+    (18) mp -> . mp CMD_CDOT mp
+    (19) mp -> . mp COLON mp
+    (20) mp -> . unary
+    (21) unary -> . ADD unary
+    (22) unary -> . SUB unary
+    (23) unary -> . symbol_postfix
+    (24) symbol_postfix -> . format postfix
+    (25) symbol_postfix -> . SYMBOL postfix
+    (38) format -> . CMD_MATHBF L_BRACE content R_BRACE
+    (39) format -> . CMD_MATHBF SYMBOL
+    (40) format -> . CMD_TEXT L_BRACE text R_BRACE
+    (41) format -> . CMD_TEXT SYMBOL
+    (42) format -> . CMD_MATHBB L_BRACE content R_BRACE
+    (43) format -> . CMD_MATHBB SYMBOL
+    (44) format -> . CMD_MATHIT L_BRACE content R_BRACE
+    (45) format -> . CMD_MATHIT SYMBOL
+
+    ADD             shift and go to state 6
+    SUB             shift and go to state 7
+    SYMBOL          shift and go to state 12
+    CMD_MATHBF      shift and go to state 13
+    CMD_TEXT        shift and go to state 14
+    CMD_MATHBB      shift and go to state 15
+    CMD_MATHIT      shift and go to state 16
+
+    relation                       shift and go to state 51
+    expr                           shift and go to state 4
+    additive                       shift and go to state 5
+    mp                             shift and go to state 8
+    unary                          shift and go to state 9
+    symbol_postfix                 shift and go to state 10
+    format                         shift and go to state 11
+
+state 20
+
+    (6) relation -> relation GT . relation
+    (3) relation -> . relation EQUAL relation
+    (4) relation -> . relation LT relation
+    (5) relation -> . relation LTE relation
+    (6) relation -> . relation GT relation
+    (7) relation -> . relation GTE relation
+    (8) relation -> . relation CMD_IN relation
+    (9) relation -> . expr
+    (10) expr -> . additive
+    (11) additive -> . additive ADD additive
+    (12) additive -> . additive SUB additive
+    (13) additive -> . mp
+    (14) mp -> . mp MUL mp
+    (15) mp -> . mp CMD_TIMES mp
+    (16) mp -> . mp DIV mp
+    (17) mp -> . mp CMD_DIV mp
+    (18) mp -> . mp CMD_CDOT mp
+    (19) mp -> . mp COLON mp
+    (20) mp -> . unary
+    (21) unary -> . ADD unary
+    (22) unary -> . SUB unary
+    (23) unary -> . symbol_postfix
+    (24) symbol_postfix -> . format postfix
+    (25) symbol_postfix -> . SYMBOL postfix
+    (38) format -> . CMD_MATHBF L_BRACE content R_BRACE
+    (39) format -> . CMD_MATHBF SYMBOL
+    (40) format -> . CMD_TEXT L_BRACE text R_BRACE
+    (41) format -> . CMD_TEXT SYMBOL
+    (42) format -> . CMD_MATHBB L_BRACE content R_BRACE
+    (43) format -> . CMD_MATHBB SYMBOL
+    (44) format -> . CMD_MATHIT L_BRACE content R_BRACE
+    (45) format -> . CMD_MATHIT SYMBOL
+
+    ADD             shift and go to state 6
+    SUB             shift and go to state 7
+    SYMBOL          shift and go to state 12
+    CMD_MATHBF      shift and go to state 13
+    CMD_TEXT        shift and go to state 14
+    CMD_MATHBB      shift and go to state 15
+    CMD_MATHIT      shift and go to state 16
+
+    relation                       shift and go to state 52
+    expr                           shift and go to state 4
+    additive                       shift and go to state 5
+    mp                             shift and go to state 8
+    unary                          shift and go to state 9
+    symbol_postfix                 shift and go to state 10
+    format                         shift and go to state 11
+
+state 21
+
+    (7) relation -> relation GTE . relation
+    (3) relation -> . relation EQUAL relation
+    (4) relation -> . relation LT relation
+    (5) relation -> . relation LTE relation
+    (6) relation -> . relation GT relation
+    (7) relation -> . relation GTE relation
+    (8) relation -> . relation CMD_IN relation
+    (9) relation -> . expr
+    (10) expr -> . additive
+    (11) additive -> . additive ADD additive
+    (12) additive -> . additive SUB additive
+    (13) additive -> . mp
+    (14) mp -> . mp MUL mp
+    (15) mp -> . mp CMD_TIMES mp
+    (16) mp -> . mp DIV mp
+    (17) mp -> . mp CMD_DIV mp
+    (18) mp -> . mp CMD_CDOT mp
+    (19) mp -> . mp COLON mp
+    (20) mp -> . unary
+    (21) unary -> . ADD unary
+    (22) unary -> . SUB unary
+    (23) unary -> . symbol_postfix
+    (24) symbol_postfix -> . format postfix
+    (25) symbol_postfix -> . SYMBOL postfix
+    (38) format -> . CMD_MATHBF L_BRACE content R_BRACE
+    (39) format -> . CMD_MATHBF SYMBOL
+    (40) format -> . CMD_TEXT L_BRACE text R_BRACE
+    (41) format -> . CMD_TEXT SYMBOL
+    (42) format -> . CMD_MATHBB L_BRACE content R_BRACE
+    (43) format -> . CMD_MATHBB SYMBOL
+    (44) format -> . CMD_MATHIT L_BRACE content R_BRACE
+    (45) format -> . CMD_MATHIT SYMBOL
+
+    ADD             shift and go to state 6
+    SUB             shift and go to state 7
+    SYMBOL          shift and go to state 12
+    CMD_MATHBF      shift and go to state 13
+    CMD_TEXT        shift and go to state 14
+    CMD_MATHBB      shift and go to state 15
+    CMD_MATHIT      shift and go to state 16
+
+    relation                       shift and go to state 53
+    expr                           shift and go to state 4
+    additive                       shift and go to state 5
+    mp                             shift and go to state 8
+    unary                          shift and go to state 9
+    symbol_postfix                 shift and go to state 10
+    format                         shift and go to state 11
+
+state 22
+
+    (8) relation -> relation CMD_IN . relation
+    (3) relation -> . relation EQUAL relation
+    (4) relation -> . relation LT relation
+    (5) relation -> . relation LTE relation
+    (6) relation -> . relation GT relation
+    (7) relation -> . relation GTE relation
+    (8) relation -> . relation CMD_IN relation
+    (9) relation -> . expr
+    (10) expr -> . additive
+    (11) additive -> . additive ADD additive
+    (12) additive -> . additive SUB additive
+    (13) additive -> . mp
+    (14) mp -> . mp MUL mp
+    (15) mp -> . mp CMD_TIMES mp
+    (16) mp -> . mp DIV mp
+    (17) mp -> . mp CMD_DIV mp
+    (18) mp -> . mp CMD_CDOT mp
+    (19) mp -> . mp COLON mp
+    (20) mp -> . unary
+    (21) unary -> . ADD unary
+    (22) unary -> . SUB unary
+    (23) unary -> . symbol_postfix
+    (24) symbol_postfix -> . format postfix
+    (25) symbol_postfix -> . SYMBOL postfix
+    (38) format -> . CMD_MATHBF L_BRACE content R_BRACE
+    (39) format -> . CMD_MATHBF SYMBOL
+    (40) format -> . CMD_TEXT L_BRACE text R_BRACE
+    (41) format -> . CMD_TEXT SYMBOL
+    (42) format -> . CMD_MATHBB L_BRACE content R_BRACE
+    (43) format -> . CMD_MATHBB SYMBOL
+    (44) format -> . CMD_MATHIT L_BRACE content R_BRACE
+    (45) format -> . CMD_MATHIT SYMBOL
+
+    ADD             shift and go to state 6
+    SUB             shift and go to state 7
+    SYMBOL          shift and go to state 12
+    CMD_MATHBF      shift and go to state 13
+    CMD_TEXT        shift and go to state 14
+    CMD_MATHBB      shift and go to state 15
+    CMD_MATHIT      shift and go to state 16
+
+    relation                       shift and go to state 54
+    expr                           shift and go to state 4
+    additive                       shift and go to state 5
+    mp                             shift and go to state 8
+    unary                          shift and go to state 9
+    symbol_postfix                 shift and go to state 10
+    format                         shift and go to state 11
+
+state 23
+
+    (11) additive -> additive ADD . additive
+    (11) additive -> . additive ADD additive
+    (12) additive -> . additive SUB additive
+    (13) additive -> . mp
+    (14) mp -> . mp MUL mp
+    (15) mp -> . mp CMD_TIMES mp
+    (16) mp -> . mp DIV mp
+    (17) mp -> . mp CMD_DIV mp
+    (18) mp -> . mp CMD_CDOT mp
+    (19) mp -> . mp COLON mp
+    (20) mp -> . unary
+    (21) unary -> . ADD unary
+    (22) unary -> . SUB unary
+    (23) unary -> . symbol_postfix
+    (24) symbol_postfix -> . format postfix
+    (25) symbol_postfix -> . SYMBOL postfix
+    (38) format -> . CMD_MATHBF L_BRACE content R_BRACE
+    (39) format -> . CMD_MATHBF SYMBOL
+    (40) format -> . CMD_TEXT L_BRACE text R_BRACE
+    (41) format -> . CMD_TEXT SYMBOL
+    (42) format -> . CMD_MATHBB L_BRACE content R_BRACE
+    (43) format -> . CMD_MATHBB SYMBOL
+    (44) format -> . CMD_MATHIT L_BRACE content R_BRACE
+    (45) format -> . CMD_MATHIT SYMBOL
+
+    ADD             shift and go to state 6
+    SUB             shift and go to state 7
+    SYMBOL          shift and go to state 12
+    CMD_MATHBF      shift and go to state 13
+    CMD_TEXT        shift and go to state 14
+    CMD_MATHBB      shift and go to state 15
+    CMD_MATHIT      shift and go to state 16
+
+    additive                       shift and go to state 55
+    mp                             shift and go to state 8
+    unary                          shift and go to state 9
+    symbol_postfix                 shift and go to state 10
+    format                         shift and go to state 11
+
+state 24
+
+    (12) additive -> additive SUB . additive
+    (11) additive -> . additive ADD additive
+    (12) additive -> . additive SUB additive
+    (13) additive -> . mp
+    (14) mp -> . mp MUL mp
+    (15) mp -> . mp CMD_TIMES mp
+    (16) mp -> . mp DIV mp
+    (17) mp -> . mp CMD_DIV mp
+    (18) mp -> . mp CMD_CDOT mp
+    (19) mp -> . mp COLON mp
+    (20) mp -> . unary
+    (21) unary -> . ADD unary
+    (22) unary -> . SUB unary
+    (23) unary -> . symbol_postfix
+    (24) symbol_postfix -> . format postfix
+    (25) symbol_postfix -> . SYMBOL postfix
+    (38) format -> . CMD_MATHBF L_BRACE content R_BRACE
+    (39) format -> . CMD_MATHBF SYMBOL
+    (40) format -> . CMD_TEXT L_BRACE text R_BRACE
+    (41) format -> . CMD_TEXT SYMBOL
+    (42) format -> . CMD_MATHBB L_BRACE content R_BRACE
+    (43) format -> . CMD_MATHBB SYMBOL
+    (44) format -> . CMD_MATHIT L_BRACE content R_BRACE
+    (45) format -> . CMD_MATHIT SYMBOL
+
+    ADD             shift and go to state 6
+    SUB             shift and go to state 7
+    SYMBOL          shift and go to state 12
+    CMD_MATHBF      shift and go to state 13
+    CMD_TEXT        shift and go to state 14
+    CMD_MATHBB      shift and go to state 15
+    CMD_MATHIT      shift and go to state 16
+
+    additive                       shift and go to state 56
+    mp                             shift and go to state 8
+    unary                          shift and go to state 9
+    symbol_postfix                 shift and go to state 10
+    format                         shift and go to state 11
+
+state 25
+
+    (21) unary -> ADD unary .
+
+    MUL             reduce using rule 21 (unary -> ADD unary .)
+    CMD_TIMES       reduce using rule 21 (unary -> ADD unary .)
+    DIV             reduce using rule 21 (unary -> ADD unary .)
+    CMD_DIV         reduce using rule 21 (unary -> ADD unary .)
+    CMD_CDOT        reduce using rule 21 (unary -> ADD unary .)
+    COLON           reduce using rule 21 (unary -> ADD unary .)
+    ADD             reduce using rule 21 (unary -> ADD unary .)
+    SUB             reduce using rule 21 (unary -> ADD unary .)
+    EQUAL           reduce using rule 21 (unary -> ADD unary .)
+    LT              reduce using rule 21 (unary -> ADD unary .)
+    LTE             reduce using rule 21 (unary -> ADD unary .)
+    GT              reduce using rule 21 (unary -> ADD unary .)
+    GTE             reduce using rule 21 (unary -> ADD unary .)
+    CMD_IN          reduce using rule 21 (unary -> ADD unary .)
+    $end            reduce using rule 21 (unary -> ADD unary .)
+    R_BRACE         reduce using rule 21 (unary -> ADD unary .)
+
+
+state 26
+
+    (22) unary -> SUB unary .
+
+    MUL             reduce using rule 22 (unary -> SUB unary .)
+    CMD_TIMES       reduce using rule 22 (unary -> SUB unary .)
+    DIV             reduce using rule 22 (unary -> SUB unary .)
+    CMD_DIV         reduce using rule 22 (unary -> SUB unary .)
+    CMD_CDOT        reduce using rule 22 (unary -> SUB unary .)
+    COLON           reduce using rule 22 (unary -> SUB unary .)
+    ADD             reduce using rule 22 (unary -> SUB unary .)
+    SUB             reduce using rule 22 (unary -> SUB unary .)
+    EQUAL           reduce using rule 22 (unary -> SUB unary .)
+    LT              reduce using rule 22 (unary -> SUB unary .)
+    LTE             reduce using rule 22 (unary -> SUB unary .)
+    GT              reduce using rule 22 (unary -> SUB unary .)
+    GTE             reduce using rule 22 (unary -> SUB unary .)
+    CMD_IN          reduce using rule 22 (unary -> SUB unary .)
+    $end            reduce using rule 22 (unary -> SUB unary .)
+    R_BRACE         reduce using rule 22 (unary -> SUB unary .)
+
+
+state 27
+
+    (14) mp -> mp MUL . mp
+    (14) mp -> . mp MUL mp
+    (15) mp -> . mp CMD_TIMES mp
+    (16) mp -> . mp DIV mp
+    (17) mp -> . mp CMD_DIV mp
+    (18) mp -> . mp CMD_CDOT mp
+    (19) mp -> . mp COLON mp
+    (20) mp -> . unary
+    (21) unary -> . ADD unary
+    (22) unary -> . SUB unary
+    (23) unary -> . symbol_postfix
+    (24) symbol_postfix -> . format postfix
+    (25) symbol_postfix -> . SYMBOL postfix
+    (38) format -> . CMD_MATHBF L_BRACE content R_BRACE
+    (39) format -> . CMD_MATHBF SYMBOL
+    (40) format -> . CMD_TEXT L_BRACE text R_BRACE
+    (41) format -> . CMD_TEXT SYMBOL
+    (42) format -> . CMD_MATHBB L_BRACE content R_BRACE
+    (43) format -> . CMD_MATHBB SYMBOL
+    (44) format -> . CMD_MATHIT L_BRACE content R_BRACE
+    (45) format -> . CMD_MATHIT SYMBOL
+
+    ADD             shift and go to state 6
+    SUB             shift and go to state 7
+    SYMBOL          shift and go to state 12
+    CMD_MATHBF      shift and go to state 13
+    CMD_TEXT        shift and go to state 14
+    CMD_MATHBB      shift and go to state 15
+    CMD_MATHIT      shift and go to state 16
+
+    mp                             shift and go to state 57
+    unary                          shift and go to state 9
+    symbol_postfix                 shift and go to state 10
+    format                         shift and go to state 11
+
+state 28
+
+    (15) mp -> mp CMD_TIMES . mp
+    (14) mp -> . mp MUL mp
+    (15) mp -> . mp CMD_TIMES mp
+    (16) mp -> . mp DIV mp
+    (17) mp -> . mp CMD_DIV mp
+    (18) mp -> . mp CMD_CDOT mp
+    (19) mp -> . mp COLON mp
+    (20) mp -> . unary
+    (21) unary -> . ADD unary
+    (22) unary -> . SUB unary
+    (23) unary -> . symbol_postfix
+    (24) symbol_postfix -> . format postfix
+    (25) symbol_postfix -> . SYMBOL postfix
+    (38) format -> . CMD_MATHBF L_BRACE content R_BRACE
+    (39) format -> . CMD_MATHBF SYMBOL
+    (40) format -> . CMD_TEXT L_BRACE text R_BRACE
+    (41) format -> . CMD_TEXT SYMBOL
+    (42) format -> . CMD_MATHBB L_BRACE content R_BRACE
+    (43) format -> . CMD_MATHBB SYMBOL
+    (44) format -> . CMD_MATHIT L_BRACE content R_BRACE
+    (45) format -> . CMD_MATHIT SYMBOL
+
+    ADD             shift and go to state 6
+    SUB             shift and go to state 7
+    SYMBOL          shift and go to state 12
+    CMD_MATHBF      shift and go to state 13
+    CMD_TEXT        shift and go to state 14
+    CMD_MATHBB      shift and go to state 15
+    CMD_MATHIT      shift and go to state 16
+
+    mp                             shift and go to state 58
+    unary                          shift and go to state 9
+    symbol_postfix                 shift and go to state 10
+    format                         shift and go to state 11
+
+state 29
+
+    (16) mp -> mp DIV . mp
+    (14) mp -> . mp MUL mp
+    (15) mp -> . mp CMD_TIMES mp
+    (16) mp -> . mp DIV mp
+    (17) mp -> . mp CMD_DIV mp
+    (18) mp -> . mp CMD_CDOT mp
+    (19) mp -> . mp COLON mp
+    (20) mp -> . unary
+    (21) unary -> . ADD unary
+    (22) unary -> . SUB unary
+    (23) unary -> . symbol_postfix
+    (24) symbol_postfix -> . format postfix
+    (25) symbol_postfix -> . SYMBOL postfix
+    (38) format -> . CMD_MATHBF L_BRACE content R_BRACE
+    (39) format -> . CMD_MATHBF SYMBOL
+    (40) format -> . CMD_TEXT L_BRACE text R_BRACE
+    (41) format -> . CMD_TEXT SYMBOL
+    (42) format -> . CMD_MATHBB L_BRACE content R_BRACE
+    (43) format -> . CMD_MATHBB SYMBOL
+    (44) format -> . CMD_MATHIT L_BRACE content R_BRACE
+    (45) format -> . CMD_MATHIT SYMBOL
+
+    ADD             shift and go to state 6
+    SUB             shift and go to state 7
+    SYMBOL          shift and go to state 12
+    CMD_MATHBF      shift and go to state 13
+    CMD_TEXT        shift and go to state 14
+    CMD_MATHBB      shift and go to state 15
+    CMD_MATHIT      shift and go to state 16
+
+    mp                             shift and go to state 59
+    unary                          shift and go to state 9
+    symbol_postfix                 shift and go to state 10
+    format                         shift and go to state 11
+
+state 30
+
+    (17) mp -> mp CMD_DIV . mp
+    (14) mp -> . mp MUL mp
+    (15) mp -> . mp CMD_TIMES mp
+    (16) mp -> . mp DIV mp
+    (17) mp -> . mp CMD_DIV mp
+    (18) mp -> . mp CMD_CDOT mp
+    (19) mp -> . mp COLON mp
+    (20) mp -> . unary
+    (21) unary -> . ADD unary
+    (22) unary -> . SUB unary
+    (23) unary -> . symbol_postfix
+    (24) symbol_postfix -> . format postfix
+    (25) symbol_postfix -> . SYMBOL postfix
+    (38) format -> . CMD_MATHBF L_BRACE content R_BRACE
+    (39) format -> . CMD_MATHBF SYMBOL
+    (40) format -> . CMD_TEXT L_BRACE text R_BRACE
+    (41) format -> . CMD_TEXT SYMBOL
+    (42) format -> . CMD_MATHBB L_BRACE content R_BRACE
+    (43) format -> . CMD_MATHBB SYMBOL
+    (44) format -> . CMD_MATHIT L_BRACE content R_BRACE
+    (45) format -> . CMD_MATHIT SYMBOL
+
+    ADD             shift and go to state 6
+    SUB             shift and go to state 7
+    SYMBOL          shift and go to state 12
+    CMD_MATHBF      shift and go to state 13
+    CMD_TEXT        shift and go to state 14
+    CMD_MATHBB      shift and go to state 15
+    CMD_MATHIT      shift and go to state 16
+
+    mp                             shift and go to state 60
+    unary                          shift and go to state 9
+    symbol_postfix                 shift and go to state 10
+    format                         shift and go to state 11
+
+state 31
+
+    (18) mp -> mp CMD_CDOT . mp
+    (14) mp -> . mp MUL mp
+    (15) mp -> . mp CMD_TIMES mp
+    (16) mp -> . mp DIV mp
+    (17) mp -> . mp CMD_DIV mp
+    (18) mp -> . mp CMD_CDOT mp
+    (19) mp -> . mp COLON mp
+    (20) mp -> . unary
+    (21) unary -> . ADD unary
+    (22) unary -> . SUB unary
+    (23) unary -> . symbol_postfix
+    (24) symbol_postfix -> . format postfix
+    (25) symbol_postfix -> . SYMBOL postfix
+    (38) format -> . CMD_MATHBF L_BRACE content R_BRACE
+    (39) format -> . CMD_MATHBF SYMBOL
+    (40) format -> . CMD_TEXT L_BRACE text R_BRACE
+    (41) format -> . CMD_TEXT SYMBOL
+    (42) format -> . CMD_MATHBB L_BRACE content R_BRACE
+    (43) format -> . CMD_MATHBB SYMBOL
+    (44) format -> . CMD_MATHIT L_BRACE content R_BRACE
+    (45) format -> . CMD_MATHIT SYMBOL
+
+    ADD             shift and go to state 6
+    SUB             shift and go to state 7
+    SYMBOL          shift and go to state 12
+    CMD_MATHBF      shift and go to state 13
+    CMD_TEXT        shift and go to state 14
+    CMD_MATHBB      shift and go to state 15
+    CMD_MATHIT      shift and go to state 16
+
+    mp                             shift and go to state 61
+    unary                          shift and go to state 9
+    symbol_postfix                 shift and go to state 10
+    format                         shift and go to state 11
+
+state 32
+
+    (19) mp -> mp COLON . mp
+    (14) mp -> . mp MUL mp
+    (15) mp -> . mp CMD_TIMES mp
+    (16) mp -> . mp DIV mp
+    (17) mp -> . mp CMD_DIV mp
+    (18) mp -> . mp CMD_CDOT mp
+    (19) mp -> . mp COLON mp
+    (20) mp -> . unary
+    (21) unary -> . ADD unary
+    (22) unary -> . SUB unary
+    (23) unary -> . symbol_postfix
+    (24) symbol_postfix -> . format postfix
+    (25) symbol_postfix -> . SYMBOL postfix
+    (38) format -> . CMD_MATHBF L_BRACE content R_BRACE
+    (39) format -> . CMD_MATHBF SYMBOL
+    (40) format -> . CMD_TEXT L_BRACE text R_BRACE
+    (41) format -> . CMD_TEXT SYMBOL
+    (42) format -> . CMD_MATHBB L_BRACE content R_BRACE
+    (43) format -> . CMD_MATHBB SYMBOL
+    (44) format -> . CMD_MATHIT L_BRACE content R_BRACE
+    (45) format -> . CMD_MATHIT SYMBOL
+
+    ADD             shift and go to state 6
+    SUB             shift and go to state 7
+    SYMBOL          shift and go to state 12
+    CMD_MATHBF      shift and go to state 13
+    CMD_TEXT        shift and go to state 14
+    CMD_MATHBB      shift and go to state 15
+    CMD_MATHIT      shift and go to state 16
+
+    mp                             shift and go to state 62
+    unary                          shift and go to state 9
+    symbol_postfix                 shift and go to state 10
+    format                         shift and go to state 11
+
+state 33
+
+    (24) symbol_postfix -> format postfix .
+
+    MUL             reduce using rule 24 (symbol_postfix -> format postfix .)
+    CMD_TIMES       reduce using rule 24 (symbol_postfix -> format postfix .)
+    DIV             reduce using rule 24 (symbol_postfix -> format postfix .)
+    CMD_DIV         reduce using rule 24 (symbol_postfix -> format postfix .)
+    CMD_CDOT        reduce using rule 24 (symbol_postfix -> format postfix .)
+    COLON           reduce using rule 24 (symbol_postfix -> format postfix .)
+    ADD             reduce using rule 24 (symbol_postfix -> format postfix .)
+    SUB             reduce using rule 24 (symbol_postfix -> format postfix .)
+    EQUAL           reduce using rule 24 (symbol_postfix -> format postfix .)
+    LT              reduce using rule 24 (symbol_postfix -> format postfix .)
+    LTE             reduce using rule 24 (symbol_postfix -> format postfix .)
+    GT              reduce using rule 24 (symbol_postfix -> format postfix .)
+    GTE             reduce using rule 24 (symbol_postfix -> format postfix .)
+    CMD_IN          reduce using rule 24 (symbol_postfix -> format postfix .)
+    $end            reduce using rule 24 (symbol_postfix -> format postfix .)
+    R_BRACE         reduce using rule 24 (symbol_postfix -> format postfix .)
+
+
+state 34
+
+    (26) postfix -> postfix_op .
+
+    MUL             reduce using rule 26 (postfix -> postfix_op .)
+    CMD_TIMES       reduce using rule 26 (postfix -> postfix_op .)
+    DIV             reduce using rule 26 (postfix -> postfix_op .)
+    CMD_DIV         reduce using rule 26 (postfix -> postfix_op .)
+    CMD_CDOT        reduce using rule 26 (postfix -> postfix_op .)
+    COLON           reduce using rule 26 (postfix -> postfix_op .)
+    ADD             reduce using rule 26 (postfix -> postfix_op .)
+    SUB             reduce using rule 26 (postfix -> postfix_op .)
+    EQUAL           reduce using rule 26 (postfix -> postfix_op .)
+    LT              reduce using rule 26 (postfix -> postfix_op .)
+    LTE             reduce using rule 26 (postfix -> postfix_op .)
+    GT              reduce using rule 26 (postfix -> postfix_op .)
+    GTE             reduce using rule 26 (postfix -> postfix_op .)
+    CMD_IN          reduce using rule 26 (postfix -> postfix_op .)
+    $end            reduce using rule 26 (postfix -> postfix_op .)
+    R_BRACE         reduce using rule 26 (postfix -> postfix_op .)
+
+
+state 35
+
+    (27) postfix -> empty .
+
+    MUL             reduce using rule 27 (postfix -> empty .)
+    CMD_TIMES       reduce using rule 27 (postfix -> empty .)
+    DIV             reduce using rule 27 (postfix -> empty .)
+    CMD_DIV         reduce using rule 27 (postfix -> empty .)
+    CMD_CDOT        reduce using rule 27 (postfix -> empty .)
+    COLON           reduce using rule 27 (postfix -> empty .)
+    ADD             reduce using rule 27 (postfix -> empty .)
+    SUB             reduce using rule 27 (postfix -> empty .)
+    EQUAL           reduce using rule 27 (postfix -> empty .)
+    LT              reduce using rule 27 (postfix -> empty .)
+    LTE             reduce using rule 27 (postfix -> empty .)
+    GT              reduce using rule 27 (postfix -> empty .)
+    GTE             reduce using rule 27 (postfix -> empty .)
+    CMD_IN          reduce using rule 27 (postfix -> empty .)
+    $end            reduce using rule 27 (postfix -> empty .)
+    R_BRACE         reduce using rule 27 (postfix -> empty .)
+
+
+state 36
+
+    (28) postfix_op -> supscript .
+    (30) postfix_op -> supscript . subscript
+    (35) subscript -> . UNDERSCORE L_BRACE content R_BRACE
+    (36) subscript -> . UNDERSCORE format
+    (37) subscript -> . UNDERSCORE SYMBOL
+
+    MUL             reduce using rule 28 (postfix_op -> supscript .)
+    CMD_TIMES       reduce using rule 28 (postfix_op -> supscript .)
+    DIV             reduce using rule 28 (postfix_op -> supscript .)
+    CMD_DIV         reduce using rule 28 (postfix_op -> supscript .)
+    CMD_CDOT        reduce using rule 28 (postfix_op -> supscript .)
+    COLON           reduce using rule 28 (postfix_op -> supscript .)
+    ADD             reduce using rule 28 (postfix_op -> supscript .)
+    SUB             reduce using rule 28 (postfix_op -> supscript .)
+    EQUAL           reduce using rule 28 (postfix_op -> supscript .)
+    LT              reduce using rule 28 (postfix_op -> supscript .)
+    LTE             reduce using rule 28 (postfix_op -> supscript .)
+    GT              reduce using rule 28 (postfix_op -> supscript .)
+    GTE             reduce using rule 28 (postfix_op -> supscript .)
+    CMD_IN          reduce using rule 28 (postfix_op -> supscript .)
+    $end            reduce using rule 28 (postfix_op -> supscript .)
+    R_BRACE         reduce using rule 28 (postfix_op -> supscript .)
+    UNDERSCORE      shift and go to state 39
+
+    subscript                      shift and go to state 63
+
+state 37
+
+    (29) postfix_op -> subscript .
+    (31) postfix_op -> subscript . supscript
+    (32) supscript -> . CARET L_BRACE content R_BRACE
+    (33) supscript -> . CARET format
+    (34) supscript -> . CARET SYMBOL
+
+    MUL             reduce using rule 29 (postfix_op -> subscript .)
+    CMD_TIMES       reduce using rule 29 (postfix_op -> subscript .)
+    DIV             reduce using rule 29 (postfix_op -> subscript .)
+    CMD_DIV         reduce using rule 29 (postfix_op -> subscript .)
+    CMD_CDOT        reduce using rule 29 (postfix_op -> subscript .)
+    COLON           reduce using rule 29 (postfix_op -> subscript .)
+    ADD             reduce using rule 29 (postfix_op -> subscript .)
+    SUB             reduce using rule 29 (postfix_op -> subscript .)
+    EQUAL           reduce using rule 29 (postfix_op -> subscript .)
+    LT              reduce using rule 29 (postfix_op -> subscript .)
+    LTE             reduce using rule 29 (postfix_op -> subscript .)
+    GT              reduce using rule 29 (postfix_op -> subscript .)
+    GTE             reduce using rule 29 (postfix_op -> subscript .)
+    CMD_IN          reduce using rule 29 (postfix_op -> subscript .)
+    $end            reduce using rule 29 (postfix_op -> subscript .)
+    R_BRACE         reduce using rule 29 (postfix_op -> subscript .)
+    CARET           shift and go to state 38
+
+    supscript                      shift and go to state 64
+
+state 38
+
+    (32) supscript -> CARET . L_BRACE content R_BRACE
+    (33) supscript -> CARET . format
+    (34) supscript -> CARET . SYMBOL
+    (38) format -> . CMD_MATHBF L_BRACE content R_BRACE
+    (39) format -> . CMD_MATHBF SYMBOL
+    (40) format -> . CMD_TEXT L_BRACE text R_BRACE
+    (41) format -> . CMD_TEXT SYMBOL
+    (42) format -> . CMD_MATHBB L_BRACE content R_BRACE
+    (43) format -> . CMD_MATHBB SYMBOL
+    (44) format -> . CMD_MATHIT L_BRACE content R_BRACE
+    (45) format -> . CMD_MATHIT SYMBOL
+
+    L_BRACE         shift and go to state 65
+    SYMBOL          shift and go to state 67
+    CMD_MATHBF      shift and go to state 13
+    CMD_TEXT        shift and go to state 14
+    CMD_MATHBB      shift and go to state 15
+    CMD_MATHIT      shift and go to state 16
+
+    format                         shift and go to state 66
+
+state 39
+
+    (35) subscript -> UNDERSCORE . L_BRACE content R_BRACE
+    (36) subscript -> UNDERSCORE . format
+    (37) subscript -> UNDERSCORE . SYMBOL
+    (38) format -> . CMD_MATHBF L_BRACE content R_BRACE
+    (39) format -> . CMD_MATHBF SYMBOL
+    (40) format -> . CMD_TEXT L_BRACE text R_BRACE
+    (41) format -> . CMD_TEXT SYMBOL
+    (42) format -> . CMD_MATHBB L_BRACE content R_BRACE
+    (43) format -> . CMD_MATHBB SYMBOL
+    (44) format -> . CMD_MATHIT L_BRACE content R_BRACE
+    (45) format -> . CMD_MATHIT SYMBOL
+
+    L_BRACE         shift and go to state 68
+    SYMBOL          shift and go to state 70
+    CMD_MATHBF      shift and go to state 13
+    CMD_TEXT        shift and go to state 14
+    CMD_MATHBB      shift and go to state 15
+    CMD_MATHIT      shift and go to state 16
+
+    format                         shift and go to state 69
+
+state 40
+
+    (25) symbol_postfix -> SYMBOL postfix .
+
+    MUL             reduce using rule 25 (symbol_postfix -> SYMBOL postfix .)
+    CMD_TIMES       reduce using rule 25 (symbol_postfix -> SYMBOL postfix .)
+    DIV             reduce using rule 25 (symbol_postfix -> SYMBOL postfix .)
+    CMD_DIV         reduce using rule 25 (symbol_postfix -> SYMBOL postfix .)
+    CMD_CDOT        reduce using rule 25 (symbol_postfix -> SYMBOL postfix .)
+    COLON           reduce using rule 25 (symbol_postfix -> SYMBOL postfix .)
+    ADD             reduce using rule 25 (symbol_postfix -> SYMBOL postfix .)
+    SUB             reduce using rule 25 (symbol_postfix -> SYMBOL postfix .)
+    EQUAL           reduce using rule 25 (symbol_postfix -> SYMBOL postfix .)
+    LT              reduce using rule 25 (symbol_postfix -> SYMBOL postfix .)
+    LTE             reduce using rule 25 (symbol_postfix -> SYMBOL postfix .)
+    GT              reduce using rule 25 (symbol_postfix -> SYMBOL postfix .)
+    GTE             reduce using rule 25 (symbol_postfix -> SYMBOL postfix .)
+    CMD_IN          reduce using rule 25 (symbol_postfix -> SYMBOL postfix .)
+    $end            reduce using rule 25 (symbol_postfix -> SYMBOL postfix .)
+    R_BRACE         reduce using rule 25 (symbol_postfix -> SYMBOL postfix .)
+
+
+state 41
+
+    (38) format -> CMD_MATHBF L_BRACE . content R_BRACE
+    (2) content -> . relation
+    (3) relation -> . relation EQUAL relation
+    (4) relation -> . relation LT relation
+    (5) relation -> . relation LTE relation
+    (6) relation -> . relation GT relation
+    (7) relation -> . relation GTE relation
+    (8) relation -> . relation CMD_IN relation
+    (9) relation -> . expr
+    (10) expr -> . additive
+    (11) additive -> . additive ADD additive
+    (12) additive -> . additive SUB additive
+    (13) additive -> . mp
+    (14) mp -> . mp MUL mp
+    (15) mp -> . mp CMD_TIMES mp
+    (16) mp -> . mp DIV mp
+    (17) mp -> . mp CMD_DIV mp
+    (18) mp -> . mp CMD_CDOT mp
+    (19) mp -> . mp COLON mp
+    (20) mp -> . unary
+    (21) unary -> . ADD unary
+    (22) unary -> . SUB unary
+    (23) unary -> . symbol_postfix
+    (24) symbol_postfix -> . format postfix
+    (25) symbol_postfix -> . SYMBOL postfix
+    (38) format -> . CMD_MATHBF L_BRACE content R_BRACE
+    (39) format -> . CMD_MATHBF SYMBOL
+    (40) format -> . CMD_TEXT L_BRACE text R_BRACE
+    (41) format -> . CMD_TEXT SYMBOL
+    (42) format -> . CMD_MATHBB L_BRACE content R_BRACE
+    (43) format -> . CMD_MATHBB SYMBOL
+    (44) format -> . CMD_MATHIT L_BRACE content R_BRACE
+    (45) format -> . CMD_MATHIT SYMBOL
+
+    ADD             shift and go to state 6
+    SUB             shift and go to state 7
+    SYMBOL          shift and go to state 12
+    CMD_MATHBF      shift and go to state 13
+    CMD_TEXT        shift and go to state 14
+    CMD_MATHBB      shift and go to state 15
+    CMD_MATHIT      shift and go to state 16
+
+    content                        shift and go to state 71
+    relation                       shift and go to state 3
+    expr                           shift and go to state 4
+    additive                       shift and go to state 5
+    mp                             shift and go to state 8
+    unary                          shift and go to state 9
+    symbol_postfix                 shift and go to state 10
+    format                         shift and go to state 11
+
+state 42
+
+    (39) format -> CMD_MATHBF SYMBOL .
+
+    CARET           reduce using rule 39 (format -> CMD_MATHBF SYMBOL .)
+    UNDERSCORE      reduce using rule 39 (format -> CMD_MATHBF SYMBOL .)
+    MUL             reduce using rule 39 (format -> CMD_MATHBF SYMBOL .)
+    CMD_TIMES       reduce using rule 39 (format -> CMD_MATHBF SYMBOL .)
+    DIV             reduce using rule 39 (format -> CMD_MATHBF SYMBOL .)
+    CMD_DIV         reduce using rule 39 (format -> CMD_MATHBF SYMBOL .)
+    CMD_CDOT        reduce using rule 39 (format -> CMD_MATHBF SYMBOL .)
+    COLON           reduce using rule 39 (format -> CMD_MATHBF SYMBOL .)
+    ADD             reduce using rule 39 (format -> CMD_MATHBF SYMBOL .)
+    SUB             reduce using rule 39 (format -> CMD_MATHBF SYMBOL .)
+    EQUAL           reduce using rule 39 (format -> CMD_MATHBF SYMBOL .)
+    LT              reduce using rule 39 (format -> CMD_MATHBF SYMBOL .)
+    LTE             reduce using rule 39 (format -> CMD_MATHBF SYMBOL .)
+    GT              reduce using rule 39 (format -> CMD_MATHBF SYMBOL .)
+    GTE             reduce using rule 39 (format -> CMD_MATHBF SYMBOL .)
+    CMD_IN          reduce using rule 39 (format -> CMD_MATHBF SYMBOL .)
+    $end            reduce using rule 39 (format -> CMD_MATHBF SYMBOL .)
+    R_BRACE         reduce using rule 39 (format -> CMD_MATHBF SYMBOL .)
+
+
+state 43
+
+    (40) format -> CMD_TEXT L_BRACE . text R_BRACE
+    (46) text -> . SYMBOL
+    (47) text -> . TEXT
+
+    SYMBOL          shift and go to state 73
+    TEXT            shift and go to state 74
+
+    text                           shift and go to state 72
+
+state 44
+
+    (41) format -> CMD_TEXT SYMBOL .
+
+    CARET           reduce using rule 41 (format -> CMD_TEXT SYMBOL .)
+    UNDERSCORE      reduce using rule 41 (format -> CMD_TEXT SYMBOL .)
+    MUL             reduce using rule 41 (format -> CMD_TEXT SYMBOL .)
+    CMD_TIMES       reduce using rule 41 (format -> CMD_TEXT SYMBOL .)
+    DIV             reduce using rule 41 (format -> CMD_TEXT SYMBOL .)
+    CMD_DIV         reduce using rule 41 (format -> CMD_TEXT SYMBOL .)
+    CMD_CDOT        reduce using rule 41 (format -> CMD_TEXT SYMBOL .)
+    COLON           reduce using rule 41 (format -> CMD_TEXT SYMBOL .)
+    ADD             reduce using rule 41 (format -> CMD_TEXT SYMBOL .)
+    SUB             reduce using rule 41 (format -> CMD_TEXT SYMBOL .)
+    EQUAL           reduce using rule 41 (format -> CMD_TEXT SYMBOL .)
+    LT              reduce using rule 41 (format -> CMD_TEXT SYMBOL .)
+    LTE             reduce using rule 41 (format -> CMD_TEXT SYMBOL .)
+    GT              reduce using rule 41 (format -> CMD_TEXT SYMBOL .)
+    GTE             reduce using rule 41 (format -> CMD_TEXT SYMBOL .)
+    CMD_IN          reduce using rule 41 (format -> CMD_TEXT SYMBOL .)
+    $end            reduce using rule 41 (format -> CMD_TEXT SYMBOL .)
+    R_BRACE         reduce using rule 41 (format -> CMD_TEXT SYMBOL .)
+
+
+state 45
+
+    (42) format -> CMD_MATHBB L_BRACE . content R_BRACE
+    (2) content -> . relation
+    (3) relation -> . relation EQUAL relation
+    (4) relation -> . relation LT relation
+    (5) relation -> . relation LTE relation
+    (6) relation -> . relation GT relation
+    (7) relation -> . relation GTE relation
+    (8) relation -> . relation CMD_IN relation
+    (9) relation -> . expr
+    (10) expr -> . additive
+    (11) additive -> . additive ADD additive
+    (12) additive -> . additive SUB additive
+    (13) additive -> . mp
+    (14) mp -> . mp MUL mp
+    (15) mp -> . mp CMD_TIMES mp
+    (16) mp -> . mp DIV mp
+    (17) mp -> . mp CMD_DIV mp
+    (18) mp -> . mp CMD_CDOT mp
+    (19) mp -> . mp COLON mp
+    (20) mp -> . unary
+    (21) unary -> . ADD unary
+    (22) unary -> . SUB unary
+    (23) unary -> . symbol_postfix
+    (24) symbol_postfix -> . format postfix
+    (25) symbol_postfix -> . SYMBOL postfix
+    (38) format -> . CMD_MATHBF L_BRACE content R_BRACE
+    (39) format -> . CMD_MATHBF SYMBOL
+    (40) format -> . CMD_TEXT L_BRACE text R_BRACE
+    (41) format -> . CMD_TEXT SYMBOL
+    (42) format -> . CMD_MATHBB L_BRACE content R_BRACE
+    (43) format -> . CMD_MATHBB SYMBOL
+    (44) format -> . CMD_MATHIT L_BRACE content R_BRACE
+    (45) format -> . CMD_MATHIT SYMBOL
+
+    ADD             shift and go to state 6
+    SUB             shift and go to state 7
+    SYMBOL          shift and go to state 12
+    CMD_MATHBF      shift and go to state 13
+    CMD_TEXT        shift and go to state 14
+    CMD_MATHBB      shift and go to state 15
+    CMD_MATHIT      shift and go to state 16
+
+    content                        shift and go to state 75
+    relation                       shift and go to state 3
+    expr                           shift and go to state 4
+    additive                       shift and go to state 5
+    mp                             shift and go to state 8
+    unary                          shift and go to state 9
+    symbol_postfix                 shift and go to state 10
+    format                         shift and go to state 11
+
+state 46
+
+    (43) format -> CMD_MATHBB SYMBOL .
+
+    CARET           reduce using rule 43 (format -> CMD_MATHBB SYMBOL .)
+    UNDERSCORE      reduce using rule 43 (format -> CMD_MATHBB SYMBOL .)
+    MUL             reduce using rule 43 (format -> CMD_MATHBB SYMBOL .)
+    CMD_TIMES       reduce using rule 43 (format -> CMD_MATHBB SYMBOL .)
+    DIV             reduce using rule 43 (format -> CMD_MATHBB SYMBOL .)
+    CMD_DIV         reduce using rule 43 (format -> CMD_MATHBB SYMBOL .)
+    CMD_CDOT        reduce using rule 43 (format -> CMD_MATHBB SYMBOL .)
+    COLON           reduce using rule 43 (format -> CMD_MATHBB SYMBOL .)
+    ADD             reduce using rule 43 (format -> CMD_MATHBB SYMBOL .)
+    SUB             reduce using rule 43 (format -> CMD_MATHBB SYMBOL .)
+    EQUAL           reduce using rule 43 (format -> CMD_MATHBB SYMBOL .)
+    LT              reduce using rule 43 (format -> CMD_MATHBB SYMBOL .)
+    LTE             reduce using rule 43 (format -> CMD_MATHBB SYMBOL .)
+    GT              reduce using rule 43 (format -> CMD_MATHBB SYMBOL .)
+    GTE             reduce using rule 43 (format -> CMD_MATHBB SYMBOL .)
+    CMD_IN          reduce using rule 43 (format -> CMD_MATHBB SYMBOL .)
+    $end            reduce using rule 43 (format -> CMD_MATHBB SYMBOL .)
+    R_BRACE         reduce using rule 43 (format -> CMD_MATHBB SYMBOL .)
+
+
+state 47
+
+    (44) format -> CMD_MATHIT L_BRACE . content R_BRACE
+    (2) content -> . relation
+    (3) relation -> . relation EQUAL relation
+    (4) relation -> . relation LT relation
+    (5) relation -> . relation LTE relation
+    (6) relation -> . relation GT relation
+    (7) relation -> . relation GTE relation
+    (8) relation -> . relation CMD_IN relation
+    (9) relation -> . expr
+    (10) expr -> . additive
+    (11) additive -> . additive ADD additive
+    (12) additive -> . additive SUB additive
+    (13) additive -> . mp
+    (14) mp -> . mp MUL mp
+    (15) mp -> . mp CMD_TIMES mp
+    (16) mp -> . mp DIV mp
+    (17) mp -> . mp CMD_DIV mp
+    (18) mp -> . mp CMD_CDOT mp
+    (19) mp -> . mp COLON mp
+    (20) mp -> . unary
+    (21) unary -> . ADD unary
+    (22) unary -> . SUB unary
+    (23) unary -> . symbol_postfix
+    (24) symbol_postfix -> . format postfix
+    (25) symbol_postfix -> . SYMBOL postfix
+    (38) format -> . CMD_MATHBF L_BRACE content R_BRACE
+    (39) format -> . CMD_MATHBF SYMBOL
+    (40) format -> . CMD_TEXT L_BRACE text R_BRACE
+    (41) format -> . CMD_TEXT SYMBOL
+    (42) format -> . CMD_MATHBB L_BRACE content R_BRACE
+    (43) format -> . CMD_MATHBB SYMBOL
+    (44) format -> . CMD_MATHIT L_BRACE content R_BRACE
+    (45) format -> . CMD_MATHIT SYMBOL
+
+    ADD             shift and go to state 6
+    SUB             shift and go to state 7
+    SYMBOL          shift and go to state 12
+    CMD_MATHBF      shift and go to state 13
+    CMD_TEXT        shift and go to state 14
+    CMD_MATHBB      shift and go to state 15
+    CMD_MATHIT      shift and go to state 16
+
+    content                        shift and go to state 76
+    relation                       shift and go to state 3
+    expr                           shift and go to state 4
+    additive                       shift and go to state 5
+    mp                             shift and go to state 8
+    unary                          shift and go to state 9
+    symbol_postfix                 shift and go to state 10
+    format                         shift and go to state 11
+
+state 48
+
+    (45) format -> CMD_MATHIT SYMBOL .
+
+    CARET           reduce using rule 45 (format -> CMD_MATHIT SYMBOL .)
+    UNDERSCORE      reduce using rule 45 (format -> CMD_MATHIT SYMBOL .)
+    MUL             reduce using rule 45 (format -> CMD_MATHIT SYMBOL .)
+    CMD_TIMES       reduce using rule 45 (format -> CMD_MATHIT SYMBOL .)
+    DIV             reduce using rule 45 (format -> CMD_MATHIT SYMBOL .)
+    CMD_DIV         reduce using rule 45 (format -> CMD_MATHIT SYMBOL .)
+    CMD_CDOT        reduce using rule 45 (format -> CMD_MATHIT SYMBOL .)
+    COLON           reduce using rule 45 (format -> CMD_MATHIT SYMBOL .)
+    ADD             reduce using rule 45 (format -> CMD_MATHIT SYMBOL .)
+    SUB             reduce using rule 45 (format -> CMD_MATHIT SYMBOL .)
+    EQUAL           reduce using rule 45 (format -> CMD_MATHIT SYMBOL .)
+    LT              reduce using rule 45 (format -> CMD_MATHIT SYMBOL .)
+    LTE             reduce using rule 45 (format -> CMD_MATHIT SYMBOL .)
+    GT              reduce using rule 45 (format -> CMD_MATHIT SYMBOL .)
+    GTE             reduce using rule 45 (format -> CMD_MATHIT SYMBOL .)
+    CMD_IN          reduce using rule 45 (format -> CMD_MATHIT SYMBOL .)
+    $end            reduce using rule 45 (format -> CMD_MATHIT SYMBOL .)
+    R_BRACE         reduce using rule 45 (format -> CMD_MATHIT SYMBOL .)
+
+
+state 49
+
+    (3) relation -> relation EQUAL relation .
+    (3) relation -> relation . EQUAL relation
+    (4) relation -> relation . LT relation
+    (5) relation -> relation . LTE relation
+    (6) relation -> relation . GT relation
+    (7) relation -> relation . GTE relation
+    (8) relation -> relation . CMD_IN relation
+
+  ! shift/reduce conflict for EQUAL resolved as shift
+  ! shift/reduce conflict for LT resolved as shift
+  ! shift/reduce conflict for LTE resolved as shift
+  ! shift/reduce conflict for GT resolved as shift
+  ! shift/reduce conflict for GTE resolved as shift
+  ! shift/reduce conflict for CMD_IN resolved as shift
+    $end            reduce using rule 3 (relation -> relation EQUAL relation .)
+    R_BRACE         reduce using rule 3 (relation -> relation EQUAL relation .)
+    EQUAL           shift and go to state 17
+    LT              shift and go to state 18
+    LTE             shift and go to state 19
+    GT              shift and go to state 20
+    GTE             shift and go to state 21
+    CMD_IN          shift and go to state 22
+
+  ! EQUAL           [ reduce using rule 3 (relation -> relation EQUAL relation .) ]
+  ! LT              [ reduce using rule 3 (relation -> relation EQUAL relation .) ]
+  ! LTE             [ reduce using rule 3 (relation -> relation EQUAL relation .) ]
+  ! GT              [ reduce using rule 3 (relation -> relation EQUAL relation .) ]
+  ! GTE             [ reduce using rule 3 (relation -> relation EQUAL relation .) ]
+  ! CMD_IN          [ reduce using rule 3 (relation -> relation EQUAL relation .) ]
+
+
+state 50
+
+    (4) relation -> relation LT relation .
+    (3) relation -> relation . EQUAL relation
+    (4) relation -> relation . LT relation
+    (5) relation -> relation . LTE relation
+    (6) relation -> relation . GT relation
+    (7) relation -> relation . GTE relation
+    (8) relation -> relation . CMD_IN relation
+
+  ! shift/reduce conflict for EQUAL resolved as shift
+  ! shift/reduce conflict for LT resolved as shift
+  ! shift/reduce conflict for LTE resolved as shift
+  ! shift/reduce conflict for GT resolved as shift
+  ! shift/reduce conflict for GTE resolved as shift
+  ! shift/reduce conflict for CMD_IN resolved as shift
+    $end            reduce using rule 4 (relation -> relation LT relation .)
+    R_BRACE         reduce using rule 4 (relation -> relation LT relation .)
+    EQUAL           shift and go to state 17
+    LT              shift and go to state 18
+    LTE             shift and go to state 19
+    GT              shift and go to state 20
+    GTE             shift and go to state 21
+    CMD_IN          shift and go to state 22
+
+  ! EQUAL           [ reduce using rule 4 (relation -> relation LT relation .) ]
+  ! LT              [ reduce using rule 4 (relation -> relation LT relation .) ]
+  ! LTE             [ reduce using rule 4 (relation -> relation LT relation .) ]
+  ! GT              [ reduce using rule 4 (relation -> relation LT relation .) ]
+  ! GTE             [ reduce using rule 4 (relation -> relation LT relation .) ]
+  ! CMD_IN          [ reduce using rule 4 (relation -> relation LT relation .) ]
+
+
+state 51
+
+    (5) relation -> relation LTE relation .
+    (3) relation -> relation . EQUAL relation
+    (4) relation -> relation . LT relation
+    (5) relation -> relation . LTE relation
+    (6) relation -> relation . GT relation
+    (7) relation -> relation . GTE relation
+    (8) relation -> relation . CMD_IN relation
+
+  ! shift/reduce conflict for EQUAL resolved as shift
+  ! shift/reduce conflict for LT resolved as shift
+  ! shift/reduce conflict for LTE resolved as shift
+  ! shift/reduce conflict for GT resolved as shift
+  ! shift/reduce conflict for GTE resolved as shift
+  ! shift/reduce conflict for CMD_IN resolved as shift
+    $end            reduce using rule 5 (relation -> relation LTE relation .)
+    R_BRACE         reduce using rule 5 (relation -> relation LTE relation .)
+    EQUAL           shift and go to state 17
+    LT              shift and go to state 18
+    LTE             shift and go to state 19
+    GT              shift and go to state 20
+    GTE             shift and go to state 21
+    CMD_IN          shift and go to state 22
+
+  ! EQUAL           [ reduce using rule 5 (relation -> relation LTE relation .) ]
+  ! LT              [ reduce using rule 5 (relation -> relation LTE relation .) ]
+  ! LTE             [ reduce using rule 5 (relation -> relation LTE relation .) ]
+  ! GT              [ reduce using rule 5 (relation -> relation LTE relation .) ]
+  ! GTE             [ reduce using rule 5 (relation -> relation LTE relation .) ]
+  ! CMD_IN          [ reduce using rule 5 (relation -> relation LTE relation .) ]
+
+
+state 52
+
+    (6) relation -> relation GT relation .
+    (3) relation -> relation . EQUAL relation
+    (4) relation -> relation . LT relation
+    (5) relation -> relation . LTE relation
+    (6) relation -> relation . GT relation
+    (7) relation -> relation . GTE relation
+    (8) relation -> relation . CMD_IN relation
+
+  ! shift/reduce conflict for EQUAL resolved as shift
+  ! shift/reduce conflict for LT resolved as shift
+  ! shift/reduce conflict for LTE resolved as shift
+  ! shift/reduce conflict for GT resolved as shift
+  ! shift/reduce conflict for GTE resolved as shift
+  ! shift/reduce conflict for CMD_IN resolved as shift
+    $end            reduce using rule 6 (relation -> relation GT relation .)
+    R_BRACE         reduce using rule 6 (relation -> relation GT relation .)
+    EQUAL           shift and go to state 17
+    LT              shift and go to state 18
+    LTE             shift and go to state 19
+    GT              shift and go to state 20
+    GTE             shift and go to state 21
+    CMD_IN          shift and go to state 22
+
+  ! EQUAL           [ reduce using rule 6 (relation -> relation GT relation .) ]
+  ! LT              [ reduce using rule 6 (relation -> relation GT relation .) ]
+  ! LTE             [ reduce using rule 6 (relation -> relation GT relation .) ]
+  ! GT              [ reduce using rule 6 (relation -> relation GT relation .) ]
+  ! GTE             [ reduce using rule 6 (relation -> relation GT relation .) ]
+  ! CMD_IN          [ reduce using rule 6 (relation -> relation GT relation .) ]
+
+
+state 53
+
+    (7) relation -> relation GTE relation .
+    (3) relation -> relation . EQUAL relation
+    (4) relation -> relation . LT relation
+    (5) relation -> relation . LTE relation
+    (6) relation -> relation . GT relation
+    (7) relation -> relation . GTE relation
+    (8) relation -> relation . CMD_IN relation
+
+  ! shift/reduce conflict for EQUAL resolved as shift
+  ! shift/reduce conflict for LT resolved as shift
+  ! shift/reduce conflict for LTE resolved as shift
+  ! shift/reduce conflict for GT resolved as shift
+  ! shift/reduce conflict for GTE resolved as shift
+  ! shift/reduce conflict for CMD_IN resolved as shift
+    $end            reduce using rule 7 (relation -> relation GTE relation .)
+    R_BRACE         reduce using rule 7 (relation -> relation GTE relation .)
+    EQUAL           shift and go to state 17
+    LT              shift and go to state 18
+    LTE             shift and go to state 19
+    GT              shift and go to state 20
+    GTE             shift and go to state 21
+    CMD_IN          shift and go to state 22
+
+  ! EQUAL           [ reduce using rule 7 (relation -> relation GTE relation .) ]
+  ! LT              [ reduce using rule 7 (relation -> relation GTE relation .) ]
+  ! LTE             [ reduce using rule 7 (relation -> relation GTE relation .) ]
+  ! GT              [ reduce using rule 7 (relation -> relation GTE relation .) ]
+  ! GTE             [ reduce using rule 7 (relation -> relation GTE relation .) ]
+  ! CMD_IN          [ reduce using rule 7 (relation -> relation GTE relation .) ]
+
+
+state 54
+
+    (8) relation -> relation CMD_IN relation .
+    (3) relation -> relation . EQUAL relation
+    (4) relation -> relation . LT relation
+    (5) relation -> relation . LTE relation
+    (6) relation -> relation . GT relation
+    (7) relation -> relation . GTE relation
+    (8) relation -> relation . CMD_IN relation
+
+  ! shift/reduce conflict for EQUAL resolved as shift
+  ! shift/reduce conflict for LT resolved as shift
+  ! shift/reduce conflict for LTE resolved as shift
+  ! shift/reduce conflict for GT resolved as shift
+  ! shift/reduce conflict for GTE resolved as shift
+  ! shift/reduce conflict for CMD_IN resolved as shift
+    $end            reduce using rule 8 (relation -> relation CMD_IN relation .)
+    R_BRACE         reduce using rule 8 (relation -> relation CMD_IN relation .)
+    EQUAL           shift and go to state 17
+    LT              shift and go to state 18
+    LTE             shift and go to state 19
+    GT              shift and go to state 20
+    GTE             shift and go to state 21
+    CMD_IN          shift and go to state 22
+
+  ! EQUAL           [ reduce using rule 8 (relation -> relation CMD_IN relation .) ]
+  ! LT              [ reduce using rule 8 (relation -> relation CMD_IN relation .) ]
+  ! LTE             [ reduce using rule 8 (relation -> relation CMD_IN relation .) ]
+  ! GT              [ reduce using rule 8 (relation -> relation CMD_IN relation .) ]
+  ! GTE             [ reduce using rule 8 (relation -> relation CMD_IN relation .) ]
+  ! CMD_IN          [ reduce using rule 8 (relation -> relation CMD_IN relation .) ]
+
+
+state 55
+
+    (11) additive -> additive ADD additive .
+    (11) additive -> additive . ADD additive
+    (12) additive -> additive . SUB additive
+
+  ! shift/reduce conflict for ADD resolved as shift
+  ! shift/reduce conflict for SUB resolved as shift
+    EQUAL           reduce using rule 11 (additive -> additive ADD additive .)
+    LT              reduce using rule 11 (additive -> additive ADD additive .)
+    LTE             reduce using rule 11 (additive -> additive ADD additive .)
+    GT              reduce using rule 11 (additive -> additive ADD additive .)
+    GTE             reduce using rule 11 (additive -> additive ADD additive .)
+    CMD_IN          reduce using rule 11 (additive -> additive ADD additive .)
+    $end            reduce using rule 11 (additive -> additive ADD additive .)
+    R_BRACE         reduce using rule 11 (additive -> additive ADD additive .)
+    ADD             shift and go to state 23
+    SUB             shift and go to state 24
+
+  ! ADD             [ reduce using rule 11 (additive -> additive ADD additive .) ]
+  ! SUB             [ reduce using rule 11 (additive -> additive ADD additive .) ]
+
+
+state 56
+
+    (12) additive -> additive SUB additive .
+    (11) additive -> additive . ADD additive
+    (12) additive -> additive . SUB additive
+
+  ! shift/reduce conflict for ADD resolved as shift
+  ! shift/reduce conflict for SUB resolved as shift
+    EQUAL           reduce using rule 12 (additive -> additive SUB additive .)
+    LT              reduce using rule 12 (additive -> additive SUB additive .)
+    LTE             reduce using rule 12 (additive -> additive SUB additive .)
+    GT              reduce using rule 12 (additive -> additive SUB additive .)
+    GTE             reduce using rule 12 (additive -> additive SUB additive .)
+    CMD_IN          reduce using rule 12 (additive -> additive SUB additive .)
+    $end            reduce using rule 12 (additive -> additive SUB additive .)
+    R_BRACE         reduce using rule 12 (additive -> additive SUB additive .)
+    ADD             shift and go to state 23
+    SUB             shift and go to state 24
+
+  ! ADD             [ reduce using rule 12 (additive -> additive SUB additive .) ]
+  ! SUB             [ reduce using rule 12 (additive -> additive SUB additive .) ]
+
+
+state 57
+
+    (14) mp -> mp MUL mp .
+    (14) mp -> mp . MUL mp
+    (15) mp -> mp . CMD_TIMES mp
+    (16) mp -> mp . DIV mp
+    (17) mp -> mp . CMD_DIV mp
+    (18) mp -> mp . CMD_CDOT mp
+    (19) mp -> mp . COLON mp
+
+  ! shift/reduce conflict for MUL resolved as shift
+  ! shift/reduce conflict for CMD_TIMES resolved as shift
+  ! shift/reduce conflict for DIV resolved as shift
+  ! shift/reduce conflict for CMD_DIV resolved as shift
+  ! shift/reduce conflict for CMD_CDOT resolved as shift
+  ! shift/reduce conflict for COLON resolved as shift
+    ADD             reduce using rule 14 (mp -> mp MUL mp .)
+    SUB             reduce using rule 14 (mp -> mp MUL mp .)
+    EQUAL           reduce using rule 14 (mp -> mp MUL mp .)
+    LT              reduce using rule 14 (mp -> mp MUL mp .)
+    LTE             reduce using rule 14 (mp -> mp MUL mp .)
+    GT              reduce using rule 14 (mp -> mp MUL mp .)
+    GTE             reduce using rule 14 (mp -> mp MUL mp .)
+    CMD_IN          reduce using rule 14 (mp -> mp MUL mp .)
+    $end            reduce using rule 14 (mp -> mp MUL mp .)
+    R_BRACE         reduce using rule 14 (mp -> mp MUL mp .)
+    MUL             shift and go to state 27
+    CMD_TIMES       shift and go to state 28
+    DIV             shift and go to state 29
+    CMD_DIV         shift and go to state 30
+    CMD_CDOT        shift and go to state 31
+    COLON           shift and go to state 32
+
+  ! MUL             [ reduce using rule 14 (mp -> mp MUL mp .) ]
+  ! CMD_TIMES       [ reduce using rule 14 (mp -> mp MUL mp .) ]
+  ! DIV             [ reduce using rule 14 (mp -> mp MUL mp .) ]
+  ! CMD_DIV         [ reduce using rule 14 (mp -> mp MUL mp .) ]
+  ! CMD_CDOT        [ reduce using rule 14 (mp -> mp MUL mp .) ]
+  ! COLON           [ reduce using rule 14 (mp -> mp MUL mp .) ]
+
+
+state 58
+
+    (15) mp -> mp CMD_TIMES mp .
+    (14) mp -> mp . MUL mp
+    (15) mp -> mp . CMD_TIMES mp
+    (16) mp -> mp . DIV mp
+    (17) mp -> mp . CMD_DIV mp
+    (18) mp -> mp . CMD_CDOT mp
+    (19) mp -> mp . COLON mp
+
+  ! shift/reduce conflict for MUL resolved as shift
+  ! shift/reduce conflict for CMD_TIMES resolved as shift
+  ! shift/reduce conflict for DIV resolved as shift
+  ! shift/reduce conflict for CMD_DIV resolved as shift
+  ! shift/reduce conflict for CMD_CDOT resolved as shift
+  ! shift/reduce conflict for COLON resolved as shift
+    ADD             reduce using rule 15 (mp -> mp CMD_TIMES mp .)
+    SUB             reduce using rule 15 (mp -> mp CMD_TIMES mp .)
+    EQUAL           reduce using rule 15 (mp -> mp CMD_TIMES mp .)
+    LT              reduce using rule 15 (mp -> mp CMD_TIMES mp .)
+    LTE             reduce using rule 15 (mp -> mp CMD_TIMES mp .)
+    GT              reduce using rule 15 (mp -> mp CMD_TIMES mp .)
+    GTE             reduce using rule 15 (mp -> mp CMD_TIMES mp .)
+    CMD_IN          reduce using rule 15 (mp -> mp CMD_TIMES mp .)
+    $end            reduce using rule 15 (mp -> mp CMD_TIMES mp .)
+    R_BRACE         reduce using rule 15 (mp -> mp CMD_TIMES mp .)
+    MUL             shift and go to state 27
+    CMD_TIMES       shift and go to state 28
+    DIV             shift and go to state 29
+    CMD_DIV         shift and go to state 30
+    CMD_CDOT        shift and go to state 31
+    COLON           shift and go to state 32
+
+  ! MUL             [ reduce using rule 15 (mp -> mp CMD_TIMES mp .) ]
+  ! CMD_TIMES       [ reduce using rule 15 (mp -> mp CMD_TIMES mp .) ]
+  ! DIV             [ reduce using rule 15 (mp -> mp CMD_TIMES mp .) ]
+  ! CMD_DIV         [ reduce using rule 15 (mp -> mp CMD_TIMES mp .) ]
+  ! CMD_CDOT        [ reduce using rule 15 (mp -> mp CMD_TIMES mp .) ]
+  ! COLON           [ reduce using rule 15 (mp -> mp CMD_TIMES mp .) ]
+
+
+state 59
+
+    (16) mp -> mp DIV mp .
+    (14) mp -> mp . MUL mp
+    (15) mp -> mp . CMD_TIMES mp
+    (16) mp -> mp . DIV mp
+    (17) mp -> mp . CMD_DIV mp
+    (18) mp -> mp . CMD_CDOT mp
+    (19) mp -> mp . COLON mp
+
+  ! shift/reduce conflict for MUL resolved as shift
+  ! shift/reduce conflict for CMD_TIMES resolved as shift
+  ! shift/reduce conflict for DIV resolved as shift
+  ! shift/reduce conflict for CMD_DIV resolved as shift
+  ! shift/reduce conflict for CMD_CDOT resolved as shift
+  ! shift/reduce conflict for COLON resolved as shift
+    ADD             reduce using rule 16 (mp -> mp DIV mp .)
+    SUB             reduce using rule 16 (mp -> mp DIV mp .)
+    EQUAL           reduce using rule 16 (mp -> mp DIV mp .)
+    LT              reduce using rule 16 (mp -> mp DIV mp .)
+    LTE             reduce using rule 16 (mp -> mp DIV mp .)
+    GT              reduce using rule 16 (mp -> mp DIV mp .)
+    GTE             reduce using rule 16 (mp -> mp DIV mp .)
+    CMD_IN          reduce using rule 16 (mp -> mp DIV mp .)
+    $end            reduce using rule 16 (mp -> mp DIV mp .)
+    R_BRACE         reduce using rule 16 (mp -> mp DIV mp .)
+    MUL             shift and go to state 27
+    CMD_TIMES       shift and go to state 28
+    DIV             shift and go to state 29
+    CMD_DIV         shift and go to state 30
+    CMD_CDOT        shift and go to state 31
+    COLON           shift and go to state 32
+
+  ! MUL             [ reduce using rule 16 (mp -> mp DIV mp .) ]
+  ! CMD_TIMES       [ reduce using rule 16 (mp -> mp DIV mp .) ]
+  ! DIV             [ reduce using rule 16 (mp -> mp DIV mp .) ]
+  ! CMD_DIV         [ reduce using rule 16 (mp -> mp DIV mp .) ]
+  ! CMD_CDOT        [ reduce using rule 16 (mp -> mp DIV mp .) ]
+  ! COLON           [ reduce using rule 16 (mp -> mp DIV mp .) ]
+
+
+state 60
+
+    (17) mp -> mp CMD_DIV mp .
+    (14) mp -> mp . MUL mp
+    (15) mp -> mp . CMD_TIMES mp
+    (16) mp -> mp . DIV mp
+    (17) mp -> mp . CMD_DIV mp
+    (18) mp -> mp . CMD_CDOT mp
+    (19) mp -> mp . COLON mp
+
+  ! shift/reduce conflict for MUL resolved as shift
+  ! shift/reduce conflict for CMD_TIMES resolved as shift
+  ! shift/reduce conflict for DIV resolved as shift
+  ! shift/reduce conflict for CMD_DIV resolved as shift
+  ! shift/reduce conflict for CMD_CDOT resolved as shift
+  ! shift/reduce conflict for COLON resolved as shift
+    ADD             reduce using rule 17 (mp -> mp CMD_DIV mp .)
+    SUB             reduce using rule 17 (mp -> mp CMD_DIV mp .)
+    EQUAL           reduce using rule 17 (mp -> mp CMD_DIV mp .)
+    LT              reduce using rule 17 (mp -> mp CMD_DIV mp .)
+    LTE             reduce using rule 17 (mp -> mp CMD_DIV mp .)
+    GT              reduce using rule 17 (mp -> mp CMD_DIV mp .)
+    GTE             reduce using rule 17 (mp -> mp CMD_DIV mp .)
+    CMD_IN          reduce using rule 17 (mp -> mp CMD_DIV mp .)
+    $end            reduce using rule 17 (mp -> mp CMD_DIV mp .)
+    R_BRACE         reduce using rule 17 (mp -> mp CMD_DIV mp .)
+    MUL             shift and go to state 27
+    CMD_TIMES       shift and go to state 28
+    DIV             shift and go to state 29
+    CMD_DIV         shift and go to state 30
+    CMD_CDOT        shift and go to state 31
+    COLON           shift and go to state 32
+
+  ! MUL             [ reduce using rule 17 (mp -> mp CMD_DIV mp .) ]
+  ! CMD_TIMES       [ reduce using rule 17 (mp -> mp CMD_DIV mp .) ]
+  ! DIV             [ reduce using rule 17 (mp -> mp CMD_DIV mp .) ]
+  ! CMD_DIV         [ reduce using rule 17 (mp -> mp CMD_DIV mp .) ]
+  ! CMD_CDOT        [ reduce using rule 17 (mp -> mp CMD_DIV mp .) ]
+  ! COLON           [ reduce using rule 17 (mp -> mp CMD_DIV mp .) ]
+
+
+state 61
+
+    (18) mp -> mp CMD_CDOT mp .
+    (14) mp -> mp . MUL mp
+    (15) mp -> mp . CMD_TIMES mp
+    (16) mp -> mp . DIV mp
+    (17) mp -> mp . CMD_DIV mp
+    (18) mp -> mp . CMD_CDOT mp
+    (19) mp -> mp . COLON mp
+
+  ! shift/reduce conflict for MUL resolved as shift
+  ! shift/reduce conflict for CMD_TIMES resolved as shift
+  ! shift/reduce conflict for DIV resolved as shift
+  ! shift/reduce conflict for CMD_DIV resolved as shift
+  ! shift/reduce conflict for CMD_CDOT resolved as shift
+  ! shift/reduce conflict for COLON resolved as shift
+    ADD             reduce using rule 18 (mp -> mp CMD_CDOT mp .)
+    SUB             reduce using rule 18 (mp -> mp CMD_CDOT mp .)
+    EQUAL           reduce using rule 18 (mp -> mp CMD_CDOT mp .)
+    LT              reduce using rule 18 (mp -> mp CMD_CDOT mp .)
+    LTE             reduce using rule 18 (mp -> mp CMD_CDOT mp .)
+    GT              reduce using rule 18 (mp -> mp CMD_CDOT mp .)
+    GTE             reduce using rule 18 (mp -> mp CMD_CDOT mp .)
+    CMD_IN          reduce using rule 18 (mp -> mp CMD_CDOT mp .)
+    $end            reduce using rule 18 (mp -> mp CMD_CDOT mp .)
+    R_BRACE         reduce using rule 18 (mp -> mp CMD_CDOT mp .)
+    MUL             shift and go to state 27
+    CMD_TIMES       shift and go to state 28
+    DIV             shift and go to state 29
+    CMD_DIV         shift and go to state 30
+    CMD_CDOT        shift and go to state 31
+    COLON           shift and go to state 32
+
+  ! MUL             [ reduce using rule 18 (mp -> mp CMD_CDOT mp .) ]
+  ! CMD_TIMES       [ reduce using rule 18 (mp -> mp CMD_CDOT mp .) ]
+  ! DIV             [ reduce using rule 18 (mp -> mp CMD_CDOT mp .) ]
+  ! CMD_DIV         [ reduce using rule 18 (mp -> mp CMD_CDOT mp .) ]
+  ! CMD_CDOT        [ reduce using rule 18 (mp -> mp CMD_CDOT mp .) ]
+  ! COLON           [ reduce using rule 18 (mp -> mp CMD_CDOT mp .) ]
+
+
+state 62
+
+    (19) mp -> mp COLON mp .
+    (14) mp -> mp . MUL mp
+    (15) mp -> mp . CMD_TIMES mp
+    (16) mp -> mp . DIV mp
+    (17) mp -> mp . CMD_DIV mp
+    (18) mp -> mp . CMD_CDOT mp
+    (19) mp -> mp . COLON mp
+
+  ! shift/reduce conflict for MUL resolved as shift
+  ! shift/reduce conflict for CMD_TIMES resolved as shift
+  ! shift/reduce conflict for DIV resolved as shift
+  ! shift/reduce conflict for CMD_DIV resolved as shift
+  ! shift/reduce conflict for CMD_CDOT resolved as shift
+  ! shift/reduce conflict for COLON resolved as shift
+    ADD             reduce using rule 19 (mp -> mp COLON mp .)
+    SUB             reduce using rule 19 (mp -> mp COLON mp .)
+    EQUAL           reduce using rule 19 (mp -> mp COLON mp .)
+    LT              reduce using rule 19 (mp -> mp COLON mp .)
+    LTE             reduce using rule 19 (mp -> mp COLON mp .)
+    GT              reduce using rule 19 (mp -> mp COLON mp .)
+    GTE             reduce using rule 19 (mp -> mp COLON mp .)
+    CMD_IN          reduce using rule 19 (mp -> mp COLON mp .)
+    $end            reduce using rule 19 (mp -> mp COLON mp .)
+    R_BRACE         reduce using rule 19 (mp -> mp COLON mp .)
+    MUL             shift and go to state 27
+    CMD_TIMES       shift and go to state 28
+    DIV             shift and go to state 29
+    CMD_DIV         shift and go to state 30
+    CMD_CDOT        shift and go to state 31
+    COLON           shift and go to state 32
+
+  ! MUL             [ reduce using rule 19 (mp -> mp COLON mp .) ]
+  ! CMD_TIMES       [ reduce using rule 19 (mp -> mp COLON mp .) ]
+  ! DIV             [ reduce using rule 19 (mp -> mp COLON mp .) ]
+  ! CMD_DIV         [ reduce using rule 19 (mp -> mp COLON mp .) ]
+  ! CMD_CDOT        [ reduce using rule 19 (mp -> mp COLON mp .) ]
+  ! COLON           [ reduce using rule 19 (mp -> mp COLON mp .) ]
+
+
+state 63
+
+    (30) postfix_op -> supscript subscript .
+
+    MUL             reduce using rule 30 (postfix_op -> supscript subscript .)
+    CMD_TIMES       reduce using rule 30 (postfix_op -> supscript subscript .)
+    DIV             reduce using rule 30 (postfix_op -> supscript subscript .)
+    CMD_DIV         reduce using rule 30 (postfix_op -> supscript subscript .)
+    CMD_CDOT        reduce using rule 30 (postfix_op -> supscript subscript .)
+    COLON           reduce using rule 30 (postfix_op -> supscript subscript .)
+    ADD             reduce using rule 30 (postfix_op -> supscript subscript .)
+    SUB             reduce using rule 30 (postfix_op -> supscript subscript .)
+    EQUAL           reduce using rule 30 (postfix_op -> supscript subscript .)
+    LT              reduce using rule 30 (postfix_op -> supscript subscript .)
+    LTE             reduce using rule 30 (postfix_op -> supscript subscript .)
+    GT              reduce using rule 30 (postfix_op -> supscript subscript .)
+    GTE             reduce using rule 30 (postfix_op -> supscript subscript .)
+    CMD_IN          reduce using rule 30 (postfix_op -> supscript subscript .)
+    $end            reduce using rule 30 (postfix_op -> supscript subscript .)
+    R_BRACE         reduce using rule 30 (postfix_op -> supscript subscript .)
+
+
+state 64
+
+    (31) postfix_op -> subscript supscript .
+
+    MUL             reduce using rule 31 (postfix_op -> subscript supscript .)
+    CMD_TIMES       reduce using rule 31 (postfix_op -> subscript supscript .)
+    DIV             reduce using rule 31 (postfix_op -> subscript supscript .)
+    CMD_DIV         reduce using rule 31 (postfix_op -> subscript supscript .)
+    CMD_CDOT        reduce using rule 31 (postfix_op -> subscript supscript .)
+    COLON           reduce using rule 31 (postfix_op -> subscript supscript .)
+    ADD             reduce using rule 31 (postfix_op -> subscript supscript .)
+    SUB             reduce using rule 31 (postfix_op -> subscript supscript .)
+    EQUAL           reduce using rule 31 (postfix_op -> subscript supscript .)
+    LT              reduce using rule 31 (postfix_op -> subscript supscript .)
+    LTE             reduce using rule 31 (postfix_op -> subscript supscript .)
+    GT              reduce using rule 31 (postfix_op -> subscript supscript .)
+    GTE             reduce using rule 31 (postfix_op -> subscript supscript .)
+    CMD_IN          reduce using rule 31 (postfix_op -> subscript supscript .)
+    $end            reduce using rule 31 (postfix_op -> subscript supscript .)
+    R_BRACE         reduce using rule 31 (postfix_op -> subscript supscript .)
+
+
+state 65
+
+    (32) supscript -> CARET L_BRACE . content R_BRACE
+    (2) content -> . relation
+    (3) relation -> . relation EQUAL relation
+    (4) relation -> . relation LT relation
+    (5) relation -> . relation LTE relation
+    (6) relation -> . relation GT relation
+    (7) relation -> . relation GTE relation
+    (8) relation -> . relation CMD_IN relation
+    (9) relation -> . expr
+    (10) expr -> . additive
+    (11) additive -> . additive ADD additive
+    (12) additive -> . additive SUB additive
+    (13) additive -> . mp
+    (14) mp -> . mp MUL mp
+    (15) mp -> . mp CMD_TIMES mp
+    (16) mp -> . mp DIV mp
+    (17) mp -> . mp CMD_DIV mp
+    (18) mp -> . mp CMD_CDOT mp
+    (19) mp -> . mp COLON mp
+    (20) mp -> . unary
+    (21) unary -> . ADD unary
+    (22) unary -> . SUB unary
+    (23) unary -> . symbol_postfix
+    (24) symbol_postfix -> . format postfix
+    (25) symbol_postfix -> . SYMBOL postfix
+    (38) format -> . CMD_MATHBF L_BRACE content R_BRACE
+    (39) format -> . CMD_MATHBF SYMBOL
+    (40) format -> . CMD_TEXT L_BRACE text R_BRACE
+    (41) format -> . CMD_TEXT SYMBOL
+    (42) format -> . CMD_MATHBB L_BRACE content R_BRACE
+    (43) format -> . CMD_MATHBB SYMBOL
+    (44) format -> . CMD_MATHIT L_BRACE content R_BRACE
+    (45) format -> . CMD_MATHIT SYMBOL
+
+    ADD             shift and go to state 6
+    SUB             shift and go to state 7
+    SYMBOL          shift and go to state 12
+    CMD_MATHBF      shift and go to state 13
+    CMD_TEXT        shift and go to state 14
+    CMD_MATHBB      shift and go to state 15
+    CMD_MATHIT      shift and go to state 16
+
+    content                        shift and go to state 77
+    relation                       shift and go to state 3
+    expr                           shift and go to state 4
+    additive                       shift and go to state 5
+    mp                             shift and go to state 8
+    unary                          shift and go to state 9
+    symbol_postfix                 shift and go to state 10
+    format                         shift and go to state 11
+
+state 66
+
+    (33) supscript -> CARET format .
+
+    UNDERSCORE      reduce using rule 33 (supscript -> CARET format .)
+    MUL             reduce using rule 33 (supscript -> CARET format .)
+    CMD_TIMES       reduce using rule 33 (supscript -> CARET format .)
+    DIV             reduce using rule 33 (supscript -> CARET format .)
+    CMD_DIV         reduce using rule 33 (supscript -> CARET format .)
+    CMD_CDOT        reduce using rule 33 (supscript -> CARET format .)
+    COLON           reduce using rule 33 (supscript -> CARET format .)
+    ADD             reduce using rule 33 (supscript -> CARET format .)
+    SUB             reduce using rule 33 (supscript -> CARET format .)
+    EQUAL           reduce using rule 33 (supscript -> CARET format .)
+    LT              reduce using rule 33 (supscript -> CARET format .)
+    LTE             reduce using rule 33 (supscript -> CARET format .)
+    GT              reduce using rule 33 (supscript -> CARET format .)
+    GTE             reduce using rule 33 (supscript -> CARET format .)
+    CMD_IN          reduce using rule 33 (supscript -> CARET format .)
+    $end            reduce using rule 33 (supscript -> CARET format .)
+    R_BRACE         reduce using rule 33 (supscript -> CARET format .)
+
+
+state 67
+
+    (34) supscript -> CARET SYMBOL .
+
+    UNDERSCORE      reduce using rule 34 (supscript -> CARET SYMBOL .)
+    MUL             reduce using rule 34 (supscript -> CARET SYMBOL .)
+    CMD_TIMES       reduce using rule 34 (supscript -> CARET SYMBOL .)
+    DIV             reduce using rule 34 (supscript -> CARET SYMBOL .)
+    CMD_DIV         reduce using rule 34 (supscript -> CARET SYMBOL .)
+    CMD_CDOT        reduce using rule 34 (supscript -> CARET SYMBOL .)
+    COLON           reduce using rule 34 (supscript -> CARET SYMBOL .)
+    ADD             reduce using rule 34 (supscript -> CARET SYMBOL .)
+    SUB             reduce using rule 34 (supscript -> CARET SYMBOL .)
+    EQUAL           reduce using rule 34 (supscript -> CARET SYMBOL .)
+    LT              reduce using rule 34 (supscript -> CARET SYMBOL .)
+    LTE             reduce using rule 34 (supscript -> CARET SYMBOL .)
+    GT              reduce using rule 34 (supscript -> CARET SYMBOL .)
+    GTE             reduce using rule 34 (supscript -> CARET SYMBOL .)
+    CMD_IN          reduce using rule 34 (supscript -> CARET SYMBOL .)
+    $end            reduce using rule 34 (supscript -> CARET SYMBOL .)
+    R_BRACE         reduce using rule 34 (supscript -> CARET SYMBOL .)
+
+
+state 68
+
+    (35) subscript -> UNDERSCORE L_BRACE . content R_BRACE
+    (2) content -> . relation
+    (3) relation -> . relation EQUAL relation
+    (4) relation -> . relation LT relation
+    (5) relation -> . relation LTE relation
+    (6) relation -> . relation GT relation
+    (7) relation -> . relation GTE relation
+    (8) relation -> . relation CMD_IN relation
+    (9) relation -> . expr
+    (10) expr -> . additive
+    (11) additive -> . additive ADD additive
+    (12) additive -> . additive SUB additive
+    (13) additive -> . mp
+    (14) mp -> . mp MUL mp
+    (15) mp -> . mp CMD_TIMES mp
+    (16) mp -> . mp DIV mp
+    (17) mp -> . mp CMD_DIV mp
+    (18) mp -> . mp CMD_CDOT mp
+    (19) mp -> . mp COLON mp
+    (20) mp -> . unary
+    (21) unary -> . ADD unary
+    (22) unary -> . SUB unary
+    (23) unary -> . symbol_postfix
+    (24) symbol_postfix -> . format postfix
+    (25) symbol_postfix -> . SYMBOL postfix
+    (38) format -> . CMD_MATHBF L_BRACE content R_BRACE
+    (39) format -> . CMD_MATHBF SYMBOL
+    (40) format -> . CMD_TEXT L_BRACE text R_BRACE
+    (41) format -> . CMD_TEXT SYMBOL
+    (42) format -> . CMD_MATHBB L_BRACE content R_BRACE
+    (43) format -> . CMD_MATHBB SYMBOL
+    (44) format -> . CMD_MATHIT L_BRACE content R_BRACE
+    (45) format -> . CMD_MATHIT SYMBOL
+
+    ADD             shift and go to state 6
+    SUB             shift and go to state 7
+    SYMBOL          shift and go to state 12
+    CMD_MATHBF      shift and go to state 13
+    CMD_TEXT        shift and go to state 14
+    CMD_MATHBB      shift and go to state 15
+    CMD_MATHIT      shift and go to state 16
+
+    content                        shift and go to state 78
+    relation                       shift and go to state 3
+    expr                           shift and go to state 4
+    additive                       shift and go to state 5
+    mp                             shift and go to state 8
+    unary                          shift and go to state 9
+    symbol_postfix                 shift and go to state 10
+    format                         shift and go to state 11
+
+state 69
+
+    (36) subscript -> UNDERSCORE format .
+
+    CARET           reduce using rule 36 (subscript -> UNDERSCORE format .)
+    MUL             reduce using rule 36 (subscript -> UNDERSCORE format .)
+    CMD_TIMES       reduce using rule 36 (subscript -> UNDERSCORE format .)
+    DIV             reduce using rule 36 (subscript -> UNDERSCORE format .)
+    CMD_DIV         reduce using rule 36 (subscript -> UNDERSCORE format .)
+    CMD_CDOT        reduce using rule 36 (subscript -> UNDERSCORE format .)
+    COLON           reduce using rule 36 (subscript -> UNDERSCORE format .)
+    ADD             reduce using rule 36 (subscript -> UNDERSCORE format .)
+    SUB             reduce using rule 36 (subscript -> UNDERSCORE format .)
+    EQUAL           reduce using rule 36 (subscript -> UNDERSCORE format .)
+    LT              reduce using rule 36 (subscript -> UNDERSCORE format .)
+    LTE             reduce using rule 36 (subscript -> UNDERSCORE format .)
+    GT              reduce using rule 36 (subscript -> UNDERSCORE format .)
+    GTE             reduce using rule 36 (subscript -> UNDERSCORE format .)
+    CMD_IN          reduce using rule 36 (subscript -> UNDERSCORE format .)
+    $end            reduce using rule 36 (subscript -> UNDERSCORE format .)
+    R_BRACE         reduce using rule 36 (subscript -> UNDERSCORE format .)
+
+
+state 70
+
+    (37) subscript -> UNDERSCORE SYMBOL .
+
+    CARET           reduce using rule 37 (subscript -> UNDERSCORE SYMBOL .)
+    MUL             reduce using rule 37 (subscript -> UNDERSCORE SYMBOL .)
+    CMD_TIMES       reduce using rule 37 (subscript -> UNDERSCORE SYMBOL .)
+    DIV             reduce using rule 37 (subscript -> UNDERSCORE SYMBOL .)
+    CMD_DIV         reduce using rule 37 (subscript -> UNDERSCORE SYMBOL .)
+    CMD_CDOT        reduce using rule 37 (subscript -> UNDERSCORE SYMBOL .)
+    COLON           reduce using rule 37 (subscript -> UNDERSCORE SYMBOL .)
+    ADD             reduce using rule 37 (subscript -> UNDERSCORE SYMBOL .)
+    SUB             reduce using rule 37 (subscript -> UNDERSCORE SYMBOL .)
+    EQUAL           reduce using rule 37 (subscript -> UNDERSCORE SYMBOL .)
+    LT              reduce using rule 37 (subscript -> UNDERSCORE SYMBOL .)
+    LTE             reduce using rule 37 (subscript -> UNDERSCORE SYMBOL .)
+    GT              reduce using rule 37 (subscript -> UNDERSCORE SYMBOL .)
+    GTE             reduce using rule 37 (subscript -> UNDERSCORE SYMBOL .)
+    CMD_IN          reduce using rule 37 (subscript -> UNDERSCORE SYMBOL .)
+    $end            reduce using rule 37 (subscript -> UNDERSCORE SYMBOL .)
+    R_BRACE         reduce using rule 37 (subscript -> UNDERSCORE SYMBOL .)
+
+
+state 71
+
+    (38) format -> CMD_MATHBF L_BRACE content . R_BRACE
+
+    R_BRACE         shift and go to state 79
+
+
+state 72
+
+    (40) format -> CMD_TEXT L_BRACE text . R_BRACE
+
+    R_BRACE         shift and go to state 80
+
+
+state 73
+
+    (46) text -> SYMBOL .
+
+    R_BRACE         reduce using rule 46 (text -> SYMBOL .)
+
+
+state 74
+
+    (47) text -> TEXT .
+
+    R_BRACE         reduce using rule 47 (text -> TEXT .)
+
+
+state 75
+
+    (42) format -> CMD_MATHBB L_BRACE content . R_BRACE
+
+    R_BRACE         shift and go to state 81
+
+
+state 76
+
+    (44) format -> CMD_MATHIT L_BRACE content . R_BRACE
+
+    R_BRACE         shift and go to state 82
+
+
+state 77
+
+    (32) supscript -> CARET L_BRACE content . R_BRACE
+
+    R_BRACE         shift and go to state 83
+
+
+state 78
+
+    (35) subscript -> UNDERSCORE L_BRACE content . R_BRACE
+
+    R_BRACE         shift and go to state 84
+
+
+state 79
+
+    (38) format -> CMD_MATHBF L_BRACE content R_BRACE .
+
+    CARET           reduce using rule 38 (format -> CMD_MATHBF L_BRACE content R_BRACE .)
+    UNDERSCORE      reduce using rule 38 (format -> CMD_MATHBF L_BRACE content R_BRACE .)
+    MUL             reduce using rule 38 (format -> CMD_MATHBF L_BRACE content R_BRACE .)
+    CMD_TIMES       reduce using rule 38 (format -> CMD_MATHBF L_BRACE content R_BRACE .)
+    DIV             reduce using rule 38 (format -> CMD_MATHBF L_BRACE content R_BRACE .)
+    CMD_DIV         reduce using rule 38 (format -> CMD_MATHBF L_BRACE content R_BRACE .)
+    CMD_CDOT        reduce using rule 38 (format -> CMD_MATHBF L_BRACE content R_BRACE .)
+    COLON           reduce using rule 38 (format -> CMD_MATHBF L_BRACE content R_BRACE .)
+    ADD             reduce using rule 38 (format -> CMD_MATHBF L_BRACE content R_BRACE .)
+    SUB             reduce using rule 38 (format -> CMD_MATHBF L_BRACE content R_BRACE .)
+    EQUAL           reduce using rule 38 (format -> CMD_MATHBF L_BRACE content R_BRACE .)
+    LT              reduce using rule 38 (format -> CMD_MATHBF L_BRACE content R_BRACE .)
+    LTE             reduce using rule 38 (format -> CMD_MATHBF L_BRACE content R_BRACE .)
+    GT              reduce using rule 38 (format -> CMD_MATHBF L_BRACE content R_BRACE .)
+    GTE             reduce using rule 38 (format -> CMD_MATHBF L_BRACE content R_BRACE .)
+    CMD_IN          reduce using rule 38 (format -> CMD_MATHBF L_BRACE content R_BRACE .)
+    $end            reduce using rule 38 (format -> CMD_MATHBF L_BRACE content R_BRACE .)
+    R_BRACE         reduce using rule 38 (format -> CMD_MATHBF L_BRACE content R_BRACE .)
+
+
+state 80
+
+    (40) format -> CMD_TEXT L_BRACE text R_BRACE .
+
+    CARET           reduce using rule 40 (format -> CMD_TEXT L_BRACE text R_BRACE .)
+    UNDERSCORE      reduce using rule 40 (format -> CMD_TEXT L_BRACE text R_BRACE .)
+    MUL             reduce using rule 40 (format -> CMD_TEXT L_BRACE text R_BRACE .)
+    CMD_TIMES       reduce using rule 40 (format -> CMD_TEXT L_BRACE text R_BRACE .)
+    DIV             reduce using rule 40 (format -> CMD_TEXT L_BRACE text R_BRACE .)
+    CMD_DIV         reduce using rule 40 (format -> CMD_TEXT L_BRACE text R_BRACE .)
+    CMD_CDOT        reduce using rule 40 (format -> CMD_TEXT L_BRACE text R_BRACE .)
+    COLON           reduce using rule 40 (format -> CMD_TEXT L_BRACE text R_BRACE .)
+    ADD             reduce using rule 40 (format -> CMD_TEXT L_BRACE text R_BRACE .)
+    SUB             reduce using rule 40 (format -> CMD_TEXT L_BRACE text R_BRACE .)
+    EQUAL           reduce using rule 40 (format -> CMD_TEXT L_BRACE text R_BRACE .)
+    LT              reduce using rule 40 (format -> CMD_TEXT L_BRACE text R_BRACE .)
+    LTE             reduce using rule 40 (format -> CMD_TEXT L_BRACE text R_BRACE .)
+    GT              reduce using rule 40 (format -> CMD_TEXT L_BRACE text R_BRACE .)
+    GTE             reduce using rule 40 (format -> CMD_TEXT L_BRACE text R_BRACE .)
+    CMD_IN          reduce using rule 40 (format -> CMD_TEXT L_BRACE text R_BRACE .)
+    $end            reduce using rule 40 (format -> CMD_TEXT L_BRACE text R_BRACE .)
+    R_BRACE         reduce using rule 40 (format -> CMD_TEXT L_BRACE text R_BRACE .)
+
+
+state 81
+
+    (42) format -> CMD_MATHBB L_BRACE content R_BRACE .
+
+    CARET           reduce using rule 42 (format -> CMD_MATHBB L_BRACE content R_BRACE .)
+    UNDERSCORE      reduce using rule 42 (format -> CMD_MATHBB L_BRACE content R_BRACE .)
+    MUL             reduce using rule 42 (format -> CMD_MATHBB L_BRACE content R_BRACE .)
+    CMD_TIMES       reduce using rule 42 (format -> CMD_MATHBB L_BRACE content R_BRACE .)
+    DIV             reduce using rule 42 (format -> CMD_MATHBB L_BRACE content R_BRACE .)
+    CMD_DIV         reduce using rule 42 (format -> CMD_MATHBB L_BRACE content R_BRACE .)
+    CMD_CDOT        reduce using rule 42 (format -> CMD_MATHBB L_BRACE content R_BRACE .)
+    COLON           reduce using rule 42 (format -> CMD_MATHBB L_BRACE content R_BRACE .)
+    ADD             reduce using rule 42 (format -> CMD_MATHBB L_BRACE content R_BRACE .)
+    SUB             reduce using rule 42 (format -> CMD_MATHBB L_BRACE content R_BRACE .)
+    EQUAL           reduce using rule 42 (format -> CMD_MATHBB L_BRACE content R_BRACE .)
+    LT              reduce using rule 42 (format -> CMD_MATHBB L_BRACE content R_BRACE .)
+    LTE             reduce using rule 42 (format -> CMD_MATHBB L_BRACE content R_BRACE .)
+    GT              reduce using rule 42 (format -> CMD_MATHBB L_BRACE content R_BRACE .)
+    GTE             reduce using rule 42 (format -> CMD_MATHBB L_BRACE content R_BRACE .)
+    CMD_IN          reduce using rule 42 (format -> CMD_MATHBB L_BRACE content R_BRACE .)
+    $end            reduce using rule 42 (format -> CMD_MATHBB L_BRACE content R_BRACE .)
+    R_BRACE         reduce using rule 42 (format -> CMD_MATHBB L_BRACE content R_BRACE .)
+
+
+state 82
+
+    (44) format -> CMD_MATHIT L_BRACE content R_BRACE .
+
+    CARET           reduce using rule 44 (format -> CMD_MATHIT L_BRACE content R_BRACE .)
+    UNDERSCORE      reduce using rule 44 (format -> CMD_MATHIT L_BRACE content R_BRACE .)
+    MUL             reduce using rule 44 (format -> CMD_MATHIT L_BRACE content R_BRACE .)
+    CMD_TIMES       reduce using rule 44 (format -> CMD_MATHIT L_BRACE content R_BRACE .)
+    DIV             reduce using rule 44 (format -> CMD_MATHIT L_BRACE content R_BRACE .)
+    CMD_DIV         reduce using rule 44 (format -> CMD_MATHIT L_BRACE content R_BRACE .)
+    CMD_CDOT        reduce using rule 44 (format -> CMD_MATHIT L_BRACE content R_BRACE .)
+    COLON           reduce using rule 44 (format -> CMD_MATHIT L_BRACE content R_BRACE .)
+    ADD             reduce using rule 44 (format -> CMD_MATHIT L_BRACE content R_BRACE .)
+    SUB             reduce using rule 44 (format -> CMD_MATHIT L_BRACE content R_BRACE .)
+    EQUAL           reduce using rule 44 (format -> CMD_MATHIT L_BRACE content R_BRACE .)
+    LT              reduce using rule 44 (format -> CMD_MATHIT L_BRACE content R_BRACE .)
+    LTE             reduce using rule 44 (format -> CMD_MATHIT L_BRACE content R_BRACE .)
+    GT              reduce using rule 44 (format -> CMD_MATHIT L_BRACE content R_BRACE .)
+    GTE             reduce using rule 44 (format -> CMD_MATHIT L_BRACE content R_BRACE .)
+    CMD_IN          reduce using rule 44 (format -> CMD_MATHIT L_BRACE content R_BRACE .)
+    $end            reduce using rule 44 (format -> CMD_MATHIT L_BRACE content R_BRACE .)
+    R_BRACE         reduce using rule 44 (format -> CMD_MATHIT L_BRACE content R_BRACE .)
+
+
+state 83
+
+    (32) supscript -> CARET L_BRACE content R_BRACE .
+
+    UNDERSCORE      reduce using rule 32 (supscript -> CARET L_BRACE content R_BRACE .)
+    MUL             reduce using rule 32 (supscript -> CARET L_BRACE content R_BRACE .)
+    CMD_TIMES       reduce using rule 32 (supscript -> CARET L_BRACE content R_BRACE .)
+    DIV             reduce using rule 32 (supscript -> CARET L_BRACE content R_BRACE .)
+    CMD_DIV         reduce using rule 32 (supscript -> CARET L_BRACE content R_BRACE .)
+    CMD_CDOT        reduce using rule 32 (supscript -> CARET L_BRACE content R_BRACE .)
+    COLON           reduce using rule 32 (supscript -> CARET L_BRACE content R_BRACE .)
+    ADD             reduce using rule 32 (supscript -> CARET L_BRACE content R_BRACE .)
+    SUB             reduce using rule 32 (supscript -> CARET L_BRACE content R_BRACE .)
+    EQUAL           reduce using rule 32 (supscript -> CARET L_BRACE content R_BRACE .)
+    LT              reduce using rule 32 (supscript -> CARET L_BRACE content R_BRACE .)
+    LTE             reduce using rule 32 (supscript -> CARET L_BRACE content R_BRACE .)
+    GT              reduce using rule 32 (supscript -> CARET L_BRACE content R_BRACE .)
+    GTE             reduce using rule 32 (supscript -> CARET L_BRACE content R_BRACE .)
+    CMD_IN          reduce using rule 32 (supscript -> CARET L_BRACE content R_BRACE .)
+    $end            reduce using rule 32 (supscript -> CARET L_BRACE content R_BRACE .)
+    R_BRACE         reduce using rule 32 (supscript -> CARET L_BRACE content R_BRACE .)
+
+
+state 84
+
+    (35) subscript -> UNDERSCORE L_BRACE content R_BRACE .
+
+    CARET           reduce using rule 35 (subscript -> UNDERSCORE L_BRACE content R_BRACE .)
+    MUL             reduce using rule 35 (subscript -> UNDERSCORE L_BRACE content R_BRACE .)
+    CMD_TIMES       reduce using rule 35 (subscript -> UNDERSCORE L_BRACE content R_BRACE .)
+    DIV             reduce using rule 35 (subscript -> UNDERSCORE L_BRACE content R_BRACE .)
+    CMD_DIV         reduce using rule 35 (subscript -> UNDERSCORE L_BRACE content R_BRACE .)
+    CMD_CDOT        reduce using rule 35 (subscript -> UNDERSCORE L_BRACE content R_BRACE .)
+    COLON           reduce using rule 35 (subscript -> UNDERSCORE L_BRACE content R_BRACE .)
+    ADD             reduce using rule 35 (subscript -> UNDERSCORE L_BRACE content R_BRACE .)
+    SUB             reduce using rule 35 (subscript -> UNDERSCORE L_BRACE content R_BRACE .)
+    EQUAL           reduce using rule 35 (subscript -> UNDERSCORE L_BRACE content R_BRACE .)
+    LT              reduce using rule 35 (subscript -> UNDERSCORE L_BRACE content R_BRACE .)
+    LTE             reduce using rule 35 (subscript -> UNDERSCORE L_BRACE content R_BRACE .)
+    GT              reduce using rule 35 (subscript -> UNDERSCORE L_BRACE content R_BRACE .)
+    GTE             reduce using rule 35 (subscript -> UNDERSCORE L_BRACE content R_BRACE .)
+    CMD_IN          reduce using rule 35 (subscript -> UNDERSCORE L_BRACE content R_BRACE .)
+    $end            reduce using rule 35 (subscript -> UNDERSCORE L_BRACE content R_BRACE .)
+    R_BRACE         reduce using rule 35 (subscript -> UNDERSCORE L_BRACE content R_BRACE .)
+
+WARNING: 
+WARNING: Conflicts:
+WARNING: 
+WARNING: shift/reduce conflict for EQUAL in state 49 resolved as shift
+WARNING: shift/reduce conflict for LT in state 49 resolved as shift
+WARNING: shift/reduce conflict for LTE in state 49 resolved as shift
+WARNING: shift/reduce conflict for GT in state 49 resolved as shift
+WARNING: shift/reduce conflict for GTE in state 49 resolved as shift
+WARNING: shift/reduce conflict for CMD_IN in state 49 resolved as shift
+WARNING: shift/reduce conflict for EQUAL in state 50 resolved as shift
+WARNING: shift/reduce conflict for LT in state 50 resolved as shift
+WARNING: shift/reduce conflict for LTE in state 50 resolved as shift
+WARNING: shift/reduce conflict for GT in state 50 resolved as shift
+WARNING: shift/reduce conflict for GTE in state 50 resolved as shift
+WARNING: shift/reduce conflict for CMD_IN in state 50 resolved as shift
+WARNING: shift/reduce conflict for EQUAL in state 51 resolved as shift
+WARNING: shift/reduce conflict for LT in state 51 resolved as shift
+WARNING: shift/reduce conflict for LTE in state 51 resolved as shift
+WARNING: shift/reduce conflict for GT in state 51 resolved as shift
+WARNING: shift/reduce conflict for GTE in state 51 resolved as shift
+WARNING: shift/reduce conflict for CMD_IN in state 51 resolved as shift
+WARNING: shift/reduce conflict for EQUAL in state 52 resolved as shift
+WARNING: shift/reduce conflict for LT in state 52 resolved as shift
+WARNING: shift/reduce conflict for LTE in state 52 resolved as shift
+WARNING: shift/reduce conflict for GT in state 52 resolved as shift
+WARNING: shift/reduce conflict for GTE in state 52 resolved as shift
+WARNING: shift/reduce conflict for CMD_IN in state 52 resolved as shift
+WARNING: shift/reduce conflict for EQUAL in state 53 resolved as shift
+WARNING: shift/reduce conflict for LT in state 53 resolved as shift
+WARNING: shift/reduce conflict for LTE in state 53 resolved as shift
+WARNING: shift/reduce conflict for GT in state 53 resolved as shift
+WARNING: shift/reduce conflict for GTE in state 53 resolved as shift
+WARNING: shift/reduce conflict for CMD_IN in state 53 resolved as shift
+WARNING: shift/reduce conflict for EQUAL in state 54 resolved as shift
+WARNING: shift/reduce conflict for LT in state 54 resolved as shift
+WARNING: shift/reduce conflict for LTE in state 54 resolved as shift
+WARNING: shift/reduce conflict for GT in state 54 resolved as shift
+WARNING: shift/reduce conflict for GTE in state 54 resolved as shift
+WARNING: shift/reduce conflict for CMD_IN in state 54 resolved as shift
+WARNING: shift/reduce conflict for ADD in state 55 resolved as shift
+WARNING: shift/reduce conflict for SUB in state 55 resolved as shift
+WARNING: shift/reduce conflict for ADD in state 56 resolved as shift
+WARNING: shift/reduce conflict for SUB in state 56 resolved as shift
+WARNING: shift/reduce conflict for MUL in state 57 resolved as shift
+WARNING: shift/reduce conflict for CMD_TIMES in state 57 resolved as shift
+WARNING: shift/reduce conflict for DIV in state 57 resolved as shift
+WARNING: shift/reduce conflict for CMD_DIV in state 57 resolved as shift
+WARNING: shift/reduce conflict for CMD_CDOT in state 57 resolved as shift
+WARNING: shift/reduce conflict for COLON in state 57 resolved as shift
+WARNING: shift/reduce conflict for MUL in state 58 resolved as shift
+WARNING: shift/reduce conflict for CMD_TIMES in state 58 resolved as shift
+WARNING: shift/reduce conflict for DIV in state 58 resolved as shift
+WARNING: shift/reduce conflict for CMD_DIV in state 58 resolved as shift
+WARNING: shift/reduce conflict for CMD_CDOT in state 58 resolved as shift
+WARNING: shift/reduce conflict for COLON in state 58 resolved as shift
+WARNING: shift/reduce conflict for MUL in state 59 resolved as shift
+WARNING: shift/reduce conflict for CMD_TIMES in state 59 resolved as shift
+WARNING: shift/reduce conflict for DIV in state 59 resolved as shift
+WARNING: shift/reduce conflict for CMD_DIV in state 59 resolved as shift
+WARNING: shift/reduce conflict for CMD_CDOT in state 59 resolved as shift
+WARNING: shift/reduce conflict for COLON in state 59 resolved as shift
+WARNING: shift/reduce conflict for MUL in state 60 resolved as shift
+WARNING: shift/reduce conflict for CMD_TIMES in state 60 resolved as shift
+WARNING: shift/reduce conflict for DIV in state 60 resolved as shift
+WARNING: shift/reduce conflict for CMD_DIV in state 60 resolved as shift
+WARNING: shift/reduce conflict for CMD_CDOT in state 60 resolved as shift
+WARNING: shift/reduce conflict for COLON in state 60 resolved as shift
+WARNING: shift/reduce conflict for MUL in state 61 resolved as shift
+WARNING: shift/reduce conflict for CMD_TIMES in state 61 resolved as shift
+WARNING: shift/reduce conflict for DIV in state 61 resolved as shift
+WARNING: shift/reduce conflict for CMD_DIV in state 61 resolved as shift
+WARNING: shift/reduce conflict for CMD_CDOT in state 61 resolved as shift
+WARNING: shift/reduce conflict for COLON in state 61 resolved as shift
+WARNING: shift/reduce conflict for MUL in state 62 resolved as shift
+WARNING: shift/reduce conflict for CMD_TIMES in state 62 resolved as shift
+WARNING: shift/reduce conflict for DIV in state 62 resolved as shift
+WARNING: shift/reduce conflict for CMD_DIV in state 62 resolved as shift
+WARNING: shift/reduce conflict for CMD_CDOT in state 62 resolved as shift
+WARNING: shift/reduce conflict for COLON in state 62 resolved as shift
