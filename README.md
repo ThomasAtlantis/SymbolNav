@@ -1,15 +1,6 @@
-# SymbolNav
+# SymbolNav: An Extractor/Navigator for Math Symbols Defined in LaTeX
 
-SymbolNav is an extractor/navigator for math symbols defined in LaTeX.
-
-## TODO
-
-Ongoing work: A LaTeX math expression parser implemented using PLY (Python Lex-Yacc) library that parses LaTeX mathematical formulas into an AST (Abstract Syntax Tree).
-
-- [] basic logic of symbol collection
-- [] hash function to help remove duplicates
-- [] rendering symbols back into standard latex
-- [] CLI-based result displaying
+ongoing work: A LaTeX math expression parser implemented using PLY (Python Lex-Yacc) library that parses LaTeX mathematical formulas into an AST (Abstract Syntax Tree).
 
 ## Features
 
