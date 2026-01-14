@@ -6,19 +6,22 @@ SymbolNav is an extractor/navigator for math symbols defined in LaTeX.
 
 Ongoing work: A LaTeX math expression parser implemented using PLY (Python Lex-Yacc) library that parses LaTeX mathematical formulas into an AST (Abstract Syntax Tree).
 
-- [ ] basic logic of symbol collection
-- [ ] hash function to help remove duplicates
-- [ ] rendering symbols back into standard latex
+- [x] basic logic of symbol collection
+- [x] hash function to help remove duplicates (use rendered latex itself)
+- [x] rendering symbols back into standard latex
 - [ ] CLI-based result displaying
+- [ ] ~~support for pre-built functions (e.g., `\ln`, `\log`)~~
 
 ## Features
 
-- Basic arithmetic operators: `+`, `-`, `*`, `/`, `\times`, `\cdot`, `\div`, `:`
-- Relational operators: `=`, `<`, `>`, `\leq`, `\geq`, `\in`
-- Superscripts and subscripts: `x^2`, `x_i`, `x^{n+1}_{i+1}`
-- Formatting commands: `\mathbf`, `\text`, `\mathbb`, `\mathit`
+- Basic arithmetic operators: `+`, `-`, `*`, `/`, `\times`, `\cdot`, `\div`, `:`, `|`
+- Relational operators: `=`, `<`, `>`, `\leq`, `\geq`, `\triangleq`, `\approx`, `\in`, `\circ`, `\to`, `\setminus`, `\subset`, `\|`
+- Superscripts and subscripts: `x^2`, `x_i`, `x^{n+1}_{i+1}`, `x'` (prime)
+- Formatting commands: `\mathbf`, `\text`, `\mathbb`, `\mathit`, `\bm`, `\mathcal`, `\hat`, `\tilde`, `\mathrm`, `\sqrt`
 - Text mode support with `\text{...}` command
-- Grouping with braces: `{...}`
+- Grouping with brackets: `(...)`, `\{...\}`, `[...]`
+- List separators: `,` (comma), `.` (period)
+- Symbol types: numbers, letters, Greek letters, and other symbols
 
 ## Installation
 
@@ -52,14 +55,16 @@ print(json.dumps(ast_dict, indent=2))
 
 The parser generates AST nodes with the following types:
 
-- `Relation`: Relational expressions (e.g., `x = y`, `x \leq y`, `x \in A`)
+- `Relation`: Relational expressions (e.g., `x = y`, `x \leq y`, `x \in A`, `x \approx y`, `x \subset B`)
 - `Additive`: Addition and subtraction operations (e.g., `x + y`, `x - y`)
-- `MP`: Multiplication and division operations (e.g., `x * y`, `x \times y`, `x / y`, `x \div y`, `x : y`)
+- `MP`: Multiplication and division operations (e.g., `x * y`, `x \times y`, `x / y`, `x \div y`, `x : y`, `x | y`)
 - `Unary`: Unary operators (`+`, `-`)
 - `SymbolPostfix`: Symbols with postfix operations (subscripts/superscripts)
-- `Supscript`: Superscript expressions (e.g., `x^2`)
+- `Supscript`: Superscript expressions (e.g., `x^2`, `x'`)
 - `Subscript`: Subscript expressions (e.g., `x_i`)
-- `Format`: Formatted content (e.g., `\mathbf{H}`, `\mathbb{R}`, `\text{in}`)
+- `Format`: Formatted content (e.g., `\mathbf{H}`, `\mathbb{R}`, `\text{in}`, `\hat{x}`, `\sqrt{x}`)
+- `Bracket`: Grouped expressions with brackets (e.g., `(x+y)`, `\{x\}`, `[x]`)
+- `List`: List of relations separated by commas or periods (e.g., `x, y, z` or `x. y. z`)
 
 ## Examples
 
@@ -71,8 +76,8 @@ latex = r'x + y'
 
 ### Superscripts and Subscripts
 ```python
-latex = r'x^2 + y_i'
-# AST includes Supscript and Subscript nodes
+latex = r'x^2 + y_i + z\''
+# AST includes Supscript and Subscript nodes, including prime
 ```
 
 ### Formatting Commands
@@ -85,6 +90,30 @@ latex = r'\mathbf{H}^\text{out} \in \mathbb{R}^{N \times d}'
 ```python
 latex = r'x \leq y + 1'
 # AST: Relation(op='\\leq', left=..., right=...)
+
+latex = r'A \subset B \approx C'
+# AST: Relation nodes with different operators
+```
+
+### Brackets and Grouping
+```python
+latex = r'(x + y)'
+# AST: Bracket(bracket_left='L_PAREN', content=..., bracket_right='R_PAREN')
+
+latex = r'\{x, y\}'
+# AST: Bracket with L_BRACE_TEXT and R_BRACE_TEXT
+
+latex = r'[a, b]'
+# AST: Bracket with L_BRACKET and R_BRACKET
+```
+
+### Lists
+```python
+latex = r'x, y, z'
+# AST: List(items=[...], separator='COMMA')
+
+latex = r'a. b. c'
+# AST: List(items=[...], separator='PERIOD')
 ```
 
 ## Project Structure

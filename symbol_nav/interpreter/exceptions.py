@@ -1,7 +1,7 @@
 from ply.lex import LexToken
 
 
-class MathSyntaxError(Exception):
+class MathError(Exception):
 
     def __init__(self, message: str, token: LexToken):
         self.message = message
@@ -9,4 +9,10 @@ class MathSyntaxError(Exception):
         self.cursor = " " * token.lexpos + "^"  # type: ignore
     
     def __str__(self):
-        return f"{self.message} at position {self.token.lexpos}"  # type: ignore
+        return f"{self.__class__.__name__}: {self.message} at position {self.token.lexpos}"  # type: ignore
+
+class MathValueError(MathError):
+    pass
+
+class MathSyntaxError(MathError):
+    pass
