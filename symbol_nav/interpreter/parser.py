@@ -1,6 +1,6 @@
 from typing import Any
-from mast import ASTNode
-from exceptions import MathSyntaxError
+from .mast import ASTNode
+from .exceptions import MathSyntaxError
 
 
 def pass_on(p):

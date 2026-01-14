@@ -1,9 +1,9 @@
 import ply.lex as lex
 import ply.yacc as yacc
 
-from mast import to_dict
-from lexer import *
-from parser import *
+from .mast import to_dict
+from .lexer import *
+from .parser import *
 
 class LaTeXMathInterpreter:
 
