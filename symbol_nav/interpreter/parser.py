@@ -1,4 +1,3 @@
-from typing import Any
 from .mast import ASTNode
 from .exceptions import MathSyntaxError
 
@@ -9,13 +8,37 @@ def pass_on(p):
         return True
     return False
 
+
 def p_math(p):
-    """math : content"""
+    """math : multi_content"""
     pass_on(p)
 
+
+def p_multi_content(p):
+    """multi_content : content multi_content
+                     | empty"""
+    if not pass_on(p):
+        if isinstance(p[2], list):
+            p[0] = [p[1], *p[2]]
+        elif p[2] is not None:
+            p[0] = [p[1], p[2]]
+        else:
+            p[0] = p[1]
+
+
 def p_content(p):
-    """content : relation"""
-    pass_on(p)
+    """content : list
+               | L_PAREN multi_content R_PAREN"""
+    if not pass_on(p):
+        p[0] = ASTNode('Parentheses', content=p[2])
+
+
+def p_list(p):
+    """list : relation COMMA list
+            | relation"""
+    if not pass_on(p):
+        p[0] = ASTNode('List', items=p[1], separator=p[2])
+
 
 def p_relation(p):
     """relation : relation EQUAL relation
@@ -28,9 +51,11 @@ def p_relation(p):
     if not pass_on(p):
         p[0] = ASTNode('Relation', op=p[2], left=p[1], right=p[3])
 
+
 def p_expr(p):
     """expr : additive"""
     pass_on(p)
+
 
 def p_additive(p):
     """additive : additive ADD additive
@@ -50,23 +75,27 @@ def p_mp(p):
           | unary"""
     if not pass_on(p):
         p[0] = ASTNode('MP', op=p[2], left=p[1], right=p[3])
-    
+
+
 def p_unary(p):
     """unary : ADD unary
              | SUB unary
              | symbol_postfix"""
     if not pass_on(p):
         p[0] = ASTNode('Unary', op=p[1], symbol=p[2])
-    
+
+
 def p_symbol_postfix(p):
     """symbol_postfix : format postfix
                       | SYMBOL postfix"""
     p[0] = ASTNode('SymbolPostfix', symbol=p[1], postfix=p[2])
 
+
 def p_postfix(p):
     """postfix : postfix_op
                | empty"""
     pass_on(p)
+
 
 def p_postfix_op(p):
     """postfix_op : supscript
@@ -76,41 +105,46 @@ def p_postfix_op(p):
     if not pass_on(p):
         p[0] = [p[1], p[2]]
 
+
 def p_supscript(p):
-    """supscript : CARET L_BRACE content R_BRACE
+    """supscript : CARET L_BRACE multi_content R_BRACE
                  | CARET format
                  | CARET SYMBOL"""
     value = p[3] if len(p) == 5 else p[2]
     p[0] = [ASTNode('Supscript', value=value)]
 
+
 def p_subscript(p):
-    """subscript : UNDERSCORE L_BRACE content R_BRACE
+    """subscript : UNDERSCORE L_BRACE multi_content R_BRACE
                  | UNDERSCORE format
                  | UNDERSCORE SYMBOL"""
     value = p[3] if len(p) == 5 else p[2]
     p[0] = ASTNode('Subscript', value=value)
 
+
 def p_format(p):
-    """format : CMD_MATHBF L_BRACE content R_BRACE
+    """format : CMD_MATHBF L_BRACE multi_content R_BRACE
               | CMD_MATHBF SYMBOL
               | CMD_TEXT L_BRACE text R_BRACE
               | CMD_TEXT SYMBOL
-              | CMD_MATHBB L_BRACE content R_BRACE
+              | CMD_MATHBB L_BRACE multi_content R_BRACE
               | CMD_MATHBB SYMBOL
-              | CMD_MATHIT L_BRACE content R_BRACE
+              | CMD_MATHIT L_BRACE multi_content R_BRACE
               | CMD_MATHIT SYMBOL"""
-    if not pass_on(p):    
+    if not pass_on(p):
         content = p[2] if len(p) == 3 else p[3]
         p[0] = ASTNode('Format', format=p[1], content=content)
+
 
 def p_text(p):
     """text : SYMBOL
             | TEXT"""
     pass_on(p)
 
+
 def p_empty(p):
     """empty :"""
-    pass
+    p[0] = None
 
 
 def p_error(p):

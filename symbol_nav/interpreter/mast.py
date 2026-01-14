@@ -13,7 +13,10 @@ class ASTNode:
     
 def to_dict(node: Union[ASTNode, list, str, None], recursive: bool = False):
     if isinstance(node, ASTNode):
-        result = {'type': node.node_type, **node.attributes}
+        result = {'type': node.node_type}
+        for key, value in node.attributes.items():
+            if value is not None:
+                result[key] = value
         if recursive:
             for key, value in node.attributes.items():
                 result[key] = to_dict(value, recursive=True)

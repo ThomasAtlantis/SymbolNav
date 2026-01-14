@@ -1,6 +1,6 @@
 tokens = (
     # 'PS', 'WS', 'ADD', 'SUB', 'MUL', 'DIV', 'L_PAREN', 'R_PAREN', 'L_BRACE', 'R_BRACE', 'L_BRACKET', 'R_BRACKET', 'BAR', 'FUNC_LIM', 'LIM_APPROACH_SYM', 'FUNC_INT', 'FUNC_SUM', 'FUNC_PROD', 'FUNC_LOG', 'FUNC_LN', 'FUNC_SIN', 'FUNC_COS', 'FUNC_TAN', 'FUNC_CSC', 'FUNC_SEC', 'FUNC_COT', 'FUNC_ARCSIN', 'FUNC_ARCCOS', 'FUNC_ARCTAN', 'FUNC_ARCCSC', 'FUNC_ARCSEC', 'FUNC_ARCCOT', 'FUNC_SINH', 'FUNC_COSH', 'FUNC_TANH', 'FUNC_ARSINH', 'FUNC_ARCOSH', 'FUNC_ARTANH', 'FUNC_SQRT', 'CMD_TIMES', 'CMD_CDOT', 'CMD_DIV', 'CMD_FRAC', 'CMD_MATHIT', 'UNDERSCORE', '_', 'CARET', 'COLON', 'WS_CHAR', 'DIFFERENTIAL', 'LETTER', 'DIGIT', 'NUMBER', 'EQUAL', 'LT', 'LTE', 'GT', 'GTE', 'BANG', 'SYMBOL'
-    'ADD', 'SUB', 'MUL', 'DIV', 
+    'ADD', 'SUB', 'MUL', 'DIV',
     'EQUAL', 'LT', 'LTE', 'GT', 'GTE',
     'CMD_TIMES', 'CMD_CDOT', 'CMD_DIV', 'COLON',
     'CARET', 'UNDERSCORE',
@@ -8,10 +8,12 @@ tokens = (
     'SYMBOL',
     'CMD_MATHBF', 'CMD_TEXT', 'CMD_MATHBB', 'CMD_MATHIT', 'CMD_IN',
     'TEXT',
+    'COMMA',
+    'L_PAREN', 'R_PAREN',
 )
 
 states = (
-    ('textmode', 'exclusive'), 
+    ('textmode', 'exclusive'),
 )
 
 t_ignore = ' \t\r\n'
@@ -37,11 +39,16 @@ t_CMD_MATHIT = r'\\mathit'
 t_CMD_IN = r'\\in'
 t_SYMBOL = r'[a-zA-Z0-9]'
 t_textmode_ignore = ''
+t_COMMA = r','
+t_L_PAREN = r'\('
+t_R_PAREN = r'\)'
+
 
 def t_CMD_TEXT(t):
     r'\\text'
     t.lexer.expect_text_brace = True
     return t
+
 
 def t_L_BRACE(t):
     r'\{'
@@ -53,11 +60,13 @@ def t_L_BRACE(t):
         t.lexer.text_parts = []
     return t
 
+
 def t_textmode_textpart(t):
     r'[^{}]+'
     if hasattr(t.lexer, 'text_parts'):
         t.lexer.text_parts.append(t.value)
     return None
+
 
 def t_textmode_L_BRACE(t):
     r'\{'
@@ -67,12 +76,13 @@ def t_textmode_L_BRACE(t):
         t.lexer.text_parts.append('{')
     return None
 
+
 def t_textmode_R_BRACE(t):
     r'\}'
     if not hasattr(t.lexer, 'brace_depth'):
         t.lexer.brace_depth = 0
     t.lexer.brace_depth -= 1
-    
+
     if t.lexer.brace_depth <= 0:
         previous_state = getattr(t.lexer, 'previous_state', 'INITIAL')
         if hasattr(t.lexer, 'text_parts') and t.lexer.text_parts:
@@ -95,8 +105,10 @@ def t_textmode_R_BRACE(t):
             t.lexer.text_parts.append('}')
         return None
 
+
 def t_error(t):
     raise ValueError(f"Illegal character '{t.value[0]}'")
+
 
 def t_textmode_error(t):
     raise ValueError(f"Illegal character '{t.value[0]}' in text mode")
