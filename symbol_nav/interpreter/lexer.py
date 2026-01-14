@@ -36,6 +36,7 @@ t_CMD_MATHBB = r'\\mathbb'
 t_CMD_MATHIT = r'\\mathit'
 t_CMD_IN = r'\\in'
 t_SYMBOL = r'[a-zA-Z0-9]'
+t_textmode_ignore = ''
 
 def t_CMD_TEXT(t):
     r'\\text'

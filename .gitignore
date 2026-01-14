@@ -3,3 +3,4 @@ example*
 *.ipynb
 test*.py
 /reference/
+*.out
