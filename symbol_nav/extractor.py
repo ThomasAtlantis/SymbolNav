@@ -9,6 +9,10 @@ class Extractor:
     def extract_symbol(self, ast: ASTNode) -> Generator[ASTNode]:
         """Traverse the AST to collect all SymbolPostfix nodes."""
         if isinstance(ast, ASTNode) and ast.node_type == 'SymbolPostfix':
+            symbol = ast.attributes['symbol']
+            if symbol is None: return
+            if symbol.node_type == 'Symbol' and symbol.attributes['symbol_type'] not in ['greek', 'letter']:
+                return
             yield ast
         elif isinstance(ast, ASTNode):
             for key, value in ast.attributes.items():

@@ -1,9 +1,34 @@
+from itertools import batched
+from typing import List
 from .interpreter.mast import ASTNode
+
+
+table_template = \
+"""
+\\begin{{table}}
+    \\centering
+    \\begin{{tabular}}{{{column_spec}}}
+    \\hline
+{body}\\end{{tabular}}
+\\end{{table}}
+"""
+table_row_template = \
+"""     {latex_symbols} \\\\ \\hline\n"""
 
 class Renderer:
 
-    def to_latex(self, node: ASTNode) -> str:
-        return self._render_to_latex(node)
+    def to_latex_table(self, latex_symbols: List[str], num_cols: int = 8):
+        body = ""
+        for batch in batched(latex_symbols, num_cols):
+            batch = list(batch)
+            if len(batch) < num_cols:
+                batch.extend([""] * (num_cols - len(batch)))
+            body += table_row_template.format(latex_symbols=" & ".join(f"${latex_symbol}$" for latex_symbol in batch))
+        latex = table_template.format(column_spec="l".join("|" for _ in range(num_cols + 1)), body=body)
+        return latex
+
+    def to_latex(self, symbol: ASTNode) -> str:
+        return self._render_to_latex(symbol)
 
     def _render_to_latex(self, node: ASTNode | str | list | None) -> str:
         if isinstance(node, ASTNode):
@@ -16,11 +41,21 @@ class Renderer:
                 case 'SymbolPostfix':
                     return (f"{self._render_to_latex(node.attributes['symbol'])}"
                             f"{self._render_to_latex(node.attributes['postfix'])}")
+                case 'Symbol':
+                    return node.attributes['symbol']
                 case 'Format':
                     return (f"{node.attributes['format']}"
                             "{"
                             f"{self._render_to_latex(node.attributes['content'])}"
                             "}")
+                case 'FormatOp':
+                    return (f"{node.attributes['op']}"
+                            "{"
+                            f"{self._render_to_latex(node.attributes['content'])}"
+                            "}")
+                case 'GeneralPostfix':
+                    return (f"{self._render_to_latex(node.attributes['content'])}"
+                            f"{self._render_to_latex(node.attributes['postfix'])}")
                 case 'Relation':
                     return (f"{left}"
                             f"{left_blank}{node.attributes['op']}{right_blank}"
@@ -43,10 +78,16 @@ class Renderer:
                     return (f"{left}"
                             f"{left_blank}{node.attributes['op']}{right_blank}"
                             f"{right}")
-                case 'Bracket':
-                    return (f"{node.attributes['bracket_left']}"
+                case 'Coated':
+                    return (f"{node.attributes['coat_left']}"
                             f"{self._render_to_latex(node.attributes['content'])}"
-                            f"{node.attributes['bracket_right']}")
+                            f"{node.attributes['coat_right']}")
+                case 'Fraction':
+                    return ("\\frac{"
+                            f"{self._render_to_latex(node.attributes['numerator'])}"
+                            "}{"
+                            f"{self._render_to_latex(node.attributes['denominator'])}"
+                            "}")
                 case _:
                     raise ValueError(f"Unknown node type: {node.node_type}")
         elif isinstance(node, str):
