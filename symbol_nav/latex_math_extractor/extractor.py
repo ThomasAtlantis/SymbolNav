@@ -50,7 +50,7 @@ class LaTeXMathExtractor:
                 break
             if tok.type == 'COMMENT':
                 continue
-            if tok.type in ('MATH_DISPLAY', 'MATH_EQUATION', 'MATH_INLINE', 'MATH_PARENTHESIS', 'MATH_BRACKET'):
+            if tok.type.startswith('MATH_'):
                 context_span = 0
                 while (
                     tok.mark_start_pos - context_span > 0 
