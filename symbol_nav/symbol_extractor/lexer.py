@@ -13,10 +13,13 @@ tokens = (
     'CMD_MATHBF', 'CMD_TEXT', 'CMD_MATHBB', 'CMD_MATHIT', 'CMD_BM', 'CMD_MATHCAL', 'CMD_MATHRM', 'CMD_SQRT',
     'CMD_HAT', 'CMD_TILDE',
     'CMD_IN', 'CMD_CIRC', 'CMD_TO', 'CMD_NOTIN',
+    'CMD_LABEL',
     'TEXT',
     'COMMA', 'PERIOD',
-    'L_PAREN', 'R_PAREN', 'L_BRACKET', 'R_BRACKET', 'L_BMATRIX', 'R_BMATRIX',
+    'L_PAREN', 'R_PAREN', 'L_BRACKET', 'R_BRACKET',
     'FRAC',
+    'CMD_BEGIN', 'CMD_END',
+    'LINEBREAK',
 )
 
 states = (
@@ -81,11 +84,11 @@ t_GREEK_SYMBOL = r'(' + r'|'.join(r"\\" + symbol for symbol in [
     'Gamma', 'Delta', 'Theta', 'Lambda', 'Xi', 'Pi', 'Sigma', 'Upsilon', 'Phi', 'Psi', 'Omega',
     'Gamma', 'Delta', 'Theta', 'Lambda', 'Xi', 'Pi', 'Sigma', 'Upsilon', 'Phi', 'Psi', 'Omega',
 ]) + r')'
-t_OTHER_SYMBOL =  r'(' + r'|'.join(r"\\" + symbol for symbol in [
+t_OTHER_SYMBOL =  r'(' + r'|'.join([r"\\" + symbol for symbol in [
     'dots', 'cdots', 'arg', 'emptyset', 'infty', 'max', 'min', 'sum', 'exp',
     'nolimits', 'ln', 'log', 'partial', 'prod', 'nabla', 'left', 'right', 'lim', 'top',
-    r'\|', 'linebreak', 'square'
-]) + r')'
+    r'\|', 'linebreak', 'square', 'quad'
+]] + ['&', r'\.']) + r')'
 t_textmode_ignore = ''
 t_COMMA = r','
 t_PERIOD = r'\.'
@@ -95,14 +98,34 @@ t_L_BRACE_TEXT = r'\\{'
 t_R_BRACE_TEXT = r'\\}'
 t_L_BRACKET = r'\['
 t_R_BRACKET = r'\]'
-t_L_BMATRIX = r'\\begin{bmatrix}'
-t_R_BMATRIX = r'\\end{bmatrix}'
 
 def t_CMD_TEXT(t):
     r'\\text'
     t.lexer.expect_text_brace = True
     return t
 
+
+def t_CMD_LABEL(t):
+    r'\\label'
+    t.lexer.expect_text_brace = True
+    return t
+
+def t_CMD_BEGIN(t):
+    r'\\begin'
+    t.lexer.expect_text_brace = True
+    return t
+
+def t_CMD_END(t):
+    r'\\end'
+    t.lexer.expect_text_brace = True
+    return t
+
+# Line break in LaTeX (used in align environments)
+# This must be defined after all other \\ commands to avoid conflicts
+# PLY will match the longest pattern, so \\text will match \\text, not \\ + text
+def t_LINEBREAK(t):
+    r'\\\\'
+    return t
 
 def t_L_BRACE(t):
     r'\{'

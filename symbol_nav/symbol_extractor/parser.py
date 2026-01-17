@@ -16,12 +16,20 @@ def p_math(p):
 
 def p_multi_content(p):
     """multi_content : content multi_content
+                     | LINEBREAK multi_content
                      | empty"""
     if not pass_on(p):
-        if isinstance(p[2], list):
-            p[0] = [p[1], *p[2]]
-        elif p[2] is not None:
-            p[0] = [p[1], p[2]]
+        if len(p) == 3:
+            # LINEBREAK case: ignore the LINEBREAK token and continue with the rest
+            # This allows brackets/parentheses to span across lines
+            if hasattr(p[1], 'type') and p[1].type == 'LINEBREAK':
+                p[0] = p[2]
+            elif isinstance(p[2], list):
+                p[0] = [p[1], *p[2]]
+            elif p[2] is not None:
+                p[0] = [p[1], p[2]]
+            else:
+                p[0] = p[1]
         else:
             p[0] = p[1]
 
@@ -34,6 +42,7 @@ def p_content(p):
 def p_list(p):
     """list : relation COMMA list
             | relation PERIOD list
+            | relation LINEBREAK list
             | relation"""
     if not pass_on(p):
         relations = [p[1]]
@@ -92,10 +101,15 @@ def p_mp(p):
           | mp CUP mp
           | mp SIM mp
           | FRAC L_BRACE multi_content R_BRACE L_BRACE multi_content R_BRACE
+          | mp CMD_LABEL L_BRACE TEXT R_BRACE
           | unary"""
     if not pass_on(p):
         if len(p) == 8:
             p[0] = ASTNode('Fraction', numerator=p[3], denominator=p[6])
+        elif len(p) == 6:
+            if (hasattr(p[2], 'type') and p[2].type == 'CMD_LABEL') or p[2] == '\\label':
+                label_content = p[4] if p[4] is not None else ''
+                p[0] = ASTNode('Labeled', content=p[1], label=ASTNode('Label', content=label_content))
         else:
             p[0] = ASTNode('MP', op=p[2], left=p[1], right=p[3])
 
@@ -129,8 +143,12 @@ def p_coated(p):
               | L_BRACE_TEXT multi_content R_BRACE_TEXT
               | L_BRACE multi_content R_BRACE
               | L_BRACKET multi_content R_BRACKET
-              | L_BMATRIX multi_content R_BMATRIX"""
-    p[0] = ASTNode('Coated', coat_left=p[1], content=p[2], coat_right=p[3])
+              | CMD_BEGIN L_BRACE TEXT R_BRACE multi_content CMD_END L_BRACE TEXT R_BRACE"""
+    if len(p) == 10:
+        coat_left, content, coat_right = ''.join(p[1:5]), p[5], ''.join(p[6:10])
+        p[0] = ASTNode('Coated', coat_left=coat_left, content=content, coat_right=coat_right)
+    else:
+        p[0] = ASTNode('Coated', coat_left=p[1], content=p[2], coat_right=p[3])
 
 def p_symbol_number(p):
     """symbol : NUMBER_SYMBOL"""
@@ -223,8 +241,17 @@ def p_empty(p):
     p[0] = None
 
 
+# Global reference to current lexer (set by interpreter)
+# _current_lexer = None
+
 def p_error(p):
     if p:
-        raise MathSyntaxError(f"Syntax error when parsing {p.type}", p)
+        # Check if this is an END token in a begin/end environment
+        # This often indicates a bracket/parenthesis mismatch earlier
+        error_msg = f"Syntax error when parsing {p.type}"
+        if p.type == 'CMD_END':
+            error_msg += " (Note: This error at \\end{} is often caused by unmatched brackets/parentheses earlier in the expression. Please check for missing closing brackets ')' or '}' before this point.)"
+        raise MathSyntaxError(error_msg, p)
     else:
-        raise SyntaxError("Syntax error at EOF")
+        # EOF error - this often happens when brackets/parentheses are not closed
+        raise SyntaxError("Syntax error at EOF (possibly due to unmatched brackets/parentheses)")

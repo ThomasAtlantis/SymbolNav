@@ -13,13 +13,18 @@ class SymbolExtractor:
         try:
             ast = self.parser.parse(latex)
         except (MathSyntaxError, MathValueError) as e:
-            print(latex)
-            print(e.cursor)
-            print(e)
+            e.display_error()
             return iter(())  # type: ignore
         
-        def _traverse(ast: ASTNode | None):
-            if ast is None or not isinstance(ast, ASTNode):
+        def _traverse(ast: ASTNode | None | list):
+            if ast is None:
+                return
+            if isinstance(ast, list):
+                # Handle list of AST nodes (from multi_content)
+                for item in ast:
+                    yield from _traverse(item)
+                return
+            if not isinstance(ast, ASTNode):
                 return
             if ast.node_type == 'SymbolPostfix':
                 symbol = ast.attributes.get('symbol')
@@ -28,7 +33,9 @@ class SymbolExtractor:
                 if symbol.node_type == 'Symbol' and symbol.attributes.get('symbol_type') not in ('greek', 'letter'):
                     return
                 yield ast
-            else:
-                for value in ast.attributes.values():
-                    yield from _traverse(value)
+            elif ast.node_type == 'Symbol':
+                if ast.attributes.get('symbol_type') in ('greek', 'letter'):
+                    yield ast
+            for value in ast.attributes.values():
+                yield from _traverse(value)
         return _traverse(ast)
