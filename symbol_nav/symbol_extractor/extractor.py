@@ -1,4 +1,4 @@
-from typing import Generator
+from typing import Generator, Optional
 from .interpreter import LaTeXMathInterpreter
 from .mast import ASTNode
 from .exceptions import MathSyntaxError, MathValueError
@@ -9,9 +9,9 @@ class SymbolExtractor:
     def __init__(self):
         self.parser = LaTeXMathInterpreter()
 
-    def extract_symbol(self, latex: str) -> Generator[ASTNode]:
+    def extract_symbol(self, latex: str, file: Optional[str] = None, source_line: Optional[int] = None, source_column: Optional[int] = None) -> Generator[ASTNode]:
         try:
-            ast = self.parser.parse(latex)
+            ast = self.parser.parse(latex, file=file, source_line=source_line, source_column=source_column)
         except (MathSyntaxError, MathValueError) as e:
             e.display_error()
             return iter(())  # type: ignore

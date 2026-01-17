@@ -31,14 +31,41 @@ class MathError(Exception):
         
         # Calculate line number and column
         lexdata = getattr(token.lexer, 'lexdata', '') if hasattr(token, 'lexer') else ''  # type: ignore
+        self.source_line = getattr(token.lexer, 'source_line', None) if hasattr(token, 'lexer') else None  # type: ignore
+        self.source_column = getattr(token.lexer, 'source_column', None) if hasattr(token, 'lexer') else None  # type: ignore
+        self.file = getattr(token.lexer, 'file', None) if hasattr(token, 'lexer') else None  # type: ignore
+        
         if lexdata:
-            self.lineno = _get_line_number(lexdata, token.lexpos)  # type: ignore
+            # Calculate relative position within the math expression
+            self.relative_lineno = _get_line_number(lexdata, token.lexpos)  # type: ignore
             line_start_pos = _get_line_start_pos(lexdata, token.lexpos)  # type: ignore
-            self.column = token.lexpos - line_start_pos  # type: ignore
+            self.relative_column = token.lexpos - line_start_pos  # type: ignore
+            
+            # If source position is provided, calculate absolute position in original document
+            if self.source_line is not None:
+                # Count newlines before the error position to get line offset
+                newlines_before = lexdata[:token.lexpos].count('\n')  # type: ignore
+                if newlines_before == 0:
+                    # Error is on the first line of the math expression
+                    # Column is source column + relative column
+                    self.lineno = self.source_line
+                    self.column = (self.source_column or 0) + self.relative_column
+                else:
+                    # Error is on a later line within the math expression
+                    # Line is source line + line offset, column is relative column
+                    self.lineno = self.source_line + newlines_before
+                    self.column = self.relative_column
+            else:
+                # No source position, use relative position
+                self.lineno = self.relative_lineno
+                self.column = self.relative_column
         else:
             # Fallback to token.lineno if available
-            self.lineno = getattr(token, 'lineno', None)  # type: ignore
-            self.column = None  # type: ignore
+            if self.source_line is not None:
+                self.lineno = source_line + (getattr(token, 'lineno', 1) - 1 if hasattr(token, 'lineno') else 0)  # type: ignore
+            else:
+                self.lineno = getattr(token, 'lineno', None)  # type: ignore
+            self.column = getattr(token, 'column', None) if self.source_column is None else None  # type: ignore
     
     def __str__(self):
         lineno_str = f" line {self.lineno}" if self.lineno is not None else ""
@@ -54,11 +81,11 @@ class MathValueError(MathError):
         # For MathValueError, token.value is the illegal character(s) from lexer
         # Use lexdata to get the full source for display
         lexdata = getattr(token.lexer, 'lexdata', '') if hasattr(token, 'lexer') else ''  # type: ignore
-        if lexdata and self.lineno:
+        if lexdata and self.relative_lineno:
             lines = lexdata.split('\n')
-            if 1 <= self.lineno <= len(lines):
-                line_content = lines[self.lineno - 1]
-                self.pos_hint = line_content + '\n' + ' ' * (self.column or 0) + '^'  # type: ignore
+            if 1 <= self.relative_lineno <= len(lines):
+                line_content = lines[self.relative_lineno - 1]
+                self.pos_hint = line_content + '\n' + ' ' * (self.relative_column or 0) + '^'  # type: ignore
             else:
                 self.pos_hint = lexdata
         else:
@@ -66,16 +93,17 @@ class MathValueError(MathError):
     
     def display_error(self):
         lexdata = getattr(self.token.lexer, 'lexdata', '') if hasattr(self.token, 'lexer') else ''  # type: ignore
-        print(f"In LaTeXMath:")
+        print(f"In LaTeXMath at File {self.file}, line {self.source_line}, column {(self.source_column or 0) + 1}:")
         if lexdata:
             for line in lexdata.split('\n'):
                 console.print(" " * 4 + line, style=source_code_style)
         else:
             print(getattr(self.token, 'value', ''))
-        print(f"{self.message} at line {self.lineno}, column {self.column}")
+        print(f"{self.message} at File {self.file}, line {self.lineno}, column {(self.column or 0) + 1}")
         if hasattr(self, 'pos_hint'):
             for line in self.pos_hint.split('\n'):
                 console.print(" " * 4 + line, style=source_code_style)
+        print()
 
 
 class MathSyntaxError(MathError):
@@ -86,11 +114,11 @@ class MathSyntaxError(MathError):
         # For MathSyntaxError, token.value is the token that caused the error
         # Use lexdata to get the full source for display
         lexdata = getattr(token.lexer, 'lexdata', '') if hasattr(token, 'lexer') else ''  # type: ignore
-        if lexdata and self.lineno:
+        if lexdata and self.relative_lineno:
             lines = lexdata.split('\n')
-            if 1 <= self.lineno <= len(lines):
-                line_content = lines[self.lineno - 1]
-                self.pos_hint = line_content + '\n' + ' ' * (self.column or 0) + '^'  # type: ignore
+            if 1 <= self.relative_lineno <= len(lines):
+                line_content = lines[self.relative_lineno - 1]
+                self.pos_hint = line_content + '\n' + ' ' * (self.relative_column or 0) + '^'  # type: ignore
             else:
                 self.pos_hint = lexdata
         else:
@@ -98,13 +126,14 @@ class MathSyntaxError(MathError):
     
     def display_error(self):
         lexdata = getattr(self.token.lexer, 'lexdata', '') if hasattr(self.token, 'lexer') else ''  # type: ignore
-        print(f"In LaTeXMath:")
+        print(f"In LaTeXMath at File {self.file}, line {self.source_line}, column {(self.source_column or 0) + 1}:")
         if lexdata:
             for line in lexdata.split('\n'):
                 console.print(" " * 4 + line, style=source_code_style)
         else:
             print(getattr(self.token, 'value', '') or '')
-        print(f"{self.message} at line {self.lineno}, column {self.column}")
+        print(f"{self.message} at File {self.file}, line {self.lineno}, column {(self.column or 0) + 1}")
         if hasattr(self, 'pos_hint'):
             for line in self.pos_hint.split('\n'):
                 console.print(" " * 4 + line, style=source_code_style)
+        print()

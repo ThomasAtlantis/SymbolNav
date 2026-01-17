@@ -16,20 +16,12 @@ def p_math(p):
 
 def p_multi_content(p):
     """multi_content : content multi_content
-                     | LINEBREAK multi_content
                      | empty"""
     if not pass_on(p):
-        if len(p) == 3:
-            # LINEBREAK case: ignore the LINEBREAK token and continue with the rest
-            # This allows brackets/parentheses to span across lines
-            if hasattr(p[1], 'type') and p[1].type == 'LINEBREAK':
-                p[0] = p[2]
-            elif isinstance(p[2], list):
-                p[0] = [p[1], *p[2]]
-            elif p[2] is not None:
-                p[0] = [p[1], p[2]]
-            else:
-                p[0] = p[1]
+        if isinstance(p[2], list):
+            p[0] = [p[1], *p[2]]
+        elif p[2] is not None:
+            p[0] = [p[1], p[2]]
         else:
             p[0] = p[1]
 
