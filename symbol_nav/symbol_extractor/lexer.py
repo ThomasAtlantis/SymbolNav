@@ -84,7 +84,7 @@ t_GREEK_SYMBOL = r'(' + r'|'.join(r"\\" + symbol for symbol in [
 t_OTHER_SYMBOL =  r'(' + r'|'.join(r"\\" + symbol for symbol in [
     'dots', 'cdots', 'arg', 'emptyset', 'infty', 'max', 'min', 'sum', 'exp',
     'nolimits', 'ln', 'log', 'partial', 'prod', 'nabla', 'left', 'right', 'lim', 'top',
-    r'\|', 'linebreak'
+    r'\|', 'linebreak', 'square'
 ]) + r')'
 t_textmode_ignore = ''
 t_COMMA = r','

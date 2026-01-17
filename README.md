@@ -27,7 +27,7 @@ SymbolNav is an extractor/navigator for math symbols defined in LaTeX.
 
 Install dependencies:
 ```bash
-pip install ply pylatexenc
+pip install ply
 ```
 
 Clone the project (installing is not supported currently):
@@ -138,32 +138,24 @@ Download the source code of the paper **Efficient Distributed Retrieval-Augmente
 Enhancing Language Model Performance** from [here](https://arxiv.org/src/2504.11197). It's a preprint version of paper among my publications. Run the following program:
 
 ```python
-from symbol_nav.interpreter.interpreter import LaTeXMathInterpreter
-from symbol_nav.interpreter.exceptions import MathSyntaxError, MathValueError
-from symbol_nav.extractor import Extractor
+from symbol_nav.latex_math_extractor.extractor import LaTeXMathExtractor
+from symbol_nav.symbol_extractor.extractor import SymbolExtractor
 from symbol_nav.renderer import Renderer
+import time
 
-interpreter = LaTeXMathInterpreter()
-extractor = Extractor()
+
 renderer = Renderer()
-
-with open("main.tex", "r") as f:
-    latex = f.read()
-
+symbol_extractor = SymbolExtractor()
+latex_math_extractor = LaTeXMathExtractor()
+time_start = time.time()
+latex_math = list(latex_math_extractor.analyze(file="reference/main.tex"))
+latex_math_1 = set(item.value for item in latex_math)
 latex_symbols = {}
-document = extractor.extract_document(latex)
-latex_math_list = extractor.extract_latex_math(document)
-for pos, latex_math in latex_math_list:
-    try:
-        result = interpreter.parse(latex_math)
-        for symbol_postfix in extractor.extract_symbol(result):
-            symbol = renderer.to_latex(symbol_postfix)
-            latex_symbols[symbol] = pos
-    except (MathSyntaxError, MathValueError) as e:
-        print(latex_math)
-        print(e.cursor)
-        print(e)
-
+for latex_math in latex_math:
+    for symbol in symbol_extractor.extract_symbol(latex_math.value):
+        if symbol is None: continue
+        symbol = renderer.to_latex(symbol)
+        latex_symbols[symbol] = latex_math
 print(renderer.to_latex_table(list(latex_symbols.keys()), num_cols=6))
 ```
 
@@ -346,7 +338,6 @@ except MathValueError as e:
 
 - Python 3.x
 - PLY (Python Lex-Yacc)
-- pylatexenc (for document extraction)
 
 ## License
 

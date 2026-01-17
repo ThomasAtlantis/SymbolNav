@@ -1,0 +1,101 @@
+\documentclass{article}
+
+\begin{document}
+
+\section{Introduction}
+
+This is a test document for the math extractor lexer. Here are various math expressions:
+
+\subsection{Inline Math}
+
+The quadratic formula is $x = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a}$ which solves quadratic equations.
+
+Einstein's mass-energy equivalence is given by $E = mc^2$.
+
+Simple inline math: $a + b = c$ and $x^2 + y^2 = z^2$.
+
+\subsection{Display Math}
+
+The Pythagorean theorem:
+
+$$a^2 + b^2 = c^2$$
+
+A more complex equation:
+
+$$       E = mc^2
+$$ 
+
+Another display equation:
+$$
+\int_0^\infty e^{-x^2} dx = \frac{\sqrt{\pi}}{2}
+$$
+
+\subsection{Parenthesis Math}
+
+Using LaTeX's \(x^2 + y^2 = r^2\) notation for inline math.
+
+Another one \(E = mc^2\) here.
+
+Complex expression \(
+\int_0^\infty \frac{\sin(x)}{x} dx = \frac{\pi}{2}
+\) over multiple lines.
+
+\subsection{Bracket Math}
+
+Display math using brackets:
+
+\[
+\sum_{n=1}^\infty \frac{1}{n^2} = \frac{\pi^2}{6}
+\]
+
+Another example:
+\[
+\lim_{x \to \infty} \left(1 + \frac{1}{x}\right)^x = e
+\]
+
+\subsection{Equation Environment}
+
+The gamma function:
+
+\begin{equation}
+\Gamma(z) = \int_0^\infty t^{z-1} e^{-t} dt
+\end{equation}
+
+The famous Euler's identity:
+
+\begin{equation}
+e^{i\pi} + 1 = 0
+\end{equation}
+
+A more complex equation:
+\begin{equation}
+  \int_0^\infty e^{-x^2} dx = \frac{\sqrt{\pi}}{2}
+\end{equation}
+
+\subsection{Mixed Content}
+
+Here is \textbf{bold text} with $inline math$ and more text.
+
+Using commands like \textit{italic} and $x = y + z$ together.
+
+Multiple inline expressions: $a$, $b$, and $c$ in sequence.
+
+Display math $$E = mc^2$$ followed by inline \(x^2\) and more text.
+
+\subsection{Special Cases}
+
+Math with backslashes: $x \backslash y = z$.
+
+Math with escaped characters: $x^\{2\}$.
+
+Complex nested expressions: $f(x) = \sum_{i=0}^{n} \binom{n}{i} x^i (1-x)^{n-i}$.
+
+Display math with spaces:
+$$    x   =   y   +   z    $$
+
+Parenthesis math \(
+    x = y
+\) on separate lines.
+
+\end{document}
+

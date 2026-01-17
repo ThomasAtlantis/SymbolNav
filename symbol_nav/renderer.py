@@ -1,6 +1,6 @@
 from itertools import batched
 from typing import List
-from .interpreter.mast import ASTNode
+from .symbol_extractor.mast import ASTNode
 
 
 table_template = \
