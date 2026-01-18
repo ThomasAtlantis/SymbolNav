@@ -1,4 +1,4 @@
-from symbolnav.symbol_extractor.exceptions import MathValueError
+from .exceptions import MathValueError
 
 
 tokens = (

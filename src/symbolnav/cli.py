@@ -1,6 +1,6 @@
-from symbolnav.latex_math_extractor.extractor import LaTeXMathExtractor
-from symbolnav.symbol_extractor.extractor import SymbolExtractor
-from symbolnav.renderer import Renderer
+from symbolnav import LaTeXMathExtractor
+from symbolnav import SymbolExtractor
+from symbolnav import Renderer
 import time
 import tyro
 

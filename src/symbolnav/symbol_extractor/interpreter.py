@@ -1,8 +1,10 @@
-import ply.lex as lex
-import ply.yacc as yacc
 from typing import Optional
-from symbolnav.symbol_extractor.lexer import *
-from symbolnav.symbol_extractor.parser import *
+import ply.yacc as yacc
+import ply.lex as lex
+from .mast import ASTNode
+from .lexer import *
+from .parser import *
+
 
 class LaTeXMathInterpreter:
 
@@ -13,7 +15,13 @@ class LaTeXMathInterpreter:
         # parser_module._current_lexer = self.lexer
         self.parser = yacc.yacc(debug=debug, write_tables=False)
     
-    def parse(self, latex: str, file: Optional[str] = None, source_line: Optional[int] = None, source_column: Optional[int] = None) -> ASTNode:
+    def parse(
+        self, 
+        latex: str, 
+        file: Optional[str] = None, 
+        source_line: Optional[int] = None, 
+        source_column: Optional[int] = None
+    ) -> ASTNode:
         # Store source position information in lexer for error reporting
         # if hasattr(self.lexer, 'source_line'):
         #     self.lexer.source_line = source_line

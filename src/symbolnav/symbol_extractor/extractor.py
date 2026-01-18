@@ -1,17 +1,17 @@
 from typing import Generator, Optional
-from symbolnav.symbol_extractor.interpreter import LaTeXMathInterpreter
-from symbolnav.symbol_extractor.mast import ASTNode
-from symbolnav.symbol_extractor.exceptions import MathSyntaxError, MathValueError
+from .interpreter import LaTeXMathInterpreter
+from .mast import ASTNode
+from .exceptions import MathSyntaxError, MathValueError
 
 
 class SymbolExtractor:
 
     def __init__(self):
-        self.parser = LaTeXMathInterpreter()
+        self.interpreter = LaTeXMathInterpreter()
 
     def extract_symbol(self, latex: str, file: Optional[str] = None, source_line: Optional[int] = None, source_column: Optional[int] = None) -> Generator[ASTNode]:
         try:
-            ast = self.parser.parse(latex, file=file, source_line=source_line, source_column=source_column)
+            ast = self.interpreter.parse(latex, file=file, source_line=source_line, source_column=source_column)
         except (MathSyntaxError, MathValueError) as e:
             e.display_error()
             return iter(())  # type: ignore
