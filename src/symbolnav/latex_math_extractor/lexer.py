@@ -66,19 +66,16 @@ states = tuple(
 )
 
 def _get_line_number(lexer, pos):
-    """Calculate line number from lexpos."""
-    if pos >= len(lexer.lexdata):
-        pos = len(lexer.lexdata) - 1
-    return lexer.lexdata[:pos].count('\n') + 1
+    assert 0 <= pos < len(lexer.lexdata), "Invalid position"
+    return lexer.lexdata[:pos].count('\n') + 1   # Return 1-based line number
 
 
 def _get_line_start_pos(lexer, pos):
-    """Calculate the absolute position of the start of the line containing pos."""
-    if pos >= len(lexer.lexdata):
-        pos = len(lexer.lexdata) - 1
-    # Find the last newline before pos
-    last_newline = lexer.lexdata.rfind('\n', 0, pos)
-    return last_newline + 1  # Position after the newline, or 0 if no newline found
+    """Calculate the absolute position (0-based index) of the start of the line containing pos."""
+    assert 0 <= pos < len(lexer.lexdata), "Invalid position"
+    # rfind returns 0-based index of newline, or -1 if not found
+    # Adding 1 gives us the position after the newline (start of line), or 0 for first line
+    return lexer.lexdata.rfind('\n', 0, pos) + 1  # Returns 0-based position
 
 
 def _make_begin_handler(state_name, begin_pattern, token_type):
@@ -106,7 +103,7 @@ def _make_end_handler(state_name, end_pattern, token_type):
         t.type = token_type
         t.lineno = t.lexer.code_start_line
         line_start_pos = _get_line_start_pos(t.lexer, t.lexer.mark_start_pos)
-        t.column = t.lexer.mark_start_pos - line_start_pos
+        t.column = t.lexer.mark_start_pos - line_start_pos + 1  # Return 1-based column number
         t.lexer.begin('INITIAL')
         return t
     handler.__doc__ = end_pattern  # PLY uses __doc__ as the regex pattern

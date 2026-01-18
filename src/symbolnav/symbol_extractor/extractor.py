@@ -9,9 +9,15 @@ class SymbolExtractor:
     def __init__(self):
         self.interpreter = LaTeXMathInterpreter()
 
-    def extract_symbol(self, latex: str, file: Optional[str] = None, source_line: Optional[int] = None, source_column: Optional[int] = None) -> Generator[ASTNode]:
+    def extract_symbol(
+        self, 
+        latex: str, 
+        file: str, 
+        line: int, 
+        column: int
+    ) -> Generator[ASTNode]:
         try:
-            ast = self.interpreter.parse(latex, file=file, source_line=source_line, source_column=source_column)
+            ast = self.interpreter.parse(latex, file=file, line=line, column=column)
         except (MathSyntaxError, MathValueError) as e:
             e.display_error()
             return iter(())  # type: ignore

@@ -19,8 +19,8 @@ def main(file: str, /, list_symbols: bool = False, latex_table: bool = False):
         for symbol in symbol_extractor.extract_symbol(
             latex_math.value,
             file=file,
-            source_line=latex_math.line,
-            source_column=latex_math.column
+            line=latex_math.line,
+            column=latex_math.column
         ):
             if symbol is None: continue
             symbol = renderer.to_latex(symbol)

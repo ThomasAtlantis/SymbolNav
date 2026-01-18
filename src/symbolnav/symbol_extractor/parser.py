@@ -240,10 +240,10 @@ def p_error(p):
     if p:
         # Check if this is an END token in a begin/end environment
         # This often indicates a bracket/parenthesis mismatch earlier
-        error_msg = f"Syntax error when parsing {p.type}"
+        error_msg, note = f"error when parsing {p.type}", None
         if p.type == 'CMD_END':
-            error_msg += " (Note: This error at \\end{} is often caused by unmatched brackets/parentheses earlier in the expression. Please check for missing closing brackets ')' or '}' before this point.)"
-        raise MathSyntaxError(error_msg, p)
+            note = "This error at \\end{} is often caused by unmatched brackets/parentheses earlier in the expression. Please check for missing closing brackets ')' or '}' before this point.)"
+        raise MathSyntaxError(error_msg, p, note=note)
     else:
         # EOF error - this often happens when brackets/parentheses are not closed
-        raise SyntaxError("Syntax error at EOF (possibly due to unmatched brackets/parentheses)")
+        raise SyntaxError("error at EOF (possibly due to unmatched brackets/parentheses)")
