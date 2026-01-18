@@ -1,8 +1,8 @@
 import ply.lex as lex
 import ply.yacc as yacc
 from typing import Optional
-from .lexer import *
-from .parser import *
+from symbolnav.symbol_extractor.lexer import *
+from symbolnav.symbol_extractor.parser import *
 
 class LaTeXMathInterpreter:
 

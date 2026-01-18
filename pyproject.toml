@@ -1,0 +1,32 @@
+[project] 
+name = "symbolnav"
+version = "0.0.1"
+description = "SymbolNav is an extractor/navigator for math symbols defined in LaTeX."
+authors = [
+    { name="Shangyu Liu", email="liushangyu@sjtu.edu.cn" }
+]
+keywords = ["LaTeX", "math", "symbol", "extractor", "navigator"]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+]
+dependencies = [
+    "ply>=3.11.0",
+    "rich>=14.2.0",
+]
+readme = "README.md"
+requires-python = ">=3.10"
+license = { file = "LICENSE" }
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project.urls]
+"Repository" = "https://github.com/ThomasAtlantis/SymbolNav"
+
+[project.scripts]
+snav = "symbolnav.cli:run"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/symbolnav"]

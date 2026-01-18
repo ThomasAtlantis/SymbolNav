@@ -1,8 +1,8 @@
 from typing import Generator, Optional, Tuple
 from dataclasses import dataclass
 
-from .exceptions import LaTeXValueError
-from .lexer import lexer
+from symbolnav.latex_math_extractor.exceptions import LaTeXValueError
+from symbolnav.latex_math_extractor.lexer import lexer
 import os
 
 

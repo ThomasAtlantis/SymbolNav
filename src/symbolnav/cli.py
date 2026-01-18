@@ -1,6 +1,6 @@
-from symbol_nav.latex_math_extractor.extractor import LaTeXMathExtractor
-from symbol_nav.symbol_extractor.extractor import SymbolExtractor
-from symbol_nav.renderer import Renderer
+from symbolnav.latex_math_extractor.extractor import LaTeXMathExtractor
+from symbolnav.symbol_extractor.extractor import SymbolExtractor
+from symbolnav.renderer import Renderer
 import time
 import tyro
 
@@ -30,5 +30,9 @@ def main(file: str, /, list_symbols: bool = False, latex_table: bool = False):
             print(f"{symbol:.<30}: in File {file}, line {latex_symbols[symbol].line}, column {latex_symbols[symbol].column + 1}")
     if latex_table:
         print(renderer.to_latex_table(list(latex_symbols.keys()), num_cols=6))
-if __name__ == "__main__":
+
+def run():
     tyro.cli(main)
+
+if __name__ == "__main__":
+    run()

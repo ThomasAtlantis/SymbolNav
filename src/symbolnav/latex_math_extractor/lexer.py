@@ -1,5 +1,5 @@
 import ply.lex as lex
-from .exceptions import LaTeXValueError
+from symbolnav.latex_math_extractor.exceptions import LaTeXValueError
 
 # ========================================================
 # User configurable variables

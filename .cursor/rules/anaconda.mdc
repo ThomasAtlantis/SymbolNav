@@ -1,6 +1,0 @@
----
-name: anaconda
-description: This is a new rule
----
-
-在脚本中使用 /opt/conda/envs/py313/bin/python 运行python程序。

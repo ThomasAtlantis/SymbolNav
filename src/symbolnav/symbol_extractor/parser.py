@@ -1,5 +1,5 @@
-from .mast import ASTNode
-from .exceptions import MathSyntaxError
+from symbolnav.symbol_extractor.mast import ASTNode
+from symbolnav.symbol_extractor.exceptions import MathSyntaxError
 
 
 def pass_on(p):

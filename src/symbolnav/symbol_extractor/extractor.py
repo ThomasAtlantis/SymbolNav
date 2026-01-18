@@ -1,7 +1,7 @@
 from typing import Generator, Optional
-from .interpreter import LaTeXMathInterpreter
-from .mast import ASTNode
-from .exceptions import MathSyntaxError, MathValueError
+from symbolnav.symbol_extractor.interpreter import LaTeXMathInterpreter
+from symbolnav.symbol_extractor.mast import ASTNode
+from symbolnav.symbol_extractor.exceptions import MathSyntaxError, MathValueError
 
 
 class SymbolExtractor:

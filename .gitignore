@@ -1,6 +1,8 @@
 __pycache__/
 example*
 *.ipynb
-test*.py
+test*
 /reference/
 *.out
+*.egg-info/
+build/
