@@ -14,12 +14,14 @@ class SymbolExtractor:
         latex: str, 
         file: str, 
         line: int, 
-        column: int
+        column: int,
+        ignore_errors: bool = False
     ) -> Generator[ASTNode]:
         try:
             ast = self.interpreter.parse(latex, file=file, line=line, column=column)
         except (MathSyntaxError, MathValueError) as e:
-            e.display_error()
+            if not ignore_errors:
+                e.display_error()
             return iter(())  # type: ignore
         
         def _traverse(ast: ASTNode | None | list):
