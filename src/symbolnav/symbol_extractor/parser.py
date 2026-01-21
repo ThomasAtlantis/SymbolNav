@@ -18,10 +18,10 @@ def p_multi_content(p):
     """multi_content : content multi_content
                      | empty"""
     if not pass_on(p):
-        if isinstance(p[2], list):
-            p[0] = [p[1], *p[2]]
+        if isinstance(p[2], frozenset):
+            p[0] = frozenset((p[1], *p[2]))
         elif p[2] is not None:
-            p[0] = [p[1], p[2]]
+            p[0] = frozenset((p[1], p[2]))
         else:
             p[0] = p[1]
 
@@ -42,7 +42,7 @@ def p_list(p):
             relations.extend(p[3])
         elif p[3] is not None:
             relations.append(p[3])
-        p[0] = ASTNode('List', items=relations, separator=p[2])
+        p[0] = ASTNode('List', items=tuple(relations), separator=p[2])
 
 
 def p_relation(p):
@@ -117,7 +117,10 @@ def p_unary(p):
 def p_unary_general_postfix(p):
     """unary : format_op postfix
              | coated postfix"""
-    p[0] = ASTNode('GeneralPostfix', content=p[1], postfix=p[2])
+    if not p[2]:
+        p[0] = p[1]
+    else:
+        p[0] = ASTNode('GeneralPostfix', content=p[1], postfix=p[2])
 
 def p_format_op(p):
     """format_op : CMD_SQRT symbol
@@ -128,7 +131,10 @@ def p_format_op(p):
 def p_symbol_postfix(p):
     """symbol_postfix : format postfix
                       | symbol postfix"""
-    p[0] = ASTNode('SymbolPostfix', symbol=p[1], postfix=p[2])
+    if not p[2]:
+        p[0] = p[1]
+    else:
+        p[0] = ASTNode('SymbolPostfix', symbol=p[1], postfix=p[2])
 
 def p_coated(p):
     """coated : L_PAREN multi_content R_PAREN
@@ -169,8 +175,10 @@ def p_postfix_op(p):
                   | subscript
                   | supscript subscript
                   | subscript supscript"""
-    if not pass_on(p):
-        p[0] = [p[1], p[2]]
+    if len(p) == 2:
+        p[0] = frozenset((p[1],))
+    else:
+        p[0] = frozenset((p[1], p[2]))
 
 
 def p_supscript(p):
@@ -180,16 +188,25 @@ def p_supscript(p):
                  | PRIME
                  | CARET CMD_PRIME
                  | CARET MUL"""
-    if not pass_on(p):
-        value = p[3] if len(p) == 5 else p[2]
-        p[0] = [ASTNode('Supscript', value=value)]
+    if len(p) == 2:
+        value = p[1]
+    elif len(p) == 5:
+        value = p[3]
+    else:
+        value = p[2]
+    if isinstance(value, str) and value == '*':
+        value = ASTNode('Symbol', symbol='*', symbol_type='other')
+    p[0] = ASTNode('Supscript', value=value)
 
 
 def p_subscript(p):
     """subscript : UNDERSCORE L_BRACE multi_content R_BRACE
                  | UNDERSCORE format
-                 | UNDERSCORE symbol"""
+                 | UNDERSCORE symbol
+                 | UNDERSCORE MUL"""
     value = p[3] if len(p) == 5 else p[2]
+    if isinstance(value, str) and value == '*':
+        value = ASTNode('Symbol', symbol='*', symbol_type='other')
     p[0] = ASTNode('Subscript', value=value)
 
 

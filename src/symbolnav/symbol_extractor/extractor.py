@@ -24,15 +24,14 @@ class SymbolExtractor:
                 e.display_error()
             return iter(())  # type: ignore
         
-        def _traverse(ast: ASTNode | None | list):
+        def _traverse(ast: ASTNode | None | tuple | frozenset):
             if ast is None:
                 return
-            if isinstance(ast, list):
-                # Handle list of AST nodes (from multi_content)
+            if isinstance(ast, (tuple, frozenset)):
                 for item in ast:
                     yield from _traverse(item)
                 return
-            if not isinstance(ast, ASTNode):
+            elif not isinstance(ast, ASTNode):
                 return
             if ast.node_type == 'SymbolPostfix':
                 symbol = ast.attributes.get('symbol')
