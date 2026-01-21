@@ -1,9 +1,18 @@
-from typing import Annotated, Literal, Optional
+from typing import Annotated, Literal, Optional, OrderedDict
+
+from rich.text import Text
 from symbolnav import LaTeXMathExtractor
 from symbolnav import SymbolExtractor
 from symbolnav import Renderer
 import tyro
 
+from rich.style import Style
+from rich.console import Console
+
+console = Console(highlight=False)
+style_marks = Style(color="#E285B5", bold=True)
+style_context = Style(color="#888888")
+style_value = Style(color="#77BCF1")
 
 def main(
     file: Optional[str] = None, 
@@ -11,11 +20,11 @@ def main(
     list_symbols: Annotated[bool, tyro.conf.arg(aliases=("-l",))] = False, 
     latex_table: Annotated[bool, tyro.conf.arg(aliases=("-t",))] = False,
     ignore_errors: Annotated[bool, tyro.conf.arg(aliases=("-i",))] = False,
-    sort: Annotated[bool, tyro.conf.arg(aliases=("-s",))] = False,
+    checkout: Annotated[int, tyro.conf.arg(aliases=("-c",))] = -1,
     latex: Optional[str] = None,
 ):
     symbol_extractor = SymbolExtractor()
-    latex_symbols = {}
+    symbols = {}
 
     if file is None:
         assert latex is not None, "Either [file] or --latex must be provided"
@@ -24,8 +33,8 @@ def main(
             latex, file="input", line=1, column=1,
             ignore_errors=ignore_errors
         ):
-            latex_symbols[symbol] = (1, 1)
-        for symbol in sorted(latex_symbols.keys()):
+            symbols[symbol] = (1, 1)
+        for symbol in sorted(symbols.keys()):
             print(Renderer.to_latex(symbol))
     else:
         latex_math_extractor = LaTeXMathExtractor()
@@ -39,13 +48,32 @@ def main(
                 ignore_errors=ignore_errors
             ):
                 if symbol is None: continue
-                latex_symbols[symbol] = (latex_math, Renderer.to_latex(symbol))
-        sorted_symbols = sorted(latex_symbols.keys())
+                if symbol not in symbols:
+                    symbols[symbol] = OrderedDict()
+                symbols[symbol][(latex_math.line, latex_math.column)] = latex_math
+        sorted_symbols = list(sorted(symbols.keys()))
+        latex_symbols = [Renderer.to_latex(symbol) for symbol in sorted_symbols]
         if list_symbols:
-            for symbol in sorted_symbols:
-                print(f"{latex_symbols[symbol][1]:.<50}: in File {file}, line {latex_symbols[symbol][0].line}, column {latex_symbols[symbol][0].column + 1}")
+            for idx, (latex_symbol, symbol) in enumerate(zip(latex_symbols, sorted_symbols)):
+                start_line, start_column = next(iter(symbols[symbol].keys()))
+                print(f"[{idx:>3}] {latex_symbol:.<50}: in File {file}, line {start_line}, column {start_column}")
         if latex_table:
-            print(Renderer.to_latex_table([latex_symbols[symbol][1] for symbol in sorted_symbols], num_cols=6))
+            print(Renderer.to_latex_table(latex_symbols, num_cols=6))
+        
+        if checkout != -1:
+            latex_symbol = latex_symbols[checkout]
+            symbol = sorted_symbols[checkout]
+            console.print(Text(f"Checking out LaTeX Symbol [{checkout:>3}]: ") + Text(latex_symbol, style=style_value) + Text(", appears"))
+            console.print()
+            for line, column in symbols[symbol].keys():
+                console.print(f"in File {file}, line {line}, column {column}", highlight=True)
+                latex_math = symbols[symbol][(line, column)]
+                console.print(latex_math.contexts[0], style=style_context, end="")
+                console.print(latex_math.marks[0], style=style_marks, end="", )
+                console.print(latex_math.value, style=style_value, end="")
+                console.print(latex_math.marks[1], style=style_marks, end="")
+                console.print(latex_math.contexts[1], style=style_context, end="")
+                console.print("\n")
 
 def run():
     tyro.cli(main)
