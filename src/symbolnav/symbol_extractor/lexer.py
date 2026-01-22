@@ -2,9 +2,8 @@ from .exceptions import MathValueError
 
 
 tokens = (
-    # 'PS', 'WS', 'ADD', 'SUB', 'MUL', 'DIV', 'L_PAREN', 'R_PAREN', 'L_BRACE', 'R_BRACE', 'L_BRACKET', 'R_BRACKET', 'BAR', 'FUNC_LIM', 'LIM_APPROACH_SYM', 'FUNC_INT', 'FUNC_SUM', 'FUNC_PROD', 'FUNC_LOG', 'FUNC_LN', 'FUNC_SIN', 'FUNC_COS', 'FUNC_TAN', 'FUNC_CSC', 'FUNC_SEC', 'FUNC_COT', 'FUNC_ARCSIN', 'FUNC_ARCCOS', 'FUNC_ARCTAN', 'FUNC_ARCCSC', 'FUNC_ARCSEC', 'FUNC_ARCCOT', 'FUNC_SINH', 'FUNC_COSH', 'FUNC_TANH', 'FUNC_ARSINH', 'FUNC_ARCOSH', 'FUNC_ARTANH', 'FUNC_SQRT', 'CMD_TIMES', 'CMD_CDOT', 'CMD_DIV', 'CMD_FRAC', 'CMD_MATHIT', 'UNDERSCORE', '_', 'CARET', 'COLON', 'WS_CHAR', 'DIFFERENTIAL', 'LETTER', 'DIGIT', 'NUMBER', 'EQUAL', 'LT', 'LTE', 'GT', 'GTE', 'BANG', 'SYMBOL'
     'ADD', 'SUB', 'MUL', 'DIV', 'BAR',
-    'EQUAL', 'LT', 'LE', 'LTE', 'GT', 'GTE', 'TRIANGLEQUAL', 'APPROX', 'LEFTARROW', 'RIGHTARROW', 'LEFTARROW_DOUBLE', 'RIGHTARROW_DOUBLE',
+    'EQUAL', 'NEQ', 'LT', 'LE', 'LTE', 'GT', 'GE', 'GTE', 'TRIANGLEQUAL', 'APPROX', 'LEFTARROW', 'RIGHTARROW', 'LEFTARROW_DOUBLE', 'RIGHTARROW_DOUBLE',
     'CMD_TIMES', 'CMD_CDOT', 'CMD_DIV', 'COLON', 'SETMINUS', 'SUBSET', 'CUP', 'SIM',
     'CARET', 'UNDERSCORE', 'PRIME', 'CMD_PRIME',
     'L_BRACE', 'R_BRACE',
@@ -20,6 +19,7 @@ tokens = (
     'FRAC',
     'CMD_BEGIN', 'CMD_END',
     'LINEBREAK',
+    'OPERATOR_NAME'
 )
 
 states = (
@@ -35,12 +35,14 @@ t_MUL = r'\*'
 t_DIV = r'/'
 t_BAR = r'\|'
 t_EQUAL = r'='
+t_NEQ = r'\\neq'
 t_TRIANGLEQUAL = r'\\triangleq'
 t_APPROX = r'\\approx'
 t_LT = r'<'
 t_LE = r'\\le'
 t_LTE = r'\\leq'
 t_GT = r'>'
+t_GE = r'\\ge'
 t_GTE = r'\\geq'
 t_SIM = r'\\sim'
 t_LEFTARROW = r'\\leftarrow'
@@ -87,7 +89,7 @@ t_GREEK_SYMBOL = r'(' + r'|'.join(r"\\" + symbol for symbol in [
 t_OTHER_SYMBOL =  r'(' + r'|'.join([r"\\" + symbol for symbol in [
     'dots', 'cdots', 'arg', 'emptyset', 'infty', 'max', 'min', 'sum', 'exp',
     'nolimits', 'ln', 'log', 'partial', 'prod', 'nabla', 'left', 'right', 'lim', 'top',
-    r'\|', 'linebreak', 'square', 'quad'
+    r'\|', 'linebreak', 'square', 'quad', 'mid', '\\ '
 ]] + ['&', r'\.']) + r')'
 t_textmode_ignore = ''
 t_COMMA = r','
@@ -98,6 +100,12 @@ t_L_BRACE_TEXT = r'\\{'
 t_R_BRACE_TEXT = r'\\}'
 t_L_BRACKET = r'\['
 t_R_BRACKET = r'\]'
+
+
+def t_OPERATOR_NAME(t):
+    r'\\operatorname'
+    t.lexer.expect_text_brace = True
+    return t
 
 def t_CMD_TEXT(t):
     r'\\text'

@@ -47,12 +47,14 @@ def p_list(p):
 
 def p_relation(p):
     """relation : relation EQUAL relation
+                | relation NEQ relation
                 | relation TRIANGLEQUAL relation
                 | relation APPROX relation
                 | relation LT relation
                 | relation LE relation
                 | relation LTE relation
                 | relation GT relation
+                | relation GE relation
                 | relation GTE relation
                 | relation CMD_IN relation
                 | relation CMD_NOTIN relation
@@ -218,6 +220,7 @@ _FORMAT_CMDS = [
     ('CMD_BM', 'multi_content'),
     ('CMD_MATHCAL', 'multi_content'),
     ('CMD_TEXT', 'text'),  # CMD_TEXT uses 'text' instead of 'multi_content'
+    ('OPERATOR_NAME', 'text'),
     ('CMD_HAT', 'multi_content'),
     ('CMD_TILDE', 'multi_content'),
     ('CMD_MATHRM', 'multi_content'),
