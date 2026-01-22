@@ -2,14 +2,11 @@
 
 SymbolNav is an extractor/navigator for math symbols defined in LaTeX.
 
-## TODO
-There're still some bugs (especially for float-point numbers).
-
 ## Installation
 
 Install dependencies:
 ```bash
-pip install ply rich
+pip install ply rich tyro
 ```
 
 Clone the project (pypi is not supported currently):
@@ -196,6 +193,7 @@ The `symbol_nav` package contains:
 - Python>=3.10
 - PLY (Python Lex-Yacc)
 - rich
+- tyro
 
 ## License
 

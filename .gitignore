@@ -8,3 +8,8 @@ test*
 build/
 .cursor/
 .vscode/
+*.build/
+*.dist/
+*.onefile-build/
+*.log
+*.bin
