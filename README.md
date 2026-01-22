@@ -159,6 +159,15 @@ which will be rendered as below:
 
 ![The List of Symbols](ListofSymbols.png)
 
+### Extract from LaTeX String
+
+```
+# snav --latex "c^l_\text{trans}"
+c
+l
+c^{l}_{\text{trans}}
+```
+
 ## Project Structure
 
 The `symbol_nav` package contains:

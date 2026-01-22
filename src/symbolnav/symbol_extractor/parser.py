@@ -18,10 +18,10 @@ def p_multi_content(p):
     """multi_content : content multi_content
                      | empty"""
     if not pass_on(p):
-        if isinstance(p[2], frozenset):
-            p[0] = frozenset((p[1], *p[2]))
+        if isinstance(p[2], tuple):
+            p[0] = tuple((p[1], *p[2]))
         elif p[2] is not None:
-            p[0] = frozenset((p[1], p[2]))
+            p[0] = tuple((p[1], p[2]))
         else:
             p[0] = p[1]
 
