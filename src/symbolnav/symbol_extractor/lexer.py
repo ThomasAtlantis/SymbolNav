@@ -1,26 +1,60 @@
+from typing import OrderedDict
 from .exceptions import MathValueError
 
+def UnionRegex(regex_list: list[str]) -> str:
+    return r'(' + r'|'.join(frozenset(regex_list)) + r')'
 
-tokens = (
-    'ADD', 'SUB', 'MUL', 'DIV', 'BAR',
-    'EQUAL', 'NEQ', 'LT', 'LE', 'LTE', 'GT', 'GE', 'GTE', 'TRIANGLEQUAL', 'APPROX', 'LEFTARROW', 'RIGHTARROW', 'LEFTARROW_DOUBLE', 'RIGHTARROW_DOUBLE',
-    'CMD_TIMES', 'CMD_CDOT', 'CMD_DIV', 'COLON', 'SETMINUS', 'SUBSET', 'CUP', 'SIM',
-    'CARET', 'UNDERSCORE', 'PRIME', 'CMD_PRIME',
+lexer_config = OrderedDict({
+    'symbol': OrderedDict(
+        NUMBER_SYMBOL=r'([0-9])',
+        LETTER_SYMBOL=r'([a-zA-Z])',
+        GREEK_SYMBOL=UnionRegex([
+            r'\\alpha', r'\\beta', r'\\gamma', r'\\delta', r'\\epsilon', r'\\zeta', r'\\eta', r'\\theta', r'\\iota', r'\\kappa', r'\\lambda', r'\\mu', r'\\nu', r'\\xi', r'\\pi', r'\\rho', r'\\sigma', r'\\tau', r'\\upsilon', r'\\phi', r'\\chi', r'\\psi', r'\\omega', 
+            r'\\Alpha', r'\\Beta', r'\\Gamma', r'\\Delta', r'\\Epsilon', r'\\Zeta', r'\\Eta', r'\\Theta', r'\\Iota', r'\\Kappa', r'\\Lambda', r'\\Mu', r'\\Nu', r'\\Xi', r'\\Pi', r'\\Rho', r'\\Sigma', r'\\Tau', r'\\Upsilon', r'\\Phi', r'\\Chi', r'\\Psi', r'\\Omega', 
+            r'\\varepsilon', r'\\vartheta', r'\\varpi', r'\\varrho', r'\\varsigma', r'\\varphi', 
+        ]),
+        OTHER_SYMBOL=UnionRegex([
+            r'\\dots', r'\\cdots', r'\\arg', r'\\emptyset', r'\\infty', r'\\max', r'\\min', r'\\sum', r'\\exp',
+            r'\\nolimits', r'\\ln', r'\\log', r'\\partial', r'\\prod', r'\\nabla', r'\\left', r'\\right', r'\\lim', r'\\top',
+            r'\|', r'\\linebreak', r'\\square', r'\\quad', r'\\mid', r'&', r',', r'\.', r'\\prime',
+            r'=', r'\\triangleq', r'\\neq', r'\\approx', r'\\sim', r'<', r'\\leq', r'\\le', r'>', r'\\geq', r'\\ge', r'\\leftarrow', r'\\rightarrow', r'\\Leftarrow', r'\\Rightarrow', r'\\in', r'\\notin', r'\\setminus', r'\\subset', r'\\cup', r'\\circ', r'\\cdot', r'\\to', r'\+', r'-', r'\*', r'/', r'\\times', r'\\div', r':', r'\|', 
+            # r'\\ ', # TODO: add this back in
+            r'\\\\',
+            # TODO: \leq is recognized as \le q
+        ]),
+    ),
+    'format': OrderedDict(
+        CMD_MATHBF=r'\\mathbf',
+        CMD_MATHBB=r'\\mathbb',
+        CMD_MATHIT=r'\\mathit',
+        CMD_BM=r'\\bm',
+        CMD_MATHCAL=r'\\mathcal',
+        CMD_HAT=r'\\hat',
+        CMD_TILDE=r'\\tilde',
+        CMD_MATHRM=r'\\mathrm',
+    ),
+    'format_text': OrderedDict(
+        CMD_TEXT=r'\\text',
+        CMD_LABEL=r'\\label',
+        OPERATOR_NAME=r'\\operatorname',
+    ),
+})
+
+
+tokens = [
+    'CARET', 'UNDERSCORE', 'PRIME',
     'L_BRACE', 'R_BRACE',
     'L_BRACE_TEXT', 'R_BRACE_TEXT',
-    'NUMBER_SYMBOL', 'LETTER_SYMBOL', 'GREEK_SYMBOL', 'OTHER_SYMBOL',
-    'CMD_MATHBF', 'CMD_TEXT', 'CMD_MATHBB', 'CMD_MATHIT', 'CMD_BM', 'CMD_MATHCAL', 'CMD_MATHRM', 'CMD_SQRT',
-    'CMD_HAT', 'CMD_TILDE',
-    'CMD_IN', 'CMD_CIRC', 'CMD_TO', 'CMD_NOTIN',
-    'CMD_LABEL',
+    'CMD_SQRT',
     'TEXT',
-    'COMMA', 'PERIOD',
     'L_PAREN', 'R_PAREN', 'L_BRACKET', 'R_BRACKET',
     'FRAC',
     'CMD_BEGIN', 'CMD_END',
-    'LINEBREAK',
     'OPERATOR_NAME'
-)
+]
+for key in lexer_config:
+    tokens.extend(list(lexer_config[key].keys()))
+tokens = list(set(tokens))
 
 states = (
     ('textmode', 'exclusive'),
@@ -28,79 +62,19 @@ states = (
 
 t_ignore = ' \t\r\n'
 
-# Binary operators
-t_ADD = r'\+'
-t_SUB = r'-'
-t_MUL = r'\*'
-t_DIV = r'/'
-t_BAR = r'\|'
-t_EQUAL = r'='
-t_NEQ = r'\\neq'
-t_TRIANGLEQUAL = r'\\triangleq'
-t_APPROX = r'\\approx'
-t_LT = r'<'
-t_LE = r'\\le'
-t_LTE = r'\\leq'
-t_GT = r'>'
-t_GE = r'\\ge'
-t_GTE = r'\\geq'
-t_SIM = r'\\sim'
-t_LEFTARROW = r'\\leftarrow'
-t_RIGHTARROW = r'\\rightarrow'
-t_LEFTARROW_DOUBLE = r'\\Leftarrow'
-t_RIGHTARROW_DOUBLE = r'\\Rightarrow'
-t_CMD_TIMES = r'\\times'
-t_CMD_CDOT = r'\\cdot'
-t_CMD_DIV = r'\\div'
-t_CMD_CIRC = r'\\circ'
-t_CMD_TO = r'\\to'
-t_SETMINUS = r'\\setminus'
-t_SUBSET = r'\\subset'
-t_CUP = r'\\cup'
-t_COLON = r':'
 t_CARET = r'\^'
 t_UNDERSCORE = r'_'
 t_PRIME = r'\''
-t_CMD_PRIME = r'\\prime'
 t_R_BRACE = r'\}'
 t_FRAC = r'\\frac'
-
-# Format commands
-t_CMD_MATHBF = r'\\mathbf'
-t_CMD_MATHBB = r'\\mathbb'
-t_CMD_MATHIT = r'\\mathit'
-t_CMD_MATHCAL = r'\\mathcal'
-t_CMD_MATHRM = r'\\mathrm'
-t_CMD_BM = r'\\bm'
-t_CMD_HAT = r'\\hat'
-t_CMD_TILDE = r'\\tilde'
 t_CMD_SQRT = r'\\sqrt'
-t_CMD_IN = r'\\in'
-t_CMD_NOTIN = r'\\notin'
-t_NUMBER_SYMBOL = r'([0-9])'
-t_LETTER_SYMBOL = r'([a-zA-Z])'
-t_GREEK_SYMBOL = r'(' + r'|'.join(r"\\" + symbol for symbol in [
-    'alpha', 'beta', 'gamma', 'delta', 'epsilon', 'zeta', 'eta', 'theta', 'iota', 'kappa', 'lambda', 'mu', 'nu', 'xi', 'pi', 'rho', 'sigma', 'tau', 'upsilon', 'phi', 'chi', 'psi', 'omega',
-    'Alpha', 'Beta', 'Gamma', 'Delta', 'Epsilon', 'Zeta', 'Eta', 'Theta', 'Iota', 'Kappa', 'Lambda', 'Mu', 'Nu', 'Xi', 'Pi', 'Rho', 'Sigma', 'Tau', 'Upsilon', 'Phi', 'Chi', 'Psi', 'Omega',
-    'varepsilon', 'vartheta', 'varpi', 'varrho', 'varsigma', 'varphi',
-    'Gamma', 'Delta', 'Theta', 'Lambda', 'Xi', 'Pi', 'Sigma', 'Upsilon', 'Phi', 'Psi', 'Omega',
-    'Gamma', 'Delta', 'Theta', 'Lambda', 'Xi', 'Pi', 'Sigma', 'Upsilon', 'Phi', 'Psi', 'Omega',
-]) + r')'
-t_OTHER_SYMBOL =  r'(' + r'|'.join([r"\\" + symbol for symbol in [
-    'dots', 'cdots', 'arg', 'emptyset', 'infty', 'max', 'min', 'sum', 'exp',
-    'nolimits', 'ln', 'log', 'partial', 'prod', 'nabla', 'left', 'right', 'lim', 'top',
-    r'\|', 'linebreak', 'square', 'quad', 'mid', '\\ '
-]] + ['&', r'\.']) + r')'
 t_textmode_ignore = ''
-t_COMMA = r','
-t_PERIOD = r'\.'
 t_L_PAREN = r'\('
 t_R_PAREN = r'\)'
 t_L_BRACE_TEXT = r'\\{'
 t_R_BRACE_TEXT = r'\\}'
 t_L_BRACKET = r'\['
 t_R_BRACKET = r'\]'
-
 
 def t_OPERATOR_NAME(t):
     r'\\operatorname'
@@ -131,9 +105,9 @@ def t_CMD_END(t):
 # Line break in LaTeX (used in align environments)
 # This must be defined after all other \\ commands to avoid conflicts
 # PLY will match the longest pattern, so \\text will match \\text, not \\ + text
-def t_LINEBREAK(t):
-    r'\\\\'
-    return t
+# def t_LINEBREAK(t):
+#     r'\\\\'
+#     return t
 
 def t_L_BRACE(t):
     r'\{'
@@ -189,6 +163,11 @@ def t_textmode_R_BRACE(t):
         if hasattr(t.lexer, 'text_parts'):
             t.lexer.text_parts.append('}')
         return None
+
+for key in lexer_config:
+    for symbol, regex in lexer_config[key].items():
+        if f"t_{symbol}" not in globals():
+            globals()[f"t_{symbol}"] = regex
 
 
 def t_error(t):

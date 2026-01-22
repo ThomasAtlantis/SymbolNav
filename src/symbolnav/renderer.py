@@ -34,7 +34,7 @@ class Renderer:
         return Renderer._render_to_latex(node)
 
     @staticmethod
-    def _render_to_latex(node: ASTNode | str | list | frozenset | tuple | None) -> str:
+    def _render_to_latex(node: ASTNode | str | list | frozenset | tuple | None) -> str:  # TODO: change to use generator
         if isinstance(node, ASTNode):
             left = Renderer._render_to_latex(node.attributes['left']) if 'left' in node.attributes else None
             right = Renderer._render_to_latex(node.attributes['right']) if 'right' in node.attributes else None
@@ -46,8 +46,10 @@ class Renderer:
                     return (f"{Renderer._render_to_latex(node.attributes['symbol'])}"
                             f"{Renderer._render_to_latex(node.attributes['postfix'])}")
                 case 'Symbol':
+                    if node.attributes['symbol_type'] in ['other', 'greek']:
+                        return f"{node.attributes['symbol']} "
                     return node.attributes['symbol']
-                case 'Format':
+                case 'Format' | 'FormatText':
                     return (f"{node.attributes['format']}"
                             "{"
                             f"{Renderer._render_to_latex(node.attributes['content'])}"
